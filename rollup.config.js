@@ -6,6 +6,7 @@ import commonjs from "@rollup/plugin-commonjs";
 import dts from "rollup-plugin-dts";
 import external from "rollup-plugin-peer-deps-external";
 import postcss from "rollup-plugin-postcss";
+import banner2 from "rollup-plugin-banner2";
 
 const config = [
     {
@@ -48,6 +49,7 @@ const config = [
             }),
             postcss(),
             terser(),
+            banner2(() => `"use client";`),
             cleanup()
         ],
     },

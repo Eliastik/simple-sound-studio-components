@@ -22,8 +22,18 @@ export const Bitcrusher: Filter = {
         },
         {
             settingId: "normFreq",
-            settingTitle: "filters.bitcrusher.settings.cutoffFrequency",
-            settingType: SettingFormTypeEnum.NumberField
+            settingTitle: "filters.bitcrusher.settings.normFreq",
+            settingType: SettingFormTypeEnum.Range,
+            minValue: 0,
+            maxValue: 1,
+            step: 0.01,
+            displayCurrentValue: true,
+            displayValueAsPercent: true,
+            minValueLabel: "filters.bitcrusher.settings.minValue",
+            maxValueLabel: "filters.bitcrusher.settings.maxValue",
+            valueFormatterDisplay: (value) => {
+                return (parseFloat(value as string) * 100).toFixed(0);
+            }
         }
     ]
 };

@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FilterSettings, SelectFormValue } from "@eliastik/simple-sound-studio-lib";
+import { FilterSettingValue, FilterSettings, SelectFormValue } from "@eliastik/simple-sound-studio-lib";
 import _ from "lodash";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
 import { useTranslation } from "react-i18next";
 import { SettingFormType } from "../model/settingForm/SettingFormType";
 import { SettingFormTypeEnum } from "../model/settingForm/SettingFormTypeEnum";
+import SettingFormRange from "../model/settingForm/SettingFormRange";
 
 const getStringFromTemplate = (data: FilterSettings | null | undefined, str?: string) =>{
     if(str) {
@@ -22,6 +23,14 @@ const getStringFromTemplate = (data: FilterSettings | null | undefined, str?: st
     }
     
     return "";
+};
+
+const formatValueDisplay = (value: FilterSettingValue, form: SettingFormRange) => {
+    if(form.valueFormatterDisplay) {
+        return form.valueFormatterDisplay(value);
+    }
+
+    return value;
 };
 
 const FilterSettingsForm = ({
@@ -117,7 +126,7 @@ const FilterSettingsForm = ({
                                         <div className={`flex flex-col ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
                                             <input type="range" className="range range-accent" id={`${filterId}_${setting.settingId}`}
                                                 value={currentSettings ? currentSettings[setting.settingId] as string : ""}
-                                                step={setting.step ? 0.1 : setting.step}
+                                                step={setting.step ? setting.step : 0.1}
                                                 min={setting.minValue}
                                                 max={setting.maxValue}
                                                 onChange={(e) => {
@@ -129,9 +138,14 @@ const FilterSettingsForm = ({
                                                     }
                                                 }}></input>
                                             <div className="flex justify-between items-center flex-wrap font-light mt-3 mb-3">
-                                                <span>{setting.minValueLabel && t(setting.minValueLabel)}</span>
-                                                <span className="text-center">{setting.displayCurrentValue && currentSettings ? "×" + currentSettings[setting.settingId] : ""}</span>
-                                                <span>{setting.maxValueLabel && t(setting.maxValueLabel)}</span>
+                                                {setting.displayCurrentValue && currentSettings && (
+                                                    <>
+                                                        <span>{setting.minValueLabel && t(setting.minValueLabel)}</span>
+                                                        {!setting.displayValueAsPercent && <span className="text-center">× {"" + formatValueDisplay(currentSettings[setting.settingId], setting)}</span>}
+                                                        {setting.displayValueAsPercent && <span className="text-center">{"" + formatValueDisplay(currentSettings[setting.settingId], setting)} %</span>}
+                                                        <span>{setting.maxValueLabel && t(setting.maxValueLabel)}</span>
+                                                    </>
+                                                )}
                                             </div>
                                         </div>
                                     )}

@@ -1,3 +1,4 @@
+import { FilterSettingValue } from "@eliastik/simple-sound-studio-lib";
 import SettingForm from "./SettingForm";
 import { SettingFormTypeEnum } from "./SettingFormTypeEnum";
 
@@ -8,5 +9,7 @@ export default interface SettingFormRange extends SettingForm {
     minValueLabel?: string,
     maxValueLabel?: string
     displayCurrentValue?: boolean,
-    step?: number
+    displayValueAsPercent?: boolean,
+    step?: number,
+    valueFormatterDisplay?: (filterSettingsValue: FilterSettingValue) => FilterSettingValue
 };

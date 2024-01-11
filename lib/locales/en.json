@@ -58,7 +58,9 @@
                     "title": "8-bit effect settings",
                     "label": "Here you can edit the settings for the 8-bit effect.",
                     "resolution": "Resolution:",
-                    "cutoffFrequency": "Cutoff frequency:"
+                    "normFreq": "Filter intensity:",
+                    "minValue": "Low",
+                    "maxValue": "High"
                 }
             },
             "echo": {

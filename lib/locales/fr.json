@@ -58,7 +58,9 @@
                     "title": "Paramètres du filtre d'effet 8-bits",
                     "label": "Vous pouvez régler ici les paramètres du filtre d'effet 8-bits.",
                     "resolution": "Résolution :",
-                    "cutoffFrequency": "Fréquence d'écrêtage :"
+                    "normFreq": "Intensité du filtre :",
+                    "minValue": "Faible",
+                    "maxValue": "Forte"
                 }
             },
             "echo": {

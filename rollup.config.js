@@ -13,9 +13,7 @@ const config = [
         input: "./dist/dts/index.d.ts",
         output: [{ file: "dist/index.d.ts", format: "es" }],
         external: [/\.css$/],
-        plugins: [
-            dts.default()
-        ]
+        plugins: [dts.default()],
     },
     {
         input: "lib/index.ts",
@@ -25,14 +23,14 @@ const config = [
                 format: "esm",
                 sourcemap: true,
                 exports: "named",
-                name: "SimpleSoundStudioComponents"
+                name: "SimpleSoundStudioComponents",
             },
             {
                 file: `dist/cjs/SimpleSoundStudioComponents.js`,
                 format: "cjs",
                 sourcemap: true,
                 exports: "named",
-                name: "SimpleSoundStudioComponents"
+                name: "SimpleSoundStudioComponents",
             },
         ],
         plugins: [
@@ -44,13 +42,18 @@ const config = [
                 include: /node_modules/,
                 requireReturnsDefault: "auto",
             }),
-            postcss(),
+            postcss({
+                minimize: true,
+                inject: {
+                    insertAt: "top",
+                }
+            }),
             typescript({
-                noEmit: true
+                noEmit: true,
             }),
             terser(),
             banner2(() => `"use client";`),
-            cleanup()
+            cleanup(),
         ],
     },
 ];

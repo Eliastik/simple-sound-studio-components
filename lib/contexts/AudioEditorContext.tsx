@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, FC, useEffect, useCallback } from "react";
-import { AudioEditor, BufferPlayer, ConfigService, EventType, FilterSettings, FilterState } from "@eliastik/simple-sound-studio-lib";
+import { AudioEditor, BufferPlayer, EventType, FilterSettings, FilterState } from "@eliastik/simple-sound-studio-lib";
 import AudioEditorContextProps from "../model/contextProps/AudioEditorContextProps";
 import ApplicationObjectsSingleton from "./ApplicationObjectsSingleton";
 
@@ -17,8 +17,6 @@ export const useAudioEditor = (): AudioEditorContextProps => {
 
 interface AudioEditorProviderProps {
     children: ReactNode;
-    configService?: ConfigService | undefined,
-    buffersToFetch?: string[] | undefined
 }
 
 const getAudioEditor = (): AudioEditor => {
@@ -31,7 +29,7 @@ const getAudioPlayer = (): BufferPlayer => {
 
 let isReady = false;
 
-export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children, configService, buffersToFetch }) => {
+export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) => {
     // State: true when we are loading audio provided by the user
     const [loadingPrincipalBuffer, setLoadingPrincipalBuffer] = useState(false);
     // State: true when there is an error loading audio provided by the user
@@ -88,8 +86,6 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children, co
         if (isReady) {
             return;
         }
-
-        ApplicationObjectsSingleton.initializeApplicationObjects(configService, buffersToFetch);
 
         getAudioEditor().on(EventType.LOADING_BUFFERS, () => setDownloadingInitialData(true));
         getAudioEditor().on(EventType.LOADING_BUFFERS_ERROR, () => setDownloadingInitialData(false));

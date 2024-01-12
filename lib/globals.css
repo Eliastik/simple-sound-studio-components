@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-.range.range-player::-moz-range-track {
-    height: 100%;
-    @apply bg-gray-300/70 rounded-none
-}
-
 .btn:not(.btn-ghost) {
     @apply uppercase;
 }

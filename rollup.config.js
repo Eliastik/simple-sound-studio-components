@@ -44,10 +44,10 @@ const config = [
                 include: /node_modules/,
                 requireReturnsDefault: "auto",
             }),
+            postcss(),
             typescript({
                 noEmit: true
             }),
-            postcss(),
             terser(),
             banner2(() => `"use client";`),
             cleanup()

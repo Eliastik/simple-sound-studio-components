@@ -1,6 +1,6 @@
 /// <reference types="@types/react" />
 import { FC, ReactNode } from 'react';
-import { FilterState, FilterSettings, ConfigService, SelectFormValue, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
+import { FilterState, FilterSettings, FilterSettingValue, SelectFormValue, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 interface AudioEditorContextProps {
@@ -35,8 +35,6 @@ interface AudioEditorContextProps {
 declare const useAudioEditor: () => AudioEditorContextProps;
 interface AudioEditorProviderProps {
     children: ReactNode;
-    configService?: ConfigService | undefined;
-    buffersToFetch?: string[] | undefined;
 }
 declare const AudioEditorProvider: FC<AudioEditorProviderProps>;
 
@@ -88,7 +86,9 @@ interface SettingFormRange extends SettingForm {
     minValueLabel?: string;
     maxValueLabel?: string;
     displayCurrentValue?: boolean;
+    displayValueAsPercent?: boolean;
     step?: number;
+    valueFormatterDisplay?: (filterSettingsValue: FilterSettingValue) => FilterSettingValue;
 }
 
 interface SettingFormSelectField extends SettingForm {

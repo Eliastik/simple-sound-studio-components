@@ -10,7 +10,7 @@ const AudioEditorContext = createContext<AudioEditorContextProps | undefined>(un
 export const useAudioEditor = (): AudioEditorContextProps => {
     const context = useContext(AudioEditorContext);
     if (!context) {
-        throw new Error("useAudioEditor doit être utilisé à l'intérieur d'un AudioEditorProvider");
+        throw new Error("useAudioEditor must be used inside an AudioEditorProvider");
     }
     return context;
 };

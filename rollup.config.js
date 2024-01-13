@@ -48,9 +48,14 @@ const config = [
                 }
             }),
             typescript({
-                noEmit: true,
+                sourceMap: true,
+                inlineSources: true,
+                inlineSourceMap: true,
+                noEmit: true
             }),
-            terser(),
+            terser({
+                sourceMap: true
+            }),
             cleanup(),
         ],
     },

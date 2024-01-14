@@ -28,7 +28,7 @@ export const Bitcrusher: Filter = {
             maxValue: 1,
             step: 0.01,
             displayCurrentValue: true,
-            displayValueAsPercent: true,
+            displayUnit: " %",
             minValueLabel: "filters.bitcrusher.settings.minValue",
             maxValueLabel: "filters.bitcrusher.settings.maxValue",
             valueFormatterDisplay: (value) => {

@@ -101,7 +101,18 @@
             },
             "vocoder": {
                 "name": "Vocoder (voix robotique)",
-                "info": "Ce filtre vous permet d'appliquer un effet de voix robotique à votre audio."
+                "info": "Ce filtre vous permet d'appliquer un effet de voix robotique à votre audio.",
+                "settings": {
+                    "title": "Paramètres du vocodeur",
+                    "label": "Vous pouvez régler les paramètres du vocodeur. Les paramètres par défaut suffisent la plupart du temps, mais vous pouvez modifier la sonorité du filtre en essayant de les modifier.",
+                    "modulatorGainValue": "Gain du modulateur :",
+                    "carrierSampleGainValue": "Gain de la porteuse :",
+                    "oscillatorGainValue": "Gain du synthétiseur :",
+                    "noiseGainValue": "Niveau de bruit :",
+                    "oscillatorDetuneValue": "Fréquence de la porteuse :",
+                    "oscillatorDetuneMinValue": "Plus grave",
+                    "oscillatorDetuneMaxValue": "Plus aigue"
+                }
             },
             "limiter": {
                 "name": "Limiteur (recommandé)",

@@ -9,7 +9,7 @@ export default interface SettingFormRange extends SettingForm {
     minValueLabel?: string,
     maxValueLabel?: string
     displayCurrentValue?: boolean,
-    displayValueAsPercent?: boolean,
+    displayUnit?: string,
     step?: number,
     valueFormatterDisplay?: (filterSettingsValue: FilterSettingValue) => FilterSettingValue
 };

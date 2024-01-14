@@ -141,8 +141,8 @@ const FilterSettingsForm = ({
                                                 {setting.displayCurrentValue && currentSettings && (
                                                     <>
                                                         <span>{setting.minValueLabel && t(setting.minValueLabel)}</span>
-                                                        {!setting.displayValueAsPercent && <span className="text-center">× {"" + formatValueDisplay(currentSettings[setting.settingId], setting)}</span>}
-                                                        {setting.displayValueAsPercent && <span className="text-center">{"" + formatValueDisplay(currentSettings[setting.settingId], setting)} %</span>}
+                                                        {!setting.displayUnit && <span className="text-center">× {"" + formatValueDisplay(currentSettings[setting.settingId], setting)}</span>}
+                                                        {setting.displayUnit && <span className="text-center">{"" + formatValueDisplay(currentSettings[setting.settingId], setting)}{setting.displayUnit}</span>}
                                                         <span>{setting.maxValueLabel && t(setting.maxValueLabel)}</span>
                                                     </>
                                                 )}

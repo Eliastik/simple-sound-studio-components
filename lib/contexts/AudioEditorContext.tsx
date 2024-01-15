@@ -58,6 +58,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [defaultDeviceSampleRate, setDefaultDeviceSampleRate] = useState(0);
     // State: true if AudioWorklet is currently available/compatible with the browser
     const [audioWorkletAvailable, setAudioWorkletAvailable] = useState(false);
+    // State: true when we are decoding audio provided by the user (used in the reverb filter)
+    const [decodingAudioBuffer, setDecodingAudioBuffer] = useState(false);
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -90,6 +92,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         getAudioEditor().on(EventType.LOADING_BUFFERS, () => setDownloadingInitialData(true));
         getAudioEditor().on(EventType.LOADING_BUFFERS_ERROR, () => setDownloadingInitialData(false));
         getAudioEditor().on(EventType.FETCHING_BUFFERS, () => setDownloadingBufferData(true));
+        getAudioEditor().on(EventType.DECODING_AUDIO_FILE, () => setDecodingAudioBuffer(true));
+        getAudioEditor().on(EventType.DECODED_AUDIO_FILE, () => setDecodingAudioBuffer(false));
 
         getAudioEditor().on(EventType.LOADED_BUFFERS, () => {
             setDownloadingInitialData(false);
@@ -181,7 +185,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterState, validateSettings,
             exitAudioEditor, filtersSettings, changeFilterSettings, resetFilterSettings, downloadingInitialData, downloadingBufferData, errorLoadingPrincipalBuffer,
             closeErrorLoadingPrincipalBuffer, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
-            pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable
+            pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer
         }}>
             {children}
         </AudioEditorContext.Provider>

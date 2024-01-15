@@ -30,6 +30,7 @@ interface AudioEditorContextProps {
     actualSampleRate: number;
     defaultDeviceSampleRate: number;
     audioWorkletAvailable: boolean;
+    decodingAudioBuffer: boolean;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;
@@ -185,4 +186,6 @@ interface DaisyUIModal extends HTMLElement {
     showModal: () => void;
 }
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, LoadingAudioProcessingDialog, useAudioEditor };
+declare const DecodingAudioFileDialog: () => react_jsx_runtime.JSX.Element;
+
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, LoadingAudioProcessingDialog, useAudioEditor };

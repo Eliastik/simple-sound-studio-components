@@ -22,6 +22,9 @@
             "errorProcessingAudio": {
                 "title": "Error processing audio",
                 "info": "An error has occurred during audio processing. Please try again."
+            },
+            "decodingAudioFile": {
+                "title": "Loading audio file"
             }
         },
         "filters": {

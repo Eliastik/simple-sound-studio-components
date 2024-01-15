@@ -12,6 +12,7 @@ import LoadingAudioProcessingDialog from "./components/dialogs/LoadingAudioProce
 import ApplicationObjectsSingleton from "./contexts/ApplicationObjectsSingleton";
 import DaisyUIModal from "./model/DaisyUIModal";
 import AudioEditorContextProps from "./model/contextProps/AudioEditorContextProps";
+import DecodingAudioFileDialog from "./components/dialogs/DecodingAudioFileDialog";
 
 export {
     type AudioEditorContextProps,
@@ -28,5 +29,6 @@ export {
     DownloadingBufferDialog,
     ErrorDownloadingBufferDialog,
     ErrorProcessingAudio,
-    LoadingAudioProcessingDialog
+    LoadingAudioProcessingDialog,
+    DecodingAudioFileDialog
 };

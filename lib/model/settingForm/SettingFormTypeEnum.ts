@@ -6,5 +6,6 @@ export enum SettingFormTypeEnum {
     DynamicLabel,
     SimpleLink,
     DynamicLink,
-    Range
+    Range,
+    InputFile
 };

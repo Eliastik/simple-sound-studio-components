@@ -192,6 +192,11 @@ export const Reverb: Filter = {
                         link: "https://www.openair.hosted.york.ac.uk/?page_id=790",
                         addDuration: 5
                     }
+                },
+                {
+                    name: "filters.reverb.settings.customEnvironment",
+                    value: "custom",
+                    additionalData: {}
                 }
             ]
         },
@@ -203,6 +208,13 @@ export const Reverb: Filter = {
                 <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
             </svg>,
             labelValue: "filters.reverb.settings.size",
+            displayCondition: (filterSettings: ReverbSettings) => {
+                if(filterSettings.reverbEnvironment) {
+                    return filterSettings.reverbEnvironment.value != "custom";
+                }
+
+                return false;
+            }
         },
         {
             settingId: "reverbLinkSource",
@@ -212,7 +224,14 @@ export const Reverb: Filter = {
             linkValue: "${reverbEnvironment.additionalData.link}",
             startIcon: <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13.19 8.688a4.5 4.5 0 011.242 7.244l-4.5 4.5a4.5 4.5 0 01-6.364-6.364l1.757-1.757m13.35-.622l1.757-1.757a4.5 4.5 0 00-6.364-6.364l-4.5 4.5a4.5 4.5 0 001.242 7.244" />
-            </svg>
+            </svg>,
+            displayCondition: (filterSettings: ReverbSettings) => {
+                if(filterSettings.reverbEnvironment) {
+                    return filterSettings.reverbEnvironment.value != "custom";
+                }
+
+                return false;
+            }
         },
         {
             settingId: "isDownloadEnvironment",
@@ -227,7 +246,7 @@ export const Reverb: Filter = {
                 if(filterSettings.reverbEnvironment) {
                     const url = filterSettings.reverbEnvironment.value;
     
-                    if (url && filterSettings.downloadedBuffers) {
+                    if (url && filterSettings.downloadedBuffers && url != "custom") {
                         return filterSettings.downloadedBuffers.includes(url.substring(url.lastIndexOf("/") + 1));
                     }
                 }
@@ -248,9 +267,35 @@ export const Reverb: Filter = {
                 if(filterSettings.reverbEnvironment) {
                     const url = filterSettings.reverbEnvironment.value;
 
-                    if (url && filterSettings.downloadedBuffers) {
+                    if (url && filterSettings.downloadedBuffers && url != "custom") {
                         return !filterSettings.downloadedBuffers.includes(url.substring(url.lastIndexOf("/") + 1));
                     }
+                }
+
+                return false;
+            }
+        },
+        {
+            settingId: "reverbCustomEnvironmentFile",
+            settingType: SettingFormTypeEnum.InputFile,
+            settingTitle: "filters.reverb.settings.customEnvironmentFile",
+            accept: "audio/*",
+            displayCondition: (filterSettings: ReverbSettings) => {
+                if(filterSettings.reverbEnvironment) {
+                    return filterSettings.reverbEnvironment.value == "custom";
+                }
+
+                return false;
+            }
+        },
+        {
+            settingId: "reverbCustomEnvironmentAddTime",
+            settingType: SettingFormTypeEnum.NumberField,
+            settingTitle: "filters.reverb.settings.customEnvironmentAddDuration",
+            defaultValue: "5",
+            displayCondition: (filterSettings: ReverbSettings) => {
+                if(filterSettings.reverbEnvironment) {
+                    return filterSettings.reverbEnvironment.value == "custom";
                 }
 
                 return false;

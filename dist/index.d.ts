@@ -48,7 +48,8 @@ declare enum SettingFormTypeEnum {
     DynamicLabel = 4,
     SimpleLink = 5,
     DynamicLink = 6,
-    Range = 7
+    Range = 7,
+    InputFile = 8
 }
 
 interface SettingForm {
@@ -70,6 +71,11 @@ interface SettingFormDynamicLink extends SettingForm {
     settingType: SettingFormTypeEnum.DynamicLink;
     labelValue?: string;
     linkValue?: string;
+}
+
+interface SettingFormFileInput extends SettingForm {
+    settingType: SettingFormTypeEnum.InputFile;
+    accept?: string;
 }
 
 interface SettingFormNumberField extends SettingForm {
@@ -111,7 +117,7 @@ interface SettingFormTextField extends SettingForm {
     settingType: SettingFormTypeEnum.TextField;
 }
 
-type SettingFormType = (SettingFormDynamicLabel | SettingFormDynamicLink | SettingFormNumberField | SettingFormRange | SettingFormSelectField | SettingFormSimpleLabel | SettingFormSimpleLink | SettingFormTextField);
+type SettingFormType = (SettingFormDynamicLabel | SettingFormDynamicLink | SettingFormNumberField | SettingFormRange | SettingFormSelectField | SettingFormSimpleLabel | SettingFormSimpleLink | SettingFormTextField | SettingFormFileInput);
 
 interface Filter {
     filterId: string;

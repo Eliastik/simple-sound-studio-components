@@ -122,6 +122,22 @@ const FilterSettingsForm = ({
                                                 }
                                             }}></input>
                                     )}
+                                    {setting.settingType === SettingFormTypeEnum.InputFile && (
+                                        <input
+                                            type="file"
+                                            className={`file-input file-input-bordered w-full max-w-xs ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}
+                                            id={`${filterId}_${setting.settingId}`}
+                                            accept={setting.accept || "*/*"}
+                                            onChange={(e) => {
+                                                const file = e.target.files![0];
+                                                const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);
+
+                                                if(newSettings) {
+                                                    newSettings[setting.settingId] = file;
+                                                    setCurrentSettings(newSettings);
+                                                }
+                                            }}/>
+                                    )}
                                     {setting.settingType === SettingFormTypeEnum.Range && (
                                         <div className={`flex flex-col ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
                                             <input type="range" className="range range-accent" id={`${filterId}_${setting.settingId}`}

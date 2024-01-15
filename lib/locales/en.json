@@ -138,7 +138,10 @@
                     "size": "Size: ${(reverbEnvironment.additionalData.size / 1000000).toFixed(2)} MB",
                     "source": "Source",
                     "downloaded": "This environment has already been temporarily downloaded to your device",
-                    "notDownloaded": "This environment has not been downloaded yet. By clicking Validate, the environment will be temporarily downloaded to your device."
+                    "notDownloaded": "This environment has not been downloaded yet. By clicking Validate, the environment will be temporarily downloaded to your device.",
+                    "customEnvironment": "Custom…",
+                    "customEnvironmentFile": "Impulse response file:",
+                    "customEnvironmentAddDuration": "Duration to be added to sound (seconds):"
                 },
                 "disabled": "This filter is currently unavailable, as no environment has yet been downloaded. Go to the filter settings, then select and download an environment, then click on Validate."
             }

@@ -138,7 +138,10 @@
                     "size": "Taille : ${(reverbEnvironment.additionalData.size / 1000000).toFixed(2).replace('.', ',')} Mo",
                     "source": "Source",
                     "downloaded": "Cet environnement a déjà été téléchargé temporairement sur votre appareil",
-                    "notDownloaded": "Cet environnement n'a pas encore été téléchargé. En cliquant sur Valider, l'environnement sera téléchargé temporairement sur votre appareil"
+                    "notDownloaded": "Cet environnement n'a pas encore été téléchargé. En cliquant sur Valider, l'environnement sera téléchargé temporairement sur votre appareil",
+                    "customEnvironment": "Personnalisé…",
+                    "customEnvironmentFile": "Fichier Impulse Response :",
+                    "customEnvironmentAddDuration": "Durée à ajouter au son (secondes) :"
                 },
                 "disabled": "Ce filtre n'est actuellement pas disponible, car aucun environnement n'a encore été téléchargé. Accédez au paramètres du filtre, et sélectionnez puis téléchargez un environnement en cliquant sur Valider."
             }

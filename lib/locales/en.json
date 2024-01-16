@@ -6,6 +6,10 @@
         },
         "dialogs": {
             "pleaseWait": "Please wait a few moments",
+            "fileOpenError": {
+                "title": "Error when opening file",
+                "info": "Make sure the file you've selected is a correct audio file, then try again"
+            },
             "bufferDownloading": {
                 "title": "Downloading data"
             },

@@ -33,7 +33,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     // State: true when we are loading audio provided by the user
     const [loadingPrincipalBuffer, setLoadingPrincipalBuffer] = useState(false);
     // State: true when there is an error loading audio provided by the user
-    const [errorLoadingPrincipalBuffer, setErrorLoadingPrincipalBuffer] = useState(false);
+    const [errorLoadingAudioFile, setErrorLoadingAudioFile] = useState(false);
     // State: true if the audio edtior is ready to be used
     const [audioEditorReady, setAudioEditorReady] = useState(false);
     // State: true when an audio processing is in progress
@@ -80,7 +80,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         } catch (e) {
             console.error(e);
             setLoadingPrincipalBuffer(false);
-            setErrorLoadingPrincipalBuffer(true);
+            setErrorLoadingAudioFile(true);
         }
     }, []);
 
@@ -94,6 +94,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         getAudioEditor().on(EventType.FETCHING_BUFFERS, () => setDownloadingBufferData(true));
         getAudioEditor().on(EventType.DECODING_AUDIO_FILE, () => setDecodingAudioBuffer(true));
         getAudioEditor().on(EventType.DECODED_AUDIO_FILE, () => setDecodingAudioBuffer(false));
+        getAudioEditor().on(EventType.ERROR_DECODING_AUDIO_FILE, () => setErrorLoadingAudioFile(true));
 
         getAudioEditor().on(EventType.LOADED_BUFFERS, () => {
             setDownloadingInitialData(false);
@@ -168,7 +169,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         setFilterState(getAudioEditor().getFiltersState());
     };
 
-    const closeErrorLoadingPrincipalBuffer = () => setErrorLoadingPrincipalBuffer(false);
+    const closeErrorLoadingAudioFile = () => setErrorLoadingAudioFile(false);
     const closeErrorDownloadingBufferData = () => setErrorDownloadingBufferData(false);
     const closeErrorProcessingAudio = () => setErrorProcessingAudio(false);
 
@@ -183,8 +184,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     return (
         <AudioEditorContext.Provider value={{
             loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterState, validateSettings,
-            exitAudioEditor, filtersSettings, changeFilterSettings, resetFilterSettings, downloadingInitialData, downloadingBufferData, errorLoadingPrincipalBuffer,
-            closeErrorLoadingPrincipalBuffer, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
+            exitAudioEditor, filtersSettings, changeFilterSettings, resetFilterSettings, downloadingInitialData, downloadingBufferData, errorLoadingAudioFile,
+            closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer
         }}>
             {children}

@@ -17,8 +17,8 @@ interface AudioEditorContextProps {
     resetFilterSettings: (filterId: string) => void;
     downloadingInitialData: boolean;
     downloadingBufferData: boolean;
-    errorLoadingPrincipalBuffer: boolean;
-    closeErrorLoadingPrincipalBuffer: () => void;
+    errorLoadingAudioFile: boolean;
+    closeErrorLoadingAudioFile: () => void;
     errorDownloadingBufferData: boolean;
     closeErrorDownloadingBufferData: () => void;
     downloadAudio: () => void;
@@ -188,4 +188,6 @@ interface DaisyUIModal extends HTMLElement {
 
 declare const DecodingAudioFileDialog: () => react_jsx_runtime.JSX.Element;
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, LoadingAudioProcessingDialog, useAudioEditor };
+declare const ErrorLoadingAudioDialog: () => react_jsx_runtime.JSX.Element;
+
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, LoadingAudioProcessingDialog, useAudioEditor };

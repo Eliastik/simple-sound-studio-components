@@ -158,8 +158,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         setFiltersSettings(getAudioEditor().getFiltersSettings());
     };
 
-    const resetFilterSettings = (filterId: string) => {
-        getAudioEditor().resetFilterSettings(filterId);
+    const resetFilterSettings = async (filterId: string) => {
+        await getAudioEditor().resetFilterSettings(filterId);
         setFiltersSettings(getAudioEditor().getFiltersSettings());
     };
 

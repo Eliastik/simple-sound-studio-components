@@ -14,10 +14,13 @@ import DaisyUIModal from "./model/DaisyUIModal";
 import AudioEditorContextProps from "./model/contextProps/AudioEditorContextProps";
 import DecodingAudioFileDialog from "./components/dialogs/DecodingAudioFileDialog";
 import ErrorLoadingAudioDialog from "./components/dialogs/ErrorLoadingAudioDialog";
+import FilterService from "./services/FilterService";
+import GenericFilterService from "./services/GenericFilterService";
 
 export {
     type AudioEditorContextProps,
     type DaisyUIModal,
+    type FilterService,
     ApplicationObjectsSingleton,
     FilterInfoDialog,
     FilterSettingsDialog,
@@ -32,5 +35,6 @@ export {
     ErrorProcessingAudio,
     LoadingAudioProcessingDialog,
     DecodingAudioFileDialog,
-    ErrorLoadingAudioDialog
+    ErrorLoadingAudioDialog,
+    GenericFilterService
 };

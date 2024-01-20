@@ -1,45 +1,7 @@
 /// <reference types="@types/react" />
 import { FC, ReactNode } from 'react';
-import { FilterState, FilterSettings, FilterSettingValue, SelectFormValue, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
+import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';
-
-interface AudioEditorContextProps {
-    loadAudioPrincipalBuffer: (buffer: File) => void;
-    audioEditorReady: boolean;
-    loadingPrincipalBuffer: boolean;
-    audioProcessing: boolean;
-    toggleFilter: (filterId: string) => void;
-    filterState: FilterState;
-    validateSettings: () => void;
-    exitAudioEditor: () => void;
-    filtersSettings: Map<string, FilterSettings>;
-    changeFilterSettings: (filterId: string, settings: FilterSettings) => void;
-    resetFilterSettings: (filterId: string) => void;
-    downloadingInitialData: boolean;
-    downloadingBufferData: boolean;
-    errorLoadingAudioFile: boolean;
-    closeErrorLoadingAudioFile: () => void;
-    errorDownloadingBufferData: boolean;
-    closeErrorDownloadingBufferData: () => void;
-    downloadAudio: () => void;
-    downloadingAudio: boolean;
-    resetAllFiltersState: () => void;
-    pauseAudioEditor: () => void;
-    errorProcessingAudio: boolean;
-    closeErrorProcessingAudio: () => void;
-    actualSampleRate: number;
-    defaultDeviceSampleRate: number;
-    audioWorkletAvailable: boolean;
-    decodingAudioBuffer: boolean;
-}
-
-declare const useAudioEditor: () => AudioEditorContextProps;
-interface AudioEditorProviderProps {
-    children: ReactNode;
-}
-declare const AudioEditorProvider: FC<AudioEditorProviderProps>;
-
-declare const AudioEditorActionButtons: () => react_jsx_runtime.JSX.Element;
 
 declare enum SettingFormTypeEnum {
     TextField = 0,
@@ -133,8 +95,46 @@ interface Filter {
     disabledCondition?: (filterSettings: FilterSettings) => string | null;
 }
 
-declare const FilterButton: ({ enabled, filter }: {
-    enabled: boolean;
+interface AudioEditorContextProps {
+    loadAudioPrincipalBuffer: (buffer: File) => void;
+    audioEditorReady: boolean;
+    loadingPrincipalBuffer: boolean;
+    audioProcessing: boolean;
+    toggleFilter: (filterId: string) => void;
+    filterDefinitions: Filter[];
+    filterState: FilterState;
+    validateSettings: () => void;
+    exitAudioEditor: () => void;
+    filtersSettings: Map<string, FilterSettings>;
+    changeFilterSettings: (filterId: string, settings: FilterSettings) => void;
+    resetFilterSettings: (filterId: string) => void;
+    downloadingInitialData: boolean;
+    downloadingBufferData: boolean;
+    errorLoadingAudioFile: boolean;
+    closeErrorLoadingAudioFile: () => void;
+    errorDownloadingBufferData: boolean;
+    closeErrorDownloadingBufferData: () => void;
+    downloadAudio: () => void;
+    downloadingAudio: boolean;
+    resetAllFiltersState: () => void;
+    pauseAudioEditor: () => void;
+    errorProcessingAudio: boolean;
+    closeErrorProcessingAudio: () => void;
+    actualSampleRate: number;
+    defaultDeviceSampleRate: number;
+    audioWorkletAvailable: boolean;
+    decodingAudioBuffer: boolean;
+}
+
+declare const useAudioEditor: () => AudioEditorContextProps;
+interface AudioEditorProviderProps {
+    children: ReactNode;
+}
+declare const AudioEditorProvider: FC<AudioEditorProviderProps>;
+
+declare const AudioEditorActionButtons: () => react_jsx_runtime.JSX.Element;
+
+declare const FilterButton: ({ filter }: {
     filter: Filter;
 }) => react_jsx_runtime.JSX.Element;
 
@@ -164,22 +164,61 @@ declare const FilterSettingsDialog: ({ filter }: {
 
 declare const LoadingAudioProcessingDialog: () => react_jsx_runtime.JSX.Element;
 
+/**
+ * Implements this interface to provide your filters to the UI
+ */
+interface FilterService {
+    /**
+     * Get all filters
+     */
+    getAllFilters(): Filter[];
+    /**
+     * Get filter with given ID/name
+     * @param name The ID/name of the filter
+     */
+    getFilter(name: string): Filter | undefined;
+    /**
+     * Add new filters
+     * @param filters The filters
+     */
+    addFilter(...filters: Filter[]): void;
+    /**
+     * Remove filter with given ID/name
+     * @param name The ID/name of the filter
+     */
+    removeFilter(name: string): boolean;
+    /**
+     * Check if a filter exists with the given ID/name
+     * @param name The ID/name of the filter
+     */
+    filterExists(name: string): boolean;
+    /**
+     * Update the properties of a filter
+     * @param name The ID/name of the filter
+     * @param updatedFilter The partial properties to update
+     */
+    updateFilter(name: string, updatedFilter: Partial<Filter>): boolean;
+    getFilterNames(): string[];
+}
+
 declare class ApplicationObjectsSingleton {
     private static audioEditor;
     private static audioPlayer;
     private static audioRecorder;
     private static eventEmitter;
     private static applicationConfigService;
+    private static filterService;
     private static ready;
     private constructor();
     private static initialize;
-    static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[]): void;
+    static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService): void;
     static checkInstance(): void;
     static getAudioEditorInstance(): AudioEditor | null;
     static getAudioPlayerInstance(): BufferPlayer | null;
     static getAudioRecorderInstance(): VoiceRecorder | null;
     static getEventEmitterInstance(): EventEmitter | null;
     static getConfigServiceInstance(): ConfigService | undefined;
+    static getFilterServiceInstance(): FilterService | undefined;
 }
 
 interface DaisyUIModal extends HTMLElement {
@@ -190,4 +229,19 @@ declare const DecodingAudioFileDialog: () => react_jsx_runtime.JSX.Element;
 
 declare const ErrorLoadingAudioDialog: () => react_jsx_runtime.JSX.Element;
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, LoadingAudioProcessingDialog, useAudioEditor };
+/**
+ * A generic FilterService with the default filters
+ */
+declare class GenericFilterService implements FilterService {
+    private filterMap;
+    constructor();
+    getFilterNames(): string[];
+    getAllFilters(): Filter[];
+    getFilter(name: string): Filter | undefined;
+    addFilter(...filters: Filter[]): void;
+    removeFilter(name: string): boolean;
+    filterExists(name: string): boolean;
+    updateFilter(name: string, updatedFilter: Partial<Filter>): boolean;
+}
+
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, useAudioEditor };

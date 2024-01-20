@@ -1,4 +1,6 @@
 import { AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter, ConfigService } from "@eliastik/simple-sound-studio-lib";
+import FilterService from "../services/FilterService";
+import GenericFilterService from "../services/GenericFilterService";
 
 export default class ApplicationObjectsSingleton {
 
@@ -7,11 +9,12 @@ export default class ApplicationObjectsSingleton {
     private static audioRecorder: VoiceRecorder | null = null;
     private static eventEmitter: EventEmitter | null = null;
     private static applicationConfigService: ConfigService | undefined = undefined;
+    private static filterService: FilterService | undefined = undefined;
     private static ready = false;
 
     private constructor() {}
 
-    private static initialize(configService?: ConfigService, buffersToFetch?: string[]) {
+    private static initialize(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService) {
         if (!ApplicationObjectsSingleton.ready) {
             const eventEmitter = new EventEmitter();
 
@@ -23,13 +26,14 @@ export default class ApplicationObjectsSingleton {
             ApplicationObjectsSingleton.audioRecorder = audioRecorder;
             ApplicationObjectsSingleton.eventEmitter = eventEmitter;
             ApplicationObjectsSingleton.applicationConfigService = configService;
+            ApplicationObjectsSingleton.filterService = filterService || new GenericFilterService();
 
             ApplicationObjectsSingleton.ready = true;
         }
     }
 
-    static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[]) {
-        ApplicationObjectsSingleton.initialize(configService, buffersToFetch);
+    static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService) {
+        ApplicationObjectsSingleton.initialize(configService, buffersToFetch, filterService);
     }
 
     static checkInstance() {
@@ -60,5 +64,9 @@ export default class ApplicationObjectsSingleton {
 
     static getConfigServiceInstance(): ConfigService | undefined {
         return ApplicationObjectsSingleton.applicationConfigService;
+    }
+
+    static getFilterServiceInstance(): FilterService | undefined {
+        return ApplicationObjectsSingleton.filterService;
     }
 }

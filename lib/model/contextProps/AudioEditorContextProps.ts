@@ -1,4 +1,5 @@
 import { FilterState, FilterSettings } from "@eliastik/simple-sound-studio-lib";
+import Filter from "../Filter";
 
 export default interface AudioEditorContextProps {
     loadAudioPrincipalBuffer: (buffer: File) => void;
@@ -6,6 +7,7 @@ export default interface AudioEditorContextProps {
     loadingPrincipalBuffer: boolean,
     audioProcessing: boolean
     toggleFilter: (filterId: string) => void,
+    filterDefinitions: Filter[],
     filterState: FilterState,
     validateSettings: () => void,
     exitAudioEditor: () => void,

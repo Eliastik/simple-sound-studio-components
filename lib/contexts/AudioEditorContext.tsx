@@ -4,6 +4,8 @@ import { createContext, useContext, useState, ReactNode, FC, useEffect, useCallb
 import { AudioEditor, BufferPlayer, EventType, FilterSettings, FilterState } from "@eliastik/simple-sound-studio-lib";
 import AudioEditorContextProps from "../model/contextProps/AudioEditorContextProps";
 import ApplicationObjectsSingleton from "./ApplicationObjectsSingleton";
+import Filter from "../model/Filter";
+import FilterService from "../services/FilterService";
 
 const AudioEditorContext = createContext<AudioEditorContextProps | undefined>(undefined);
 
@@ -27,6 +29,10 @@ const getAudioPlayer = (): BufferPlayer => {
     return ApplicationObjectsSingleton.getAudioPlayerInstance()!;
 };
 
+const getFilterService = (): FilterService | undefined => {
+    return ApplicationObjectsSingleton.getFilterServiceInstance();
+};
+
 let isReady = false;
 
 export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) => {
@@ -40,6 +46,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [audioProcessing, setAudioProcessing] = useState(false);
     // State: true when there is an error processing audio
     const [errorProcessingAudio, setErrorProcessingAudio] = useState(false);
+    // State: filter definitions
+    const [filterDefinitions, setFilterDefinitions] = useState<Filter[]>([]);
     // State: object with enabled state for the filters
     const [filterState, setFilterState] = useState<FilterState>({});
     // State: object with all the settings of the filters
@@ -125,6 +133,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         setActualSampleRate(getAudioEditor().currentSampleRate);
         setDefaultDeviceSampleRate(getAudioEditor().defaultDeviceSampleRate);
         setAudioWorkletAvailable(getAudioEditor().isAudioWorkletAvailable());
+        setFilterDefinitions(getFilterService()?.getAllFilters() || []);
 
         isReady = true;
     }, [loadAudioPrincipalBuffer]);
@@ -183,7 +192,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
     return (
         <AudioEditorContext.Provider value={{
-            loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterState, validateSettings,
+            loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterDefinitions, filterState, validateSettings,
             exitAudioEditor, filtersSettings, changeFilterSettings, resetFilterSettings, downloadingInitialData, downloadingBufferData, errorLoadingAudioFile,
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer

@@ -9,15 +9,15 @@ import { useEffect, useState } from "react";
 import DaisyUIModal from "../model/DaisyUIModal";
 
 const FilterButton = ({
-    enabled,
     filter
-}: { enabled: boolean, filter: Filter }) => {
-    const { filtersSettings, toggleFilter } = useAudioEditor();
+}: { filter: Filter }) => {
+    const { filterState, filtersSettings, toggleFilter } = useAudioEditor();
     const { t } = useTranslation();
     const [filterDisabled, setFilterDisabled] = useState(false);
     const [filterDisabledReason, setFilterDisabledReason] = useState<string | null>(null);
 
     const filterSettings = filtersSettings && filtersSettings.get(filter.filterId);
+    const enabled = filterState[filter.filterId];
 
     useEffect(() => {
         if (filter.disabledCondition && filterSettings) {

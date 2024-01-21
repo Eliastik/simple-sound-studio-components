@@ -199,6 +199,7 @@ interface FilterService {
      */
     updateFilter(name: string, updatedFilter: Partial<Filter>): boolean;
     getFilterNames(): string[];
+    onFilterUpdated(callback: (filters: Filter[]) => void): void;
 }
 
 declare class ApplicationObjectsSingleton {
@@ -234,14 +235,17 @@ declare const ErrorLoadingAudioDialog: () => react_jsx_runtime.JSX.Element;
  */
 declare class GenericFilterService implements FilterService {
     private filterMap;
+    private onFilterUpdatedCallback;
     constructor();
     getFilterNames(): string[];
     getAllFilters(): Filter[];
     getFilter(name: string): Filter | undefined;
+    filterExists(name: string): boolean;
     addFilter(...filters: Filter[]): void;
     removeFilter(name: string): boolean;
-    filterExists(name: string): boolean;
     updateFilter(name: string, updatedFilter: Partial<Filter>): boolean;
+    onFilterUpdated(callback: (filters: Filter[]) => void): void;
+    private callCallback;
 }
 
 export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, useAudioEditor };

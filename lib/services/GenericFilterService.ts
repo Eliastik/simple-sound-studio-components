@@ -8,6 +8,7 @@ import filters from "../model/DefaultFilters";
 export default class GenericFilterService implements FilterService {
 
     private filterMap: Map<string, Filter> = new Map();
+    private onFilterUpdatedCallback: ((filters: Filter[]) => void) | null = null;
 
     constructor() {
         this.addFilter(...filters);
@@ -25,18 +26,22 @@ export default class GenericFilterService implements FilterService {
         return this.filterMap.get(name);
     }
 
+    filterExists(name: string): boolean {
+        return typeof this.getFilter(name) !== "undefined";
+    }
+
     addFilter(...filters: Filter[]): void {
         for (const filter of filters) {
             this.filterMap.set(filter.filterId, filter);
         }
+
+        this.callCallback();
     }
 
     removeFilter(name: string): boolean {
-        return this.filterMap.delete(name);
-    }
-
-    filterExists(name: string): boolean {
-        return typeof this.getFilter(name) !== "undefined";
+        const deleted = this.filterMap.delete(name);
+        this.callCallback();
+        return deleted;
     }
 
     updateFilter(name: string, updatedFilter: Partial<Filter>): boolean {
@@ -44,9 +49,20 @@ export default class GenericFilterService implements FilterService {
 
         if (existingFilter) {
             this.filterMap.set(name, { ...existingFilter, ...updatedFilter });
+            this.callCallback();
             return true;
         }
 
         return false;
+    }
+
+    onFilterUpdated(callback: (filters: Filter[]) => void): void {
+        this.onFilterUpdatedCallback = callback;
+    }
+
+    private callCallback() {
+        if (this.onFilterUpdatedCallback) {
+            this.onFilterUpdatedCallback(this.getAllFilters());
+        }
     }
 }

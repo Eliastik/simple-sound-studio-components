@@ -43,4 +43,6 @@ export default interface FilterService {
 
     getFilterNames(): string[];
 
+    onFilterUpdated(callback: (filters: Filter[]) => void): void;
+
 }

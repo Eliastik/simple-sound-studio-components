@@ -134,6 +134,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         setDefaultDeviceSampleRate(getAudioEditor().defaultDeviceSampleRate);
         setAudioWorkletAvailable(getAudioEditor().isAudioWorkletAvailable());
         setFilterDefinitions(getFilterService()?.getAllFilters() || []);
+        getFilterService()?.onFilterUpdated((filters: Filter[]) => setFilterDefinitions(filters));
 
         isReady = true;
     }, [loadAudioPrincipalBuffer]);

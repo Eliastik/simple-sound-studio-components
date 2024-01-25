@@ -124,6 +124,8 @@ interface AudioEditorContextProps {
     defaultDeviceSampleRate: number;
     audioWorkletAvailable: boolean;
     decodingAudioBuffer: boolean;
+    isCompatibilityModeAutoEnabled: boolean;
+    hasProblemRenderingAudio: boolean;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;
@@ -131,6 +133,28 @@ interface AudioEditorProviderProps {
     children: ReactNode;
 }
 declare const AudioEditorProvider: FC<AudioEditorProviderProps>;
+
+interface AudioPlayerContextProps {
+    playing: boolean;
+    playAudioBuffer: () => void;
+    pauseAudioBuffer: () => void;
+    loopAudioBuffer: () => void;
+    setTimePlayer: (percent: number) => void;
+    isCompatibilityModeEnabled: boolean;
+    stopAudioBuffer: () => void;
+    currentTimeDisplay: string;
+    maxTimeDisplay: string;
+    percent: number;
+    looping: boolean;
+    currentTime: number;
+    maxTime: number;
+}
+
+declare const useAudioPlayer: () => AudioPlayerContextProps;
+interface AudioPlayerProviderProps {
+    children: ReactNode;
+}
+declare const AudioPlayerProvider: FC<AudioPlayerProviderProps>;
 
 declare const AudioEditorActionButtons: () => react_jsx_runtime.JSX.Element;
 
@@ -248,4 +272,8 @@ declare class GenericFilterService implements FilterService {
     private callCallback;
 }
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, useAudioEditor };
+declare const AudioEditorDialogs: () => react_jsx_runtime.JSX.Element;
+
+declare const AudioEditorNotifications: () => react_jsx_runtime.JSX.Element;
+
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, type AudioPlayerContextProps, AudioPlayerProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, useAudioEditor, useAudioPlayer };

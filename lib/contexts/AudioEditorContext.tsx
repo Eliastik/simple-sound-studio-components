@@ -68,6 +68,10 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [audioWorkletAvailable, setAudioWorkletAvailable] = useState(false);
     // State: true when we are decoding audio provided by the user (used in the reverb filter)
     const [decodingAudioBuffer, setDecodingAudioBuffer] = useState(false);
+    // State: true if compatibility/direct was auto enabled
+    const [isCompatibilityModeAutoEnabled, setCompatibilityModeAutoEnabled] = useState(false);
+    // State: true if there is a problem rendering audio (same problem that auto enable compatibility mode)
+    const [hasProblemRenderingAudio, setHasProblemRenderingAudio] = useState(false);
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -125,6 +129,22 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
         getAudioEditor().on(EventType.SAMPLE_RATE_CHANGED, (currentSampleRate) => {
             setActualSampleRate(currentSampleRate as number);
+        });
+
+        getAudioEditor().on(EventType.COMPATIBILITY_MODE_AUTO_ENABLED, () => {
+            setCompatibilityModeAutoEnabled(true);
+
+            setTimeout(() => {
+                setCompatibilityModeAutoEnabled(false);
+            }, 10000);
+        });
+
+        getAudioEditor().on(EventType.RENDERING_AUDIO_PROBLEM_DETECTED, () => {
+            setHasProblemRenderingAudio(true);
+
+            setTimeout(() => {
+                setHasProblemRenderingAudio(false);
+            }, 10000);
         });
 
         setDownloadingInitialData(getAudioEditor().downloadingInitialData);
@@ -196,7 +216,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterDefinitions, filterState, validateSettings,
             exitAudioEditor, filtersSettings, changeFilterSettings, resetFilterSettings, downloadingInitialData, downloadingBufferData, errorLoadingAudioFile,
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
-            pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer
+            pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
+            isCompatibilityModeAutoEnabled, hasProblemRenderingAudio
         }}>
             {children}
         </AudioEditorContext.Provider>

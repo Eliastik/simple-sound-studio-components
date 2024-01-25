@@ -1,4 +1,5 @@
 import { AudioEditorProvider, useAudioEditor } from "./contexts/AudioEditorContext";
+import { AudioPlayerProvider, useAudioPlayer } from "./contexts/AudioPlayerContext";
 import AudioEditorActionButtons from "./components/AudioEditorActionButtons";
 import FilterButton from "./components/FilterButton";
 import FilterButtonList from "./components/FilterButtonList";
@@ -16,9 +17,13 @@ import DecodingAudioFileDialog from "./components/dialogs/DecodingAudioFileDialo
 import ErrorLoadingAudioDialog from "./components/dialogs/ErrorLoadingAudioDialog";
 import FilterService from "./services/FilterService";
 import GenericFilterService from "./services/GenericFilterService";
+import AudioEditorDialogs from "./components/AudioEditorDialogs";
+import AudioEditorNotifications from "./components/AudioEditorNotifications";
+import AudioPlayerContextProps from "./model/contextProps/AudioPlayerContextProps";
 
 export {
     type AudioEditorContextProps,
+    type AudioPlayerContextProps,
     type DaisyUIModal,
     type FilterService,
     ApplicationObjectsSingleton,
@@ -36,5 +41,9 @@ export {
     LoadingAudioProcessingDialog,
     DecodingAudioFileDialog,
     ErrorLoadingAudioDialog,
-    GenericFilterService
+    GenericFilterService,
+    AudioEditorDialogs,
+    AudioEditorNotifications,
+    AudioPlayerProvider,
+    useAudioPlayer
 };

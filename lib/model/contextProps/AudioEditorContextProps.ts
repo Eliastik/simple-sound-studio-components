@@ -29,5 +29,7 @@ export default interface AudioEditorContextProps {
     actualSampleRate: number,
     defaultDeviceSampleRate: number,
     audioWorkletAvailable: boolean,
-    decodingAudioBuffer: boolean
+    decodingAudioBuffer: boolean,
+    isCompatibilityModeAutoEnabled: boolean,
+    hasProblemRenderingAudio: boolean
 };

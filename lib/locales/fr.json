@@ -1,9 +1,5 @@
 {
     "translation": {
-        "audioEditorMain": {
-            "validateSettings": "Valider les paramètres",
-            "resetSettings": "Réinitialiser"
-        },
         "dialogs": {
             "pleaseWait": "Merci de patienter quelques instants",
             "fileOpenError": {
@@ -30,6 +26,18 @@
             "decodingAudioFile": {
                 "title": "Chargement du fichier audio en cours"
             }
+        },
+        "audioEditorMain": {
+            "validateSettings": "Valider les paramètres",
+            "resetSettings": "Réinitialiser"
+        },
+        "audioPlayer": {
+            "preparingAudioDownload": "Préparation du téléchargement de votre audio…",
+            "preparingAudioDownloadWithCompatibility": "En raison de l'activation du mode de compatibilité et de contraintes techniques, nous devons jouer l'audio en temps réel pour l’enregistrer"
+        },
+        "notifications": {
+            "compatibilityModeAutoEnabled": "Le mode de compatibilité a été automatiquement activé, car un problème avec votre navigateur web a été détecté",
+            "hasProblemRenderingAudio": "Un problème a été détecté avec votre navigateur web lors du rendu audio. Essayez d'activer le mode de compatibilité, ou modifiez les filtres appliqués."
         },
         "filters": {
             "soundtouch": {

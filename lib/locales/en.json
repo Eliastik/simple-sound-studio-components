@@ -1,9 +1,5 @@
 {
     "translation": {
-        "audioEditorMain": {
-            "validateSettings": "Validate settings",
-            "resetSettings": "Reset"
-        },
         "dialogs": {
             "pleaseWait": "Please wait a few moments",
             "fileOpenError": {
@@ -30,6 +26,18 @@
             "decodingAudioFile": {
                 "title": "Loading audio file"
             }
+        },
+        "audioEditorMain": {
+            "validateSettings": "Validate settings",
+            "resetSettings": "Reset"
+        },
+        "audioPlayer": {
+            "preparingAudioDownload": "Preparing to download your audio...",
+            "preparingAudioDownloadWithCompatibility": "Due to compatibility mode and technical constraints, we have to play the audio in real time in order to record it"
+        },
+        "notifications": {
+            "compatibilityModeAutoEnabled": "Compatibility mode has been automatically enabled, as a problem with your web browser has been detected",
+            "hasProblemRenderingAudio": "A problem has been detected with your web browser when rendering audio. Try to enable the compatibility mode, or modify the filters applied."
         },
         "filters": {
             "soundtouch": {

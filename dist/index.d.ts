@@ -157,7 +157,9 @@ interface AudioPlayerProviderProps {
 }
 declare const AudioPlayerProvider: FC<AudioPlayerProviderProps>;
 
-declare const AudioEditorActionButtons: () => react_jsx_runtime.JSX.Element;
+declare const AudioEditorActionButtons: ({ onSettingsValidated }: {
+    onSettingsValidated?: (() => void) | undefined;
+}) => react_jsx_runtime.JSX.Element;
 
 declare const FilterButton: ({ filter }: {
     filter: Filter;

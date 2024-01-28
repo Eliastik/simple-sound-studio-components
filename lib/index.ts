@@ -1,5 +1,6 @@
 import { AudioEditorProvider, useAudioEditor } from "./contexts/AudioEditorContext";
 import { AudioPlayerProvider, useAudioPlayer } from "./contexts/AudioPlayerContext";
+import { SettingFormTypeEnum } from "./model/settingForm/SettingFormTypeEnum";
 import AudioEditorActionButtons from "./components/AudioEditorActionButtons";
 import FilterButton from "./components/FilterButton";
 import FilterButtonList from "./components/FilterButtonList";
@@ -26,6 +27,7 @@ export {
     type AudioPlayerContextProps,
     type DaisyUIModal,
     type FilterService,
+    SettingFormTypeEnum,
     ApplicationObjectsSingleton,
     FilterInfoDialog,
     FilterSettingsDialog,

@@ -72,6 +72,12 @@ export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) 
         updatePlayerState();
     };
 
+    const playAudioBufferDirect = async () => {
+        await getAudioPlayer().playDirect();
+        setPlaying(true);
+        updatePlayerState();
+    };
+
     const pauseAudioBuffer = () => {
         getAudioPlayer().pause();
         setPlaying(false);
@@ -104,7 +110,8 @@ export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) 
     return (
         <AudioPlayerContext.Provider value={{
             playing, playAudioBuffer, pauseAudioBuffer, loopAudioBuffer, setTimePlayer, stopAudioBuffer,
-            currentTimeDisplay, maxTimeDisplay, percent, looping, currentTime, maxTime, isCompatibilityModeEnabled
+            currentTimeDisplay, maxTimeDisplay, percent, looping, currentTime, maxTime, isCompatibilityModeEnabled,
+            playAudioBufferDirect
         }}>
             {children}
         </AudioPlayerContext.Provider>

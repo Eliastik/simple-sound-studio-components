@@ -148,6 +148,7 @@ interface AudioPlayerContextProps {
     looping: boolean;
     currentTime: number;
     maxTime: number;
+    playAudioBufferDirect: () => void;
 }
 
 declare const useAudioPlayer: () => AudioPlayerContextProps;
@@ -276,4 +277,4 @@ declare const AudioEditorDialogs: () => react_jsx_runtime.JSX.Element;
 
 declare const AudioEditorNotifications: () => react_jsx_runtime.JSX.Element;
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, type AudioPlayerContextProps, AudioPlayerProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, useAudioEditor, useAudioPlayer };
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, type AudioPlayerContextProps, AudioPlayerProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, SettingFormTypeEnum, useAudioEditor, useAudioPlayer };

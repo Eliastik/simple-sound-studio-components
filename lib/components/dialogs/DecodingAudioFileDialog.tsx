@@ -7,7 +7,7 @@ const DecodingAudioFileDialog = () => {
     
     return (
         <>
-            <input type="checkbox" id="decodingAudioFileModal" className="modal-toggle" checked={decodingAudioBuffer} readOnly />
+            {decodingAudioBuffer && <input type="checkbox" id="decodingAudioFileModal" className="modal-toggle" defaultChecked={true} />}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.decodingAudioFile.title")}</h3>

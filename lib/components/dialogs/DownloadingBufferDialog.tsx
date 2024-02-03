@@ -9,7 +9,7 @@ const DownloadingBufferDialog = () => {
     
     return (
         <>
-            <input type="checkbox" id="loadingDataModal" className="modal-toggle" checked={downloadingBufferData} readOnly />
+            {downloadingBufferData && <input type="checkbox" id="downloadingBufferData" className="modal-toggle" defaultChecked={true} />}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.bufferDownloading.title")}</h3>

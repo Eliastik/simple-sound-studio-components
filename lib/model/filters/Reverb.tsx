@@ -42,7 +42,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "The Dixon Studio Theatre – University of York",
-                    value: "static/sounds/impulse_response_2.wav",
+                    value: "impulse_response_2.wav",
                     additionalData: {
                         size: 2304044,
                         link: "https://openairlib.net/?page_id=452",
@@ -51,7 +51,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Creswell Crags",
-                    value: "static/sounds/impulse_response_3.wav",
+                    value: "impulse_response_3.wav",
                     additionalData: {
                         size: 1048220,
                         link: "https://openairlib.net/?page_id=441",
@@ -60,7 +60,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Jack Lyons Concert Hall – University of York",
-                    value: "static/sounds/impulse_response_4.wav",
+                    value: "impulse_response_4.wav",
                     additionalData: {
                         size: 3072044,
                         link: "https://openairlib.net/?page_id=571",
@@ -69,7 +69,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Stairway – University of York",
-                    value: "static/sounds/impulse_response_5.wav",
+                    value: "impulse_response_5.wav",
                     additionalData: {
                         size: 1728198,
                         link: "https://openairlib.net/?page_id=678",
@@ -78,7 +78,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "1st Baptist Church Nashville",
-                    value: "static/sounds/impulse_response_6.wav",
+                    value: "impulse_response_6.wav",
                     additionalData: {
                         size: 2050318,
                         link: "https://openairlib.net/?page_id=406",
@@ -87,7 +87,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "R1 Nuclear Reactor Hall",
-                    value: "static/sounds/impulse_response_7.wav",
+                    value: "impulse_response_7.wav",
                     additionalData: {
                         size: 5840914,
                         link: "https://openairlib.net/?page_id=626",
@@ -96,7 +96,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Maes Howe",
-                    value: "static/sounds/impulse_response_8.wav",
+                    value: "impulse_response_8.wav",
                     additionalData: {
                         size: 288044,
                         link: "https://openairlib.net/?page_id=602",
@@ -105,7 +105,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Tyndall Bruce Monument",
-                    value: "static/sounds/impulse_response_9.wav",
+                    value: "impulse_response_9.wav",
                     additionalData: {
                         size: 1382674,
                         link: "https://openairlib.net/?page_id=764",
@@ -114,7 +114,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Tvísöngur Sound Sculpture – Iceland",
-                    value: "static/sounds/impulse_response_10.wav",
+                    value: "impulse_response_10.wav",
                     additionalData: {
                         size: 621026,
                         link: "https://openairlib.net/?page_id=752",
@@ -123,7 +123,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Usina del Arte Symphony Hall",
-                    value: "static/sounds/impulse_response_11.wav",
+                    value: "impulse_response_11.wav",
                     additionalData: {
                         size: 454714,
                         link: "https://openairlib.net/?page_id=770",
@@ -132,7 +132,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Hoffmann Lime Kiln – Langcliffe, UK",
-                    value: "static/sounds/impulse_response_12.wav",
+                    value: "impulse_response_12.wav",
                     additionalData: {
                         size: 1536044,
                         link: "https://openairlib.net/?page_id=518",
@@ -141,7 +141,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Innocent Railway Tunnel (middle)",
-                    value: "static/sounds/impulse_response_13.wav",
+                    value: "impulse_response_13.wav",
                     additionalData: {
                         size: 5760056,
                         link: "https://openairlib.net/?page_id=525",
@@ -150,7 +150,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Hamilton Mausoleum",
-                    value: "static/sounds/impulse_response_14.wav",
+                    value: "impulse_response_14.wav",
                     additionalData: {
                         size: 4320044,
                         link: "https://www.openair.hosted.york.ac.uk/?page_id=502",
@@ -159,7 +159,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Lady Chapel – St Albans Cathedral",
-                    value: "static/sounds/impulse_response_15.wav",
+                    value: "impulse_response_15.wav",
                     additionalData: {
                         size: 1587706,
                         link: "https://www.openair.hosted.york.ac.uk/?page_id=595",
@@ -168,7 +168,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Sports Centre – University of York",
-                    value: "static/sounds/impulse_response_16.wav",
+                    value: "impulse_response_16.wav",
                     additionalData: {
                         size: 5644996,
                         link: "https://www.openair.hosted.york.ac.uk/?page_id=665",
@@ -177,7 +177,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "Elveden Hall  – Suffolk England",
-                    value: "static/sounds/impulse_response_17.wav",
+                    value: "impulse_response_17.wav",
                     additionalData: {
                         size: 1416536,
                         link: "https://www.openair.hosted.york.ac.uk/?page_id=459",
@@ -186,7 +186,7 @@ export const Reverb: Filter = {
                 },
                 {
                     name: "York Guildhall Council Chamber",
-                    value: "static/sounds/impulse_response_18.wav",
+                    value: "impulse_response_18.wav",
                     additionalData: {
                         size: 5760044,
                         link: "https://www.openair.hosted.york.ac.uk/?page_id=790",

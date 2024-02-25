@@ -14,7 +14,7 @@ export const Reverb: Filter = {
     secondColumStyle: "md:w-5/6",
     disabledCondition: (filterSettings: ReverbSettings) => {
         if(filterSettings.downloadedBuffers
-            && filterSettings.downloadedBuffers.filter((buffer: string) => buffer.startsWith("impulse_response")).length <= 0) {
+            && filterSettings.downloadedBuffers.filter((buffer: string) => buffer.startsWith("impulse_response")).length <= 0 && !filterSettings.hasCustomEnvironment) {
             return "filters.reverb.disabled";
         }
 

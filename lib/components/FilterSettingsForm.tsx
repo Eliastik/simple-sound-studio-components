@@ -167,7 +167,7 @@ const FilterSettingsForm = ({
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.SelectField && (
                                         <select className={`select select-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}_${setting.settingId}`}
-                                            value={currentSettings ? currentSettings[setting.settingId] && (currentSettings[setting.settingId] as SelectFormValue).value : ""}
+                                            value={currentSettings ? (currentSettings[setting.settingId] && (currentSettings[setting.settingId] as SelectFormValue).value) as string : ""}
                                             onChange={(e) => {
                                                 const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);
                                                 

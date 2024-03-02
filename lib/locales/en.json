@@ -17,7 +17,8 @@
                 "title": "Filter informations"
             },
             "processing": {
-                "title": "Audio processing in progress"
+                "title": "Audio processing in progress",
+                "remaining": "Estimated remaining time:"
             },
             "errorProcessingAudio": {
                 "title": "Error processing audio",

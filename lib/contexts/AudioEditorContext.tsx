@@ -111,11 +111,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         getAudioEditor().on(EventType.DECODING_AUDIO_FILE, () => setDecodingAudioBuffer(true));
         getAudioEditor().on(EventType.DECODED_AUDIO_FILE, () => setDecodingAudioBuffer(false));
         getAudioEditor().on(EventType.ERROR_DECODING_AUDIO_FILE, () => setErrorLoadingAudioFile(true));
-        getAudioEditor().on(EventType.UPDATE_AUDIO_TREATMENT_PERCENT, (percent) => {
-            if (percent) {
-                setAudioTreatmentPercent(percent as number);
-            }
-        });
+        getAudioEditor().on(EventType.UPDATE_AUDIO_TREATMENT_PERCENT, (percent) => setAudioTreatmentPercent(percent as number));
+        getAudioEditor().on(EventType.UPDATE_REMAINING_TIME_ESTIMATED, (timeRemaining) => setAudioTreatmenEndTimeEstimated(timeRemaining as number));
 
         getAudioEditor().on(EventType.LOADED_BUFFERS, () => {
             setDownloadingInitialData(false);

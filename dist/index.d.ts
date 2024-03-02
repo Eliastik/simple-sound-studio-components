@@ -126,6 +126,8 @@ interface AudioEditorContextProps {
     decodingAudioBuffer: boolean;
     isCompatibilityModeAutoEnabled: boolean;
     hasProblemRenderingAudio: boolean;
+    audioTreatmentPercent: number;
+    audioTreatmentEndTimeEstimated: number;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;

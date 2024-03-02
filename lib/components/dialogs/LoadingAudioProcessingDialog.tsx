@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const LoadingAudioProcessingDialog = () => {
     const { t } = useTranslation();
-    const { audioProcessing } = useAudioEditor();
+    const { audioProcessing, audioTreatmentPercent } = useAudioEditor();
     
     return (
         <>
@@ -14,6 +14,7 @@ const LoadingAudioProcessingDialog = () => {
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.processing.title")}</h3>
                     <p className="py-4 flex items-center"><span className="loading loading-spinner loading-lg mr-4 text-primary"></span> {t("dialogs.pleaseWait")}</p>
+                    <progress className="progress progress-primary w-full" value={audioTreatmentPercent} max="100"></progress>
                 </div>
             </div>
         </>

@@ -31,5 +31,7 @@ export default interface AudioEditorContextProps {
     audioWorkletAvailable: boolean,
     decodingAudioBuffer: boolean,
     isCompatibilityModeAutoEnabled: boolean,
-    hasProblemRenderingAudio: boolean
+    hasProblemRenderingAudio: boolean,
+    audioTreatmentPercent: number,
+    audioTreatmentEndTimeEstimated: number
 };

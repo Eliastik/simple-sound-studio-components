@@ -72,6 +72,10 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [isCompatibilityModeAutoEnabled, setCompatibilityModeAutoEnabled] = useState(false);
     // State: true if there is a problem rendering audio (same problem that auto enable compatibility mode)
     const [hasProblemRenderingAudio, setHasProblemRenderingAudio] = useState(false);
+    // State: audio treatment percent
+    const [audioTreatmentPercent, setAudioTreatmentPercent] = useState(0);
+    // State: audio treatment end time estimation
+    const [audioTreatmentEndTimeEstimated, setAudioTreatmenEndTimeEstimated] = useState(0);
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -107,6 +111,11 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         getAudioEditor().on(EventType.DECODING_AUDIO_FILE, () => setDecodingAudioBuffer(true));
         getAudioEditor().on(EventType.DECODED_AUDIO_FILE, () => setDecodingAudioBuffer(false));
         getAudioEditor().on(EventType.ERROR_DECODING_AUDIO_FILE, () => setErrorLoadingAudioFile(true));
+        getAudioEditor().on(EventType.UPDATE_AUDIO_TREATMENT_PERCENT, (percent) => {
+            if (percent) {
+                setAudioTreatmentPercent(percent as number);
+            }
+        });
 
         getAudioEditor().on(EventType.LOADED_BUFFERS, () => {
             setDownloadingInitialData(false);
@@ -217,7 +226,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             exitAudioEditor, filtersSettings, changeFilterSettings, resetFilterSettings, downloadingInitialData, downloadingBufferData, errorLoadingAudioFile,
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
-            isCompatibilityModeAutoEnabled, hasProblemRenderingAudio
+            isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
+            audioTreatmentPercent, audioTreatmentEndTimeEstimated
         }}>
             {children}
         </AudioEditorContext.Provider>

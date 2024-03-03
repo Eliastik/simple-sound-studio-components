@@ -15,7 +15,7 @@ const LoadingAudioProcessingDialog = () => {
                     <h3 className="font-bold text-lg">{t("dialogs.processing.title")}</h3>
                     <p className="py-4 flex items-center"><span className="loading loading-spinner loading-lg mr-4 text-primary"></span> {t("dialogs.pleaseWait")}</p>
                     <progress className="progress progress-primary w-full" value={Math.round(audioTreatmentPercent)} max="100"></progress>
-                    <p className="py-4 flex items-center mb-0">
+                    <p className="py-4 flex items-center pb-0">
                         {t("dialogs.processing.remaining")}
                         &nbsp;
                         {audioTreatmentEndTimeEstimated <= 0 && (

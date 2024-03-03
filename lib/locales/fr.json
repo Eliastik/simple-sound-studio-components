@@ -19,7 +19,7 @@
             "processing": {
                 "title": "Traitement audio en cours",
                 "remaining": "Temps restant estimé :",
-                "calculatingRemainingTime": "Calcul en cours…"
+                "calculatingRemainingTime": "calcul en cours…"
             },
             "errorProcessingAudio": {
                 "title": "Erreur lors du traitement audio",

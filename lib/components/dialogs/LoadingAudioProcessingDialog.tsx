@@ -18,7 +18,12 @@ const LoadingAudioProcessingDialog = () => {
                     <p className="py-4 flex items-center mb-0">
                         {t("dialogs.processing.remaining")}
                         &nbsp;
-                        {("0" + Math.trunc(audioTreatmentEndTimeEstimated / 60)).slice(-2) + ":" + ("0" + Math.trunc(audioTreatmentEndTimeEstimated % 60)).slice(-2)}
+                        {audioTreatmentEndTimeEstimated <= 0 && (
+                            <>{t("dialogs.processing.calculatingRemainingTime")}</>
+                        )}
+                        {audioTreatmentEndTimeEstimated > 0 && (
+                            <>{("0" + Math.trunc(audioTreatmentEndTimeEstimated / 60)).slice(-2) + ":" + ("0" + Math.trunc(audioTreatmentEndTimeEstimated % 60)).slice(-2)}</>
+                        )}
                     </p>
                 </div>
             </div>

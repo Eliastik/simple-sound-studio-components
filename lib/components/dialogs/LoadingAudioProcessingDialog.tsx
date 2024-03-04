@@ -14,7 +14,10 @@ const LoadingAudioProcessingDialog = () => {
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.processing.title")}</h3>
                     <p className="py-4 flex items-center"><span className="loading loading-spinner loading-lg mr-4 text-primary"></span> {t("dialogs.pleaseWait")}</p>
-                    <progress className="progress progress-primary w-full" value={Math.round(audioTreatmentPercent)} max="100"></progress>
+                    <p className="flex items-center justify-around pb-0 gap-x-2 w-full">
+                        <progress className="progress progress-primary w-full" value={Math.round(audioTreatmentPercent)} max="100"></progress>
+                        <span className="min-w-8 text-right">{Math.round(audioTreatmentPercent)}%</span>
+                    </p>
                     <p className="py-4 flex items-center pb-0">
                         {t("dialogs.processing.remaining")}
                         &nbsp;

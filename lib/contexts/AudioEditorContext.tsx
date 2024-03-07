@@ -217,6 +217,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
     const pauseAudioEditor = () => getAudioPlayer().pause();
 
+    const stopAudioRendering = () => getAudioEditor().cancelAudioRendering();
+
     return (
         <AudioEditorContext.Provider value={{
             loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterDefinitions, filterState, validateSettings,
@@ -224,7 +226,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
             isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
-            audioTreatmentPercent, audioTreatmentEndTimeEstimated
+            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering
         }}>
             {children}
         </AudioEditorContext.Provider>

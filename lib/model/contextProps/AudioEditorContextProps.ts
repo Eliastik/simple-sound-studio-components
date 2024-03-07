@@ -33,5 +33,6 @@ export default interface AudioEditorContextProps {
     isCompatibilityModeAutoEnabled: boolean,
     hasProblemRenderingAudio: boolean,
     audioTreatmentPercent: number,
-    audioTreatmentEndTimeEstimated: number
+    audioTreatmentEndTimeEstimated: number,
+    stopAudioRendering: () => void
 };

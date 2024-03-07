@@ -128,6 +128,7 @@ interface AudioEditorContextProps {
     hasProblemRenderingAudio: boolean;
     audioTreatmentPercent: number;
     audioTreatmentEndTimeEstimated: number;
+    stopAudioRendering: () => void;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;

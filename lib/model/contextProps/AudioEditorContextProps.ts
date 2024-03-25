@@ -9,7 +9,7 @@ export default interface AudioEditorContextProps {
     toggleFilter: (filterId: string) => void,
     filterDefinitions: Filter[],
     filterState: FilterState,
-    validateSettings: () => void,
+    validateSettings: () => Promise<boolean>,
     exitAudioEditor: () => void,
     filtersSettings: Map<string, FilterSettings>,
     changeFilterSettings: (filterId: string, settings: FilterSettings) => void,
@@ -34,5 +34,6 @@ export default interface AudioEditorContextProps {
     hasProblemRenderingAudio: boolean,
     audioTreatmentPercent: number,
     audioTreatmentEndTimeEstimated: number,
-    stopAudioRendering: () => void
+    stopAudioRendering: () => void,
+    cancelledInitialAudioRendering: boolean
 };

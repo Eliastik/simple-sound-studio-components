@@ -103,7 +103,7 @@ interface AudioEditorContextProps {
     toggleFilter: (filterId: string) => void;
     filterDefinitions: Filter[];
     filterState: FilterState;
-    validateSettings: () => void;
+    validateSettings: () => Promise<boolean>;
     exitAudioEditor: () => void;
     filtersSettings: Map<string, FilterSettings>;
     changeFilterSettings: (filterId: string, settings: FilterSettings) => void;
@@ -129,6 +129,7 @@ interface AudioEditorContextProps {
     audioTreatmentPercent: number;
     audioTreatmentEndTimeEstimated: number;
     stopAudioRendering: () => void;
+    cancelledInitialAudioRendering: boolean;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;
@@ -161,7 +162,7 @@ interface AudioPlayerProviderProps {
 declare const AudioPlayerProvider: FC<AudioPlayerProviderProps>;
 
 declare const AudioEditorActionButtons: ({ onSettingsValidated }: {
-    onSettingsValidated?: (() => void) | undefined;
+    onSettingsValidated?: ((result: boolean) => void) | undefined;
 }) => react_jsx_runtime.JSX.Element;
 
 declare const FilterButton: ({ filter }: {

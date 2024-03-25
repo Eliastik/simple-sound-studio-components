@@ -5,7 +5,7 @@ import { useAudioEditor } from "../contexts/AudioEditorContext";
 import { useAudioPlayer } from "../contexts/AudioPlayerContext";
 
 const AudioEditorNotifications = () => {
-    const { isCompatibilityModeAutoEnabled, hasProblemRenderingAudio, downloadingAudio } = useAudioEditor();
+    const { isCompatibilityModeAutoEnabled, hasProblemRenderingAudio, downloadingAudio, cancelledInitialAudioRendering } = useAudioEditor();
     const { isCompatibilityModeEnabled } = useAudioPlayer();
     const { t } = useTranslation();
 
@@ -21,6 +21,9 @@ const AudioEditorNotifications = () => {
                 {downloadingAudio && <div className="alert alert-info text-center w-auto opacity-90 flex flex-col gap-y-1 pointer-events-none">
                     <span className="whitespace-normal">{t("audioPlayer.preparingAudioDownload")}</span>
                     {isCompatibilityModeEnabled && <span className="whitespace-normal">{t("audioPlayer.preparingAudioDownloadWithCompatibility")}</span>}
+                </div>}
+                {cancelledInitialAudioRendering && <div className="alert alert-info text-center w-auto opacity-90 flex flex-col gap-y-1 pointer-events-none">
+                    <span className="whitespace-normal">{t("notifications.cancelledInitialAudioRendering")}</span>
                 </div>}
             </div>
         </>

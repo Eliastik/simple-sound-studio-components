@@ -39,7 +39,8 @@
         },
         "notifications": {
             "compatibilityModeAutoEnabled": "Le mode de compatibilité a été automatiquement activé, car un problème avec votre navigateur web a été détecté",
-            "hasProblemRenderingAudio": "Un problème a été détecté avec votre navigateur web lors du rendu audio. Essayez d'activer le mode de compatibilité, ou modifiez les filtres appliqués."
+            "hasProblemRenderingAudio": "Un problème a été détecté avec votre navigateur web lors du rendu audio. Essayez d'activer le mode de compatibilité, ou modifiez les filtres appliqués.",
+            "cancelledInitialAudioRendering": "Le rendu audio initial a été annulé et aucun filtre n'a été appliqué. Validez vos paramètres pour effectuer le rendu initial avec vos paramètres actuels."
         },
         "filters": {
             "soundtouch": {

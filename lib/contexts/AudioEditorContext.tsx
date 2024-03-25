@@ -76,6 +76,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [audioTreatmentPercent, setAudioTreatmentPercent] = useState(0);
     // State: audio treatment end time estimation
     const [audioTreatmentEndTimeEstimated, setAudioTreatmenEndTimeEstimated] = useState(0);
+    // State: if cancelled initial audio rendering
+    const [cancelledInitialAudioRendering, setCancelledInitialAudioRendering] = useState(false);
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -153,6 +155,14 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             }, 10000);
         });
 
+        getAudioEditor().on(EventType.CANCELED_AND_LOADED_INITIAL_AUDIO, () => {
+            setCancelledInitialAudioRendering(true);
+
+            setTimeout(() => {
+                setCancelledInitialAudioRendering(false);
+            }, 20000);
+        });
+
         setDownloadingInitialData(getAudioEditor().downloadingInitialData);
         setFilterState(getAudioEditor().getFiltersState());
         setFiltersSettings(getAudioEditor().getFiltersSettings());
@@ -171,16 +181,20 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     };
 
     const processAudio = async () => {
+        let result = false;
+
         try {
             setErrorProcessingAudio(false);
             setAudioProcessing(true);
-            await getAudioEditor().renderAudio();
+            result = await getAudioEditor().renderAudio();
             setAudioProcessing(false);
         } catch (e) {
             console.error(e);
             setAudioProcessing(false);
             setErrorProcessingAudio(true);
         }
+
+        return result;
     };
 
     const validateSettings = async () => processAudio();
@@ -226,7 +240,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
             isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
-            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering
+            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering
         }}>
             {children}
         </AudioEditorContext.Provider>

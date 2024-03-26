@@ -130,6 +130,7 @@ interface AudioEditorContextProps {
     audioTreatmentEndTimeEstimated: number;
     stopAudioRendering: () => void;
     cancelledInitialAudioRendering: boolean;
+    cancellingAudioRendering: boolean;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;

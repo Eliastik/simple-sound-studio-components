@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 
 const LoadingAudioProcessingDialog = () => {
     const { t } = useTranslation();
-    const { audioProcessing, audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering } = useAudioEditor();
+    const { audioProcessing, audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancellingAudioRendering } = useAudioEditor();
     
     return (
         <>
@@ -28,9 +28,10 @@ const LoadingAudioProcessingDialog = () => {
                             <>{("0" + Math.trunc(audioTreatmentEndTimeEstimated / 60)).slice(-2) + ":" + ("0" + Math.trunc(audioTreatmentEndTimeEstimated % 60)).slice(-2)}</>
                         )}
                     </p>
-                    <div className="modal-action mt-0">
+                    <div className="modal-action mt-2">
                         <form method="dialog">
-                            <button className="btn" onClick={() => stopAudioRendering()}>{t("cancel")}</button>
+                            {!cancellingAudioRendering && <button className="btn" onClick={() => stopAudioRendering()}>{t("cancel")}</button>}
+                            {cancellingAudioRendering && <button className="btn btn-disabled"><span className="loading loading-dots loading-md"></span></button>}
                         </form>
                     </div>
                 </div>

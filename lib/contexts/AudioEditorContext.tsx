@@ -78,6 +78,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [audioTreatmentEndTimeEstimated, setAudioTreatmenEndTimeEstimated] = useState(0);
     // State: if cancelled initial audio rendering
     const [cancelledInitialAudioRendering, setCancelledInitialAudioRendering] = useState(false);
+    // State: if cancelling audio rendering
+    const [cancellingAudioRendering, setCancellingAudioRendering] = useState(false);
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -155,13 +157,15 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             }, 10000);
         });
 
-        getAudioEditor().on(EventType.CANCELED_AND_LOADED_INITIAL_AUDIO, () => {
+        getAudioEditor().on(EventType.CANCELLED_AND_LOADED_INITIAL_AUDIO, () => {
             setCancelledInitialAudioRendering(true);
 
             setTimeout(() => {
                 setCancelledInitialAudioRendering(false);
             }, 20000);
         });
+
+        getAudioEditor().on(EventType.CANCELLING_AUDIO_PROCESSING, () => setCancellingAudioRendering(true));
 
         setDownloadingInitialData(getAudioEditor().downloadingInitialData);
         setFilterState(getAudioEditor().getFiltersState());
@@ -185,6 +189,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
         try {
             setErrorProcessingAudio(false);
+            setCancellingAudioRendering(false);
             setAudioProcessing(true);
             result = await getAudioEditor().renderAudio();
             setAudioProcessing(false);
@@ -240,7 +245,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
             isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
-            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering
+            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering, cancellingAudioRendering
         }}>
             {children}
         </AudioEditorContext.Provider>

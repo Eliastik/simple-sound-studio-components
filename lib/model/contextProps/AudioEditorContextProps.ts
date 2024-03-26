@@ -35,5 +35,6 @@ export default interface AudioEditorContextProps {
     audioTreatmentPercent: number,
     audioTreatmentEndTimeEstimated: number,
     stopAudioRendering: () => void,
-    cancelledInitialAudioRendering: boolean
+    cancelledInitialAudioRendering: boolean,
+    cancellingAudioRendering: boolean
 };

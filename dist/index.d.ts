@@ -1,6 +1,6 @@
 /// <reference types="@types/react" />
 import { FC, ReactNode } from 'react';
-import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
+import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 declare enum SettingFormTypeEnum {
@@ -114,7 +114,7 @@ interface AudioEditorContextProps {
     closeErrorLoadingAudioFile: () => void;
     errorDownloadingBufferData: boolean;
     closeErrorDownloadingBufferData: () => void;
-    downloadAudio: () => void;
+    downloadAudio: (options?: SaveBufferOptions) => Promise<void>;
     downloadingAudio: boolean;
     resetAllFiltersState: () => void;
     pauseAudioEditor: () => void;

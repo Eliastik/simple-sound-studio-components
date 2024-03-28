@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, FC, useEffect, useCallback } from "react";
-import { AudioEditor, BufferPlayer, EventType, FilterSettings, FilterState } from "@eliastik/simple-sound-studio-lib";
+import { AudioEditor, BufferPlayer, EventType, FilterSettings, FilterState, SaveBufferOptions } from "@eliastik/simple-sound-studio-lib";
 import AudioEditorContextProps from "../model/contextProps/AudioEditorContextProps";
 import ApplicationObjectsSingleton from "./ApplicationObjectsSingleton";
 import Filter from "../model/Filter";
@@ -228,9 +228,9 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const closeErrorDownloadingBufferData = () => setErrorDownloadingBufferData(false);
     const closeErrorProcessingAudio = () => setErrorProcessingAudio(false);
 
-    const downloadAudio = async () => {
+    const downloadAudio = async (options?: SaveBufferOptions) => {
         setDownloadingAudio(true);
-        await getAudioEditor().saveBuffer();
+        await getAudioEditor().saveBuffer(options);
         setDownloadingAudio(false);
     };
 

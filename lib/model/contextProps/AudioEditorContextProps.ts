@@ -1,4 +1,4 @@
-import { FilterState, FilterSettings } from "@eliastik/simple-sound-studio-lib";
+import { FilterState, FilterSettings, SaveBufferOptions } from "@eliastik/simple-sound-studio-lib";
 import Filter from "../Filter";
 
 export default interface AudioEditorContextProps {
@@ -20,7 +20,7 @@ export default interface AudioEditorContextProps {
     closeErrorLoadingAudioFile: () => void,
     errorDownloadingBufferData: boolean,
     closeErrorDownloadingBufferData: () => void,
-    downloadAudio: () => void,
+    downloadAudio: (options?: SaveBufferOptions) => Promise<void>,
     downloadingAudio: boolean,
     resetAllFiltersState: () => void,
     pauseAudioEditor: () => void,

@@ -235,17 +235,9 @@ interface FilterService {
 }
 
 declare class ApplicationObjectsSingleton {
-    private static audioEditor;
-    private static audioPlayer;
-    private static audioRecorder;
-    private static eventEmitter;
-    private static applicationConfigService;
     private static filterService;
-    private static ready;
     private constructor();
-    private static initialize;
     static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService): void;
-    static checkInstance(): void;
     static getAudioEditorInstance(): AudioEditor | null;
     static getAudioPlayerInstance(): BufferPlayer | null;
     static getAudioRecorderInstance(): VoiceRecorder | null;

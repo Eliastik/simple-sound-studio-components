@@ -1,11 +1,13 @@
+import { injectable } from "inversify";
 import Filter from "../model/Filter";
-import FilterService from "./FilterService";
 import filters from "../model/DefaultFilters";
+import FilterServiceInterface from "./interfaces/FilterServiceInterface";
 
 /**
  * A generic FilterService with the default filters
  */
-export default class GenericFilterService implements FilterService {
+@injectable()
+export default class GenericFilterService implements FilterServiceInterface {
 
     private filterMap: Map<string, Filter> = new Map();
     private onFilterUpdatedCallback: ((filters: Filter[]) => void) | null = null;

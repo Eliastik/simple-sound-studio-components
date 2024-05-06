@@ -16,11 +16,12 @@ import DaisyUIModal from "./model/DaisyUIModal";
 import AudioEditorContextProps from "./model/contextProps/AudioEditorContextProps";
 import DecodingAudioFileDialog from "./components/dialogs/DecodingAudioFileDialog";
 import ErrorLoadingAudioDialog from "./components/dialogs/ErrorLoadingAudioDialog";
-import FilterService from "./services/FilterService";
+import FilterService from "./services/interfaces/FilterServiceInterface";
 import GenericFilterService from "./services/GenericFilterService";
 import AudioEditorDialogs from "./components/AudioEditorDialogs";
 import AudioEditorNotifications from "./components/AudioEditorNotifications";
 import AudioPlayerContextProps from "./model/contextProps/AudioPlayerContextProps";
+import SoundStudioApplicationFactory from "./utils/SoundStudioApplicationFactory";
 
 export {
     type AudioEditorContextProps,
@@ -29,6 +30,7 @@ export {
     type FilterService,
     SettingFormTypeEnum,
     ApplicationObjectsSingleton,
+    SoundStudioApplicationFactory,
     FilterInfoDialog,
     FilterSettingsDialog,
     AudioEditorActionButtons,

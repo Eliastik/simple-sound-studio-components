@@ -3,9 +3,9 @@
 import { createContext, useContext, useState, ReactNode, FC, useEffect, useCallback } from "react";
 import { AudioEditor, BufferPlayer, EventType, FilterSettings, FilterState, SaveBufferOptions } from "@eliastik/simple-sound-studio-lib";
 import AudioEditorContextProps from "../model/contextProps/AudioEditorContextProps";
-import ApplicationObjectsSingleton from "./ApplicationObjectsSingleton";
 import Filter from "../model/Filter";
-import FilterService from "../services/FilterService";
+import FilterService from "../services/interfaces/FilterServiceInterface";
+import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 
 const AudioEditorContext = createContext<AudioEditorContextProps | undefined>(undefined);
 
@@ -22,15 +22,15 @@ interface AudioEditorProviderProps {
 }
 
 const getAudioEditor = (): AudioEditor => {
-    return ApplicationObjectsSingleton.getAudioEditorInstance()!;
+    return SoundStudioApplicationFactory.getAudioEditorInstance()!;
 };
 
 const getAudioPlayer = (): BufferPlayer => {
-    return ApplicationObjectsSingleton.getAudioPlayerInstance()!;
+    return SoundStudioApplicationFactory.getAudioPlayerInstance()!;
 };
 
 const getFilterService = (): FilterService | undefined => {
-    return ApplicationObjectsSingleton.getFilterServiceInstance();
+    return SoundStudioApplicationFactory.getFilterServiceInstance();
 };
 
 let isReady = false;

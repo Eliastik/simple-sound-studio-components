@@ -1,17 +1,15 @@
 import { AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter, ConfigService, SoundStudioFactory } from "@eliastik/simple-sound-studio-lib";
-import FilterService from "../services/FilterService";
-import GenericFilterService from "../services/GenericFilterService";
+import FilterService from "../services/interfaces/FilterServiceInterface";
+import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 
 export default class ApplicationObjectsSingleton {
 
-    private static filterService: FilterService | undefined = undefined;
-
-    private constructor() {}
+    private constructor() { }
 
     static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService) {
-        SoundStudioFactory.createAudioEditor(configService, buffersToFetch);
-        SoundStudioFactory.createVoiceRecorder();
-        ApplicationObjectsSingleton.filterService = filterService || new GenericFilterService();
+        console.warn("ApplicationObjectsSingleton is deprecated and will be removed soon. Please use SoundStudioComponentsFactory and its initializeApplication method instead.");
+
+        SoundStudioApplicationFactory.initializeApplication(configService, buffersToFetch, filterService);
     }
 
     static getAudioEditorInstance(): AudioEditor | null {
@@ -35,6 +33,6 @@ export default class ApplicationObjectsSingleton {
     }
 
     static getFilterServiceInstance(): FilterService | undefined {
-        return ApplicationObjectsSingleton.filterService;
+        return SoundStudioApplicationFactory.getFilterServiceInstance();
     }
 }

@@ -199,7 +199,7 @@ declare const LoadingAudioProcessingDialog: () => react_jsx_runtime.JSX.Element;
 /**
  * Implements this interface to provide your filters to the UI
  */
-interface FilterService {
+interface FilterServiceInterface {
     /**
      * Get all filters
      */
@@ -230,20 +230,26 @@ interface FilterService {
      * @param updatedFilter The partial properties to update
      */
     updateFilter(name: string, updatedFilter: Partial<Filter>): boolean;
+    /**
+     * Get all the filter names
+     */
     getFilterNames(): string[];
+    /**
+     * Listen to event occurring when a filter is updated
+     * @param callback The callback function
+     */
     onFilterUpdated(callback: (filters: Filter[]) => void): void;
 }
 
 declare class ApplicationObjectsSingleton {
-    private static filterService;
     private constructor();
-    static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService): void;
+    static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterServiceInterface): void;
     static getAudioEditorInstance(): AudioEditor | null;
     static getAudioPlayerInstance(): BufferPlayer | null;
     static getAudioRecorderInstance(): VoiceRecorder | null;
     static getEventEmitterInstance(): EventEmitter | null;
     static getConfigServiceInstance(): ConfigService | undefined;
-    static getFilterServiceInstance(): FilterService | undefined;
+    static getFilterServiceInstance(): FilterServiceInterface | undefined;
 }
 
 interface DaisyUIModal extends HTMLElement {
@@ -257,7 +263,7 @@ declare const ErrorLoadingAudioDialog: () => react_jsx_runtime.JSX.Element;
 /**
  * A generic FilterService with the default filters
  */
-declare class GenericFilterService implements FilterService {
+declare class GenericFilterService implements FilterServiceInterface {
     private filterMap;
     private onFilterUpdatedCallback;
     constructor();
@@ -276,4 +282,16 @@ declare const AudioEditorDialogs: () => react_jsx_runtime.JSX.Element;
 
 declare const AudioEditorNotifications: () => react_jsx_runtime.JSX.Element;
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, type AudioPlayerContextProps, AudioPlayerProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, SettingFormTypeEnum, useAudioEditor, useAudioPlayer };
+declare class SoundStudioApplicationFactory {
+    private static ready;
+    private constructor();
+    static initializeApplication(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterServiceInterface): void;
+    static getAudioEditorInstance(): AudioEditor | null;
+    static getAudioPlayerInstance(): BufferPlayer | null;
+    static getAudioRecorderInstance(): VoiceRecorder | null;
+    static getEventEmitterInstance(): EventEmitter | null;
+    static getConfigServiceInstance(): ConfigService | undefined;
+    static getFilterServiceInstance(): FilterServiceInterface | undefined;
+}
+
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, type AudioEditorContextProps, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, type AudioPlayerContextProps, AudioPlayerProvider, type DaisyUIModal, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, type FilterServiceInterface as FilterService, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, SettingFormTypeEnum, SoundStudioApplicationFactory, useAudioEditor, useAudioPlayer };

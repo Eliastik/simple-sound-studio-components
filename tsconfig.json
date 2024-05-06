@@ -15,6 +15,8 @@
     "isolatedModules": true,
     "jsx": "react-jsx",
     "incremental": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "paths": {
       "@/*": ["./src/*"]
     },
@@ -23,6 +25,7 @@
       "@types/node",
       "@types/react",
       "@types/react-dom",
+      "reflect-metadata"
     ]
   },
   "include": ["lib/**/*.ts", "lib/**/*.tsx"],

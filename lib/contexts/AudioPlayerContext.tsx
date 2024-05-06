@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, ReactNode, FC, useEffect } from "react";
 import { BufferPlayer, EventType } from "@eliastik/simple-sound-studio-lib";
 import AudioPlayerContextProps from "../model/contextProps/AudioPlayerContextProps";
-import ApplicationObjectsSingleton from "./ApplicationObjectsSingleton";
+import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 
 const AudioPlayerContext = createContext<AudioPlayerContextProps | undefined>(undefined);
 
@@ -20,7 +20,7 @@ interface AudioPlayerProviderProps {
 }
 
 const getAudioPlayer = (): BufferPlayer => {
-    return ApplicationObjectsSingleton.getAudioPlayerInstance()!;
+    return SoundStudioApplicationFactory.getAudioPlayerInstance()!;
 };
 
 let isReady = false;

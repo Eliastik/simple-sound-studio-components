@@ -1,9 +1,9 @@
-import Filter from "../model/Filter";
+import Filter from "../../model/Filter";
 
 /**
  * Implements this interface to provide your filters to the UI
  */
-export default interface FilterService {
+export default interface FilterServiceInterface {
 
     /**
      * Get all filters
@@ -41,8 +41,15 @@ export default interface FilterService {
      */
     updateFilter(name: string, updatedFilter: Partial<Filter>): boolean;
 
+    /**
+     * Get all the filter names
+     */
     getFilterNames(): string[];
 
+    /**
+     * Listen to event occurring when a filter is updated
+     * @param callback The callback function
+     */
     onFilterUpdated(callback: (filters: Filter[]) => void): void;
 
 }

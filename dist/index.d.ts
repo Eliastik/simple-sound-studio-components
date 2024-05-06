@@ -163,7 +163,7 @@ interface AudioPlayerProviderProps {
 declare const AudioPlayerProvider: FC<AudioPlayerProviderProps>;
 
 declare const AudioEditorActionButtons: ({ onSettingsValidated }: {
-    onSettingsValidated?: ((result: boolean) => void) | undefined;
+    onSettingsValidated?: (result: boolean) => void;
 }) => react_jsx_runtime.JSX.Element;
 
 declare const FilterButton: ({ filter }: {
@@ -174,10 +174,10 @@ declare const FilterButtonList: () => react_jsx_runtime.JSX.Element;
 
 declare const FilterSettingsForm: ({ filterId, settingsModalTitle, settingsForm, firstColumnStyle, secondColumnStyle }: {
     filterId: string;
-    settingsModalTitle?: string | undefined;
-    settingsForm?: SettingFormType[] | undefined;
-    firstColumnStyle?: string | undefined;
-    secondColumnStyle?: string | undefined;
+    settingsModalTitle?: string;
+    settingsForm?: SettingFormType[];
+    firstColumnStyle?: string;
+    secondColumnStyle?: string;
 }) => react_jsx_runtime.JSX.Element;
 
 declare const DownloadingBufferDialog: () => react_jsx_runtime.JSX.Element;

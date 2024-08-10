@@ -1,4 +1,3 @@
-/// <reference types="@types/react" />
 import { FC, ReactNode } from 'react';
 import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';

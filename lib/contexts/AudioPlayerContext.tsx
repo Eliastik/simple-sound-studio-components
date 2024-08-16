@@ -40,6 +40,8 @@ export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) 
     const [percent, setPercent] = useState(0.0);
     // State: if the audio is looping
     const [looping, setLooping] = useState(false);
+    // State: if looping all audio
+    const [loopingAll, setLoopingAll] = useState(false);
     // State: true if compatibility/direct mode is enabled for the audio player (different state from AudioPlayer possible)
     const [isCompatibilityModeEnabled, setCompatibilityModeEnabled] = useState(false);
 
@@ -95,11 +97,17 @@ export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) 
         updatePlayerState();
     };
 
+    const loopAllAudioBuffer = () => {
+        getAudioPlayer().toggleLoopAll();
+        updatePlayerState();
+    };
+
     const updatePlayerState = () => {
         setCurrentTimeDisplay(getAudioPlayer().currentTimeDisplay);
         setMaxTimeDisplay(getAudioPlayer().maxTimeDisplay);
         setPercent(getAudioPlayer().percent);
         setLooping(getAudioPlayer().loop);
+        setLoopingAll(getAudioPlayer().loopAll);
         setCurrentTime(getAudioPlayer().currentTime);
         setMaxTime(getAudioPlayer().duration);
         setCompatibilityModeEnabled(getAudioPlayer().compatibilityMode);
@@ -111,7 +119,7 @@ export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) 
         <AudioPlayerContext.Provider value={{
             playing, playAudioBuffer, pauseAudioBuffer, loopAudioBuffer, setTimePlayer, stopAudioBuffer,
             currentTimeDisplay, maxTimeDisplay, percent, looping, currentTime, maxTime, isCompatibilityModeEnabled,
-            playAudioBufferDirect
+            playAudioBufferDirect, loopAllAudioBuffer, loopingAll
         }}>
             {children}
         </AudioPlayerContext.Provider>

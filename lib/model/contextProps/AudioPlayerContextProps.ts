@@ -10,7 +10,9 @@ export default interface AudioPlayerContextProps {
     maxTimeDisplay: string,
     percent: number,
     looping: boolean,
+    loopingAll: boolean,
     currentTime: number,
     maxTime: number,
-    playAudioBufferDirect: () => void
+    playAudioBufferDirect: () => void,
+    loopAllAudioBuffer: () => void
 };

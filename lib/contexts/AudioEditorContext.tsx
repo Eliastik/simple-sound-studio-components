@@ -262,26 +262,9 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
     const stopAudioRendering = () => getAudioEditor().cancelAudioRendering();
 
-    const loadPreviousAudio = async () => {
-        const currentIndex = getAudioEditor().currentIndexFileList;
-        const newIndex = Math.max(currentIndex - 1, 0);
+    const loadPreviousAudio = () => getAudioEditor().loadPreviousAudio();
 
-        if (newIndex != currentIndex) {
-            await getAudioEditor().loadBufferFromFileListIndex(newIndex);
-            await processAudio();
-        }
-    };
-
-    const loadNextAudio = async () => {
-        const currentIndex = getAudioEditor().currentIndexFileList;
-        const maxIndex = getAudioEditor().totalFilesList;
-        const newIndex = Math.min(currentIndex + 1, maxIndex);
-
-        if (newIndex != currentIndex) {
-            await getAudioEditor().loadBufferFromFileListIndex(newIndex);
-            await processAudio();
-        }
-    };
+    const loadNextAudio = () => getAudioEditor().loadNextAudio();
 
     return (
         <AudioEditorContext.Provider value={{

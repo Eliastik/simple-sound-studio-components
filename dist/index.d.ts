@@ -154,9 +154,11 @@ interface AudioPlayerContextProps {
     maxTimeDisplay: string;
     percent: number;
     looping: boolean;
+    loopingAll: boolean;
     currentTime: number;
     maxTime: number;
     playAudioBufferDirect: () => void;
+    loopAllAudioBuffer: () => void;
 }
 
 declare const useAudioPlayer: () => AudioPlayerContextProps;

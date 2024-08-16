@@ -80,6 +80,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [cancelledInitialAudioRendering, setCancelledInitialAudioRendering] = useState(false);
     // State: if cancelling audio rendering
     const [cancellingAudioRendering, setCancellingAudioRendering] = useState(false);
+    // State: number of audio files loaded
+    const [audioFilesCount, setAudioFilesCount] = useState(0);
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -110,6 +112,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         try {
             if (fileList) {
                 await getAudioEditor().loadFileList(fileList);
+                setAudioFilesCount(getAudioEditor().totalFilesList);
             } else {
                 throw new Error("No audio file or audio buffer!");
             }
@@ -261,19 +264,23 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
     const loadPreviousAudio = async () => {
         const currentIndex = getAudioEditor().currentIndexFileList;
-        console.log(currentIndex, Math.max(currentIndex + 1, 0));
+        const newIndex = Math.max(currentIndex - 1, 0);
 
-        await getAudioEditor().loadBufferFromFileListIndex(Math.max(currentIndex - 1, 0));
-        await processAudio();
+        if (newIndex != currentIndex) {
+            await getAudioEditor().loadBufferFromFileListIndex(newIndex);
+            await processAudio();
+        }
     };
 
     const loadNextAudio = async () => {
         const currentIndex = getAudioEditor().currentIndexFileList;
         const maxIndex = getAudioEditor().totalFilesList;
-        console.log(currentIndex, maxIndex, Math.min(currentIndex + 1, maxIndex));
+        const newIndex = Math.min(currentIndex + 1, maxIndex);
 
-        await getAudioEditor().loadBufferFromFileListIndex(Math.min(currentIndex + 1, maxIndex));
-        await processAudio();
+        if (newIndex != currentIndex) {
+            await getAudioEditor().loadBufferFromFileListIndex(newIndex);
+            await processAudio();
+        }
     };
 
     return (
@@ -284,7 +291,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
             isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
             audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering, cancellingAudioRendering,
-            loadAudioFileList, loadPreviousAudio, loadNextAudio
+            loadAudioFileList, loadPreviousAudio, loadNextAudio, audioFilesCount
         }}>
             {children}
         </AudioEditorContext.Provider>

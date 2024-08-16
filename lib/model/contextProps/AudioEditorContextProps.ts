@@ -39,5 +39,6 @@ export default interface AudioEditorContextProps {
     cancelledInitialAudioRendering: boolean,
     cancellingAudioRendering: boolean,
     loadPreviousAudio: () => Promise<void>,
-    loadNextAudio: () => Promise<void>
+    loadNextAudio: () => Promise<void>,
+    audioFilesCount: number
 };

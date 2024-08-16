@@ -133,6 +133,7 @@ interface AudioEditorContextProps {
     cancellingAudioRendering: boolean;
     loadPreviousAudio: () => Promise<void>;
     loadNextAudio: () => Promise<void>;
+    audioFilesCount: number;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;

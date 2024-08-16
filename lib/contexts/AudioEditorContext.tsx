@@ -104,6 +104,27 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         }
     }, []);
 
+    const loadAudioFileList = useCallback(async (fileList: FileList | null) => {
+        setLoadingPrincipalBuffer(true);
+
+        try {
+            if (fileList) {
+                await getAudioEditor().loadFileList(fileList);
+            } else {
+                throw new Error("No audio file or audio buffer!");
+            }
+
+            setLoadingPrincipalBuffer(false);
+            setAudioEditorReady(true);
+
+            await processAudio();
+        } catch (e) {
+            console.error(e);
+            setLoadingPrincipalBuffer(false);
+            setErrorLoadingAudioFile(true);
+        }
+    }, []);
+
     useEffect(() => {
         if (isReady) {
             return;
@@ -238,6 +259,23 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
     const stopAudioRendering = () => getAudioEditor().cancelAudioRendering();
 
+    const loadPreviousAudio = async () => {
+        const currentIndex = getAudioEditor().currentIndexFileList;
+        console.log(currentIndex, Math.max(currentIndex + 1, 0));
+
+        await getAudioEditor().loadBufferFromFileListIndex(Math.max(currentIndex - 1, 0));
+        await processAudio();
+    };
+
+    const loadNextAudio = async () => {
+        const currentIndex = getAudioEditor().currentIndexFileList;
+        const maxIndex = getAudioEditor().totalFilesList;
+        console.log(currentIndex, maxIndex, Math.min(currentIndex + 1, maxIndex));
+
+        await getAudioEditor().loadBufferFromFileListIndex(Math.min(currentIndex + 1, maxIndex));
+        await processAudio();
+    };
+
     return (
         <AudioEditorContext.Provider value={{
             loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterDefinitions, filterState, validateSettings,
@@ -245,7 +283,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             closeErrorLoadingAudioFile, errorDownloadingBufferData, closeErrorDownloadingBufferData, downloadAudio, downloadingAudio, resetAllFiltersState,
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
             isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
-            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering, cancellingAudioRendering
+            audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering, cancellingAudioRendering,
+            loadAudioFileList, loadPreviousAudio, loadNextAudio
         }}>
             {children}
         </AudioEditorContext.Provider>

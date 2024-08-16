@@ -95,7 +95,8 @@ interface Filter {
 }
 
 interface AudioEditorContextProps {
-    loadAudioPrincipalBuffer: (buffer: File) => void;
+    loadAudioPrincipalBuffer: (file: File | null, audioBuffer?: AudioBuffer) => Promise<void>;
+    loadAudioFileList: (fileList: FileList | null) => Promise<void>;
     audioEditorReady: boolean;
     loadingPrincipalBuffer: boolean;
     audioProcessing: boolean;
@@ -130,6 +131,8 @@ interface AudioEditorContextProps {
     stopAudioRendering: () => void;
     cancelledInitialAudioRendering: boolean;
     cancellingAudioRendering: boolean;
+    loadPreviousAudio: () => Promise<void>;
+    loadNextAudio: () => Promise<void>;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;

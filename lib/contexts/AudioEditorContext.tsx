@@ -189,6 +189,22 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             }, 20000);
         });
 
+        getAudioEditor().on(EventType.STARTED_RENDERING_AUDIO, () => {
+            setErrorProcessingAudio(false);
+            setCancellingAudioRendering(false);
+            setAudioProcessing(true);
+        });
+
+        getAudioEditor().on(EventType.AUDIO_RENDERING_FINISHED, () => {
+            setAudioProcessing(false);
+        });
+
+        getAudioEditor().on(EventType.AUDIO_RENDERING_EXCEPTION_THROWN, e => {
+            console.error(e);
+            setAudioProcessing(false);
+            setErrorProcessingAudio(true);
+        });
+
         getAudioEditor().on(EventType.CANCELLING_AUDIO_PROCESSING, () => setCancellingAudioRendering(true));
 
         setDownloadingInitialData(getAudioEditor().downloadingInitialData);
@@ -208,25 +224,9 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         setFilterState(getAudioEditor().getFiltersState());
     };
 
-    const processAudio = async () => {
-        let result = false;
+    const processAudio = async () => await getAudioEditor().renderAudio();
 
-        try {
-            setErrorProcessingAudio(false);
-            setCancellingAudioRendering(false);
-            setAudioProcessing(true);
-            result = await getAudioEditor().renderAudio();
-            setAudioProcessing(false);
-        } catch (e) {
-            console.error(e);
-            setAudioProcessing(false);
-            setErrorProcessingAudio(true);
-        }
-
-        return result;
-    };
-
-    const validateSettings = async () => processAudio();
+    const validateSettings = async () => await processAudio();
 
     const exitAudioEditor = () => {
         getAudioEditor().exit();

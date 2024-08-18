@@ -40,5 +40,7 @@ export default interface AudioEditorContextProps {
     cancellingAudioRendering: boolean,
     loadPreviousAudio: () => Promise<void>,
     loadNextAudio: () => Promise<void>,
-    audioFilesCount: number
+    audioFilesCount: number,
+    currentFileList: Map<string, boolean>,
+    loadAudioFromFileListIndex: (index: number) => Promise<void>
 };

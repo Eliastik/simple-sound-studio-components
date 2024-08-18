@@ -134,6 +134,8 @@ interface AudioEditorContextProps {
     loadPreviousAudio: () => Promise<void>;
     loadNextAudio: () => Promise<void>;
     audioFilesCount: number;
+    currentFileList: Map<string, boolean>;
+    loadAudioFromFileListIndex: (index: number) => Promise<void>;
 }
 
 declare const useAudioEditor: () => AudioEditorContextProps;
@@ -259,6 +261,7 @@ declare class ApplicationObjectsSingleton {
 
 interface DaisyUIModal extends HTMLElement {
     showModal: () => void;
+    close: () => void;
 }
 
 declare const DecodingAudioFileDialog: () => react_jsx_runtime.JSX.Element;

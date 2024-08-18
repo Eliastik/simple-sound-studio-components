@@ -1,3 +1,4 @@
 export default interface DaisyUIModal extends HTMLElement {
-    showModal: () => void
+    showModal: () => void,
+    close: () => void
 };

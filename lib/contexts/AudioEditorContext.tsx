@@ -82,6 +82,8 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
     const [cancellingAudioRendering, setCancellingAudioRendering] = useState(false);
     // State: number of audio files loaded
     const [audioFilesCount, setAudioFilesCount] = useState(0);
+    // State: current list of audio file loaded
+    const [currentFileList, setCurrentFileList] = useState<Map<string, boolean>>(new Map());
 
     const loadAudioPrincipalBuffer = useCallback(async (file: File | null, audioBuffer?: AudioBuffer) => {
         setLoadingPrincipalBuffer(true);
@@ -112,7 +114,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         try {
             if (fileList) {
                 await getAudioEditor().loadFileList(fileList);
-                setAudioFilesCount(getAudioEditor().totalFilesList);
+                setAudioFilesCount(getAudioEditor().totalFileList);
             } else {
                 throw new Error("No audio file or audio buffer!");
             }
@@ -141,6 +143,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
         getAudioEditor().on(EventType.ERROR_DECODING_AUDIO_FILE, () => setErrorLoadingAudioFile(true));
         getAudioEditor().on(EventType.UPDATE_AUDIO_TREATMENT_PERCENT, (percent) => setAudioTreatmentPercent(percent as number));
         getAudioEditor().on(EventType.UPDATE_REMAINING_TIME_ESTIMATED, (timeRemaining) => setAudioTreatmenEndTimeEstimated(timeRemaining as number));
+        getAudioEditor().on(EventType.LOADED_AUDIO_FILE_FROM_LIST, () => setCurrentFileList(getAudioEditor().getCurrentFileList()));
 
         getAudioEditor().on(EventType.LOADED_BUFFERS, () => {
             setDownloadingInitialData(false);
@@ -266,6 +269,11 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
 
     const loadNextAudio = () => getAudioEditor().loadNextAudio();
 
+    const loadAudioFromFileListIndex = async (index: number) => {
+        await getAudioEditor().loadBufferFromFileListIndex(index);
+        await getAudioEditor().renderAudio();
+    };
+
     return (
         <AudioEditorContext.Provider value={{
             loadAudioPrincipalBuffer, audioEditorReady, loadingPrincipalBuffer, audioProcessing, toggleFilter, filterDefinitions, filterState, validateSettings,
@@ -274,7 +282,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             pauseAudioEditor, errorProcessingAudio, closeErrorProcessingAudio, actualSampleRate, defaultDeviceSampleRate, audioWorkletAvailable, decodingAudioBuffer,
             isCompatibilityModeAutoEnabled, hasProblemRenderingAudio,
             audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancelledInitialAudioRendering, cancellingAudioRendering,
-            loadAudioFileList, loadPreviousAudio, loadNextAudio, audioFilesCount
+            loadAudioFileList, loadPreviousAudio, loadNextAudio, audioFilesCount, currentFileList, loadAudioFromFileListIndex
         }}>
             {children}
         </AudioEditorContext.Provider>

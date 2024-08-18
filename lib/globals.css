@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-.btn:not(.btn-ghost) {
+.btn:not(.btn-ghost):not(.btn-no-uppercase) {
     @apply uppercase;
 }
 

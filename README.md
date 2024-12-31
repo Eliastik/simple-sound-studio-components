@@ -49,8 +49,8 @@ Example: see [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/lay
 
 You also need to expose the worklet and worker files provided by the simple-sound-studio-lib library at the root of your web application:
 
-- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/workers](Workers files here)
-- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/worklets](Worklets files here)
+- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/workers](Workers) files
+- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/worklets](Worklets) files
 
 If you do not expose the files, the library will try to function as best as it can, but some features will fail:
 

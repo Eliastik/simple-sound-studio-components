@@ -36,38 +36,46 @@ You can refer to my projects [Simple Voice Changer](https://github.com/Eliastik/
 
 #### Import and use providers, initialize library
 
-To use the library, you will need to use the AudioPlayerProvider and AudioEditorProvider providers.
+To use the library, you need to wrap your application with the following providers:
 
-You will also need to call also the initialization method:
+- `AudioPlayerProvider`
+- `AudioEditorProvider`
+
+You will also need to call the initialization method:
 
 `SoundStudioApplicationFactory.initializeApplication()`
 
-Example: [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx)
+Example: see [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](layoutChild.tsx) in the Memes Soundbox project.
 
 #### Using the components provided by the library
 
-You can use the component `FilterButtonList` to display the filters buttons, so the user can edit the filters settings and enable/disable filters.
+The library offers ready-to-use components to simplify integration:
 
-You can also use the compoennt `AudioEditorActionButtons` to display the "Validate settings" and "Reset" buttons.
+- `FilterButtonList`: Displays buttons for managing filters (enable/disable and settings).
+- `AudioEditorActionButtons`: Includes buttons like "Validate settings" and "Reset".
+- `AudioEditorNotifications`: Handles various notifications.
+- `AudioEditorDialogs`: Manages audio processing dialogs.
 
-Example: [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx)
+Examples:
 
-You can also display the compoennts `AudioEditorNotifications` and `AudioEditorDialogs` to display various notifications and dialogs (audio processing dialogs for example).
+- [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx](SoundboxAudioEditor.tsx) and [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxMain.tsx](SoundboxMain.tsx) in the Memes Soundbox project
 
-Example: [https://github.com/Eliastik/memes-soundbox/blob/6a35f8df80a7e49f2b8203b70bb0d57bde8a8575/src/app/components/soundbox/SoundboxMain.tsx](https://github.com/Eliastik/memes-soundbox/blob/6a35f8df80a7e49f2b8203b70bb0d57bde8a8575/src/app/components/soundbox/SoundboxMain.tsx)
+#### Using hooks for audio features
 
-#### Use the hooks to use the audio editor features
+The library provides React hooks for accessing audio features directly:
 
-You can then use the React hooks `useAudioEditor` and `useAudioPlayer` to use the features provided by the library.
+- `useAudioEditor`: For audio editing capabilities.
+- `useAudioPlayer`: For audio playback functionality.
 
 You can see an example here: [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx)
 
-The most important methods are :
+The most important methods are:
 
 - `loadAudioPrincipalBuffer`: loads an audio file
 - `downloadAudio`: downloads a modified audio file
 - `changeFilterSettings`: modify filter settings
 - `playAudioBuffer`: play audio
+- `stopAudioBuffer`: pause/stop audio
 
 ## Français
 
@@ -100,37 +108,43 @@ Le projet a la structure de répertoire suivante :
 
 Vous pouvez vous référer à mes projets [Simple Voice Changer](https://github.com/Eliastik/simple-voice-changer) et [Memes Soundbox](https://github.com/Eliastik/memes-soundbox) pour voir comment intégrer cette bibliothèque.
 
-#### Importer et utiliser les fournisseurs, initialiser la bibliothèque
+#### Importer et utiliser les providers React, initialiser la bibliothèque
 
-Pour utiliser la bibliothèque, vous devrez utiliser les providers AudioPlayerProvider et AudioEditorProvider.
+Pour utiliser la bibliothèque, vous devez envelopper votre application avec les providers suivants :
+
+- `AudioPlayerProvider`
+- `AudioEditorProvider`
 
 Vous devrez également appeler la méthode d'initialisation :
 
 `SoundStudioApplicationFactory.initializeApplication()`
 
-Exemple : [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx)
+Exemple : voir [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](layoutChild.tsx) dans le projet Memes Soundbox.
 
-#### Utilisation des composants fournis par la bibliothèque
+#### Utiliser les composants fournis par la bibliothèque
 
-Vous pouvez utiliser le composant `FilterButtonList` pour afficher les boutons des filtres, afin que l'utilisateur puisse modifier les paramètres des filtres et activer/désactiver les filtres.
+La bibliothèque propose des composants prêts à l'emploi pour simplifier l'intégration :
 
-Vous pouvez également utiliser le composant `AudioEditorActionButtons` pour afficher les boutons « Valider les paramètres » et « Réinitialiser ».
+- `FilterButtonList` : Affiche les boutons de gestion des filtres (activation/désactivation et réglages).
+- `AudioEditorActionButtons` : Inclut des boutons comme « Valider les paramètres » et « Réinitialiser ».
+- `AudioEditorNotifications` : Gère diverses notifications.
+- `AudioEditorDialogs` : Gère les dialogues de traitement audio.
 
-Exemple : [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx)
+Exemples :
 
-Vous pouvez également utiliser les composants `AudioEditorNotifications` et `AudioEditorDialogs` pour afficher diverses notifications et dialogues (dialogues de traitement audio par exemple).
+- [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx](SoundboxAudioEditor.tsx) et [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxMain.tsx](SoundboxMain.tsx) dans le projet Memes Soundbox.
 
-Exemple : [https://github.com/Eliastik/memes-soundbox/blob/6a35f8df80a7e49f2b8203b70bb0d57bde8a8575/src/app/components/soundbox/SoundboxMain.tsx](https://github.com/Eliastik/memes-soundbox/blob/6a35f8df80a7e49f2b8203b70bb0d57bde8a8575/src/app/components/soundbox/SoundboxMain.tsx)
+#### Utilisation de hooks React pour les fonctions audio
 
-#### Utiliser les hooks pour utiliser les fonctionnalités de l'éditeur audio
+La bibliothèque fournit des hooks React pour accéder directement aux fonctionnalités audio :
 
-Vous pouvez ensuite utiliser les hooks React `useAudioEditor` et `useAudioPlayer` pour utiliser les fonctionnalités fournies par la bibliothèque.
+- `useAudioEditor` : Pour les capacités d'édition audio.
+- `useAudioPlayer` : Pour les fonctionnalités de lecture audio.
 
-Vous pouvez voir un exemple ici : [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx)
+Les méthodes les plus importantes sont les suivantes :
 
-Les méthodes les plus importantes sont :
-
-- `loadAudioPrincipalBuffer` : permet de charger un fichier audio
-- `downloadAudio` : permet de télécharger un audio modifié
-- `changeFilterSettings` : permet de modifier les paramètres d'un filtre
-- `playAudioBuffer` : lire l'audio
+- `loadAudioPrincipalBuffer` : charge un fichier audio
+- `downloadAudio` : télécharge un fichier audio modifié
+- `changeFilterSettings` : modifie les paramètres du filtre
+- `playAudioBuffer` : joue l'audio
+- `stopAudioBuffer` : met en pause/arrête l'audio

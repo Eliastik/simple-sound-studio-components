@@ -65,9 +65,9 @@ You can see an example here: [https://github.com/Eliastik/memes-soundbox/blob/ma
 The most important methods are :
 
 - `loadAudioPrincipalBuffer`: loads an audio file
-- downloadAudio`: downloads a modified audio file
-- changeFilterSettings`: modify filter settings
-- playAudioBuffer: play audio
+- `downloadAudio`: downloads a modified audio file
+- `changeFilterSettings`: modify filter settings
+- `playAudioBuffer`: play audio
 
 ## Français
 

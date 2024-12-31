@@ -34,7 +34,7 @@ The project has the following directory structure:
 
 You can refer to my projects [Simple Voice Changer](https://github.com/Eliastik/simple-voice-changer) and [Memes Soundbox](https://github.com/Eliastik/memes-soundbox) to see how to integrate this library.
 
-#### Import and use providers, initialize library
+#### Import and use providers, initialize library, expose workers/worklets
 
 To use the library, you need to wrap your application with the following providers:
 
@@ -46,6 +46,16 @@ You will also need to call the initialization method:
 `SoundStudioApplicationFactory.initializeApplication()`
 
 Example: see [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](layoutChild.tsx) in the Memes Soundbox project.
+
+You also need to expose the worklet and worker files provided by the simple-sound-studio-lib library at the root of your web application:
+
+- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/workers](Workers files here)
+- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/worklets](Worklets files here)
+
+If you do not expose the files, the library will try to function as best as it can, but some features will fail:
+
+- If worker files are not correctly exposed: the export-to-audio-file feature will not work
+- If worklet files are not correctly exposed: the library will fallback to ScriptProcessorNode for certain filters. This implementation offers lower performance and quality but remains acceptable as a fallback
 
 #### Using the components provided by the library
 

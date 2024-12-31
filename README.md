@@ -114,7 +114,7 @@ Vous devez également exposer les fichiers worklet et worker fournis par la bibl
 
 Si vous n'exposez pas les fichiers, la bibliothèque essaiera de fonctionner au mieux, mais certaines fonctionnalités échoueront :
 
-- Si les fichiers worker ne sont pas correctement exposés : la fonction export-to-audio-file ne fonctionnera pas.
+- Si les fichiers worker ne sont pas correctement exposés : la fonction d'export audio ne fonctionnera pas.
 - Si les fichiers des worklets ne sont pas correctement exposés : la bibliothèque se rabattra sur ScriptProcessorNode pour certains filtres. Cette implémentation offre des performances et une qualité moindres, mais reste acceptable en tant que solution de repli.
 
 ### Structure du projet

@@ -45,12 +45,12 @@ You will also need to call the initialization method:
 
 `SoundStudioApplicationFactory.initializeApplication()`
 
-Example: see [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](layoutChild.tsx) in the Memes Soundbox project.
+Example: see [layoutChild.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx) in the Memes Soundbox project.
 
 You also need to expose the worklet and worker files provided by the simple-sound-studio-lib library at the root of your web application:
 
-- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/workers](Workers) files
-- [https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/worklets](Worklets) files
+- [Workers files here](https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/workers)
+- [Worklets files here](https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/worklets)
 
 If you do not expose the files, the library will try to function as best as it can, but some features will fail:
 
@@ -68,7 +68,7 @@ The library offers ready-to-use components to simplify integration:
 
 Examples:
 
-- [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx](SoundboxAudioEditor.tsx) and [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxMain.tsx](SoundboxMain.tsx) in the Memes Soundbox project
+- [SoundboxAudioEditor.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx) and [SoundboxMain.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxMain.tsx) of the Memes Soundbox project
 
 #### Using hooks for audio features
 
@@ -77,7 +77,7 @@ The library provides React hooks for accessing audio features directly:
 - `useAudioEditor`: For audio editing capabilities.
 - `useAudioPlayer`: For audio playback functionality.
 
-You can see an example here: [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx)
+You can see an example here: [SoundboxContext.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/context/SoundboxContext.tsx) of the Memes Soundbox project
 
 The most important methods are:
 
@@ -107,6 +107,16 @@ Vous devrez également installer `simple-sound-studio-lib` car il s'agit d'une p
 
 Les types TypeScript sont directement fournis par le paquet.
 
+Vous devez également exposer les fichiers worklet et worker fournis par la bibliothèque simple-sound-studio-lib à la racine de votre application web :
+
+- [Fichiers Workers](https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/workers)
+- [Fichiers Worklets](https://github.com/Eliastik/simple-sound-studio-lib/tree/master/dist/worklets)
+
+Si vous n'exposez pas les fichiers, la bibliothèque essaiera de fonctionner au mieux, mais certaines fonctionnalités échoueront :
+
+- Si les fichiers worker ne sont pas correctement exposés : la fonction export-to-audio-file ne fonctionnera pas.
+- Si les fichiers des worklets ne sont pas correctement exposés : la bibliothèque se rabattra sur ScriptProcessorNode pour certains filtres. Cette implémentation offre des performances et une qualité moindres, mais reste acceptable en tant que solution de repli.
+
 ### Structure du projet
 
 Le projet a la structure de répertoire suivante :
@@ -129,7 +139,7 @@ Vous devrez également appeler la méthode d'initialisation :
 
 `SoundStudioApplicationFactory.initializeApplication()`
 
-Exemple : voir [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx](layoutChild.tsx) dans le projet Memes Soundbox.
+Exemple : voir [layoutChild.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/layoutChild.tsx) dans le projet Memes Soundbox.
 
 #### Utiliser les composants fournis par la bibliothèque
 
@@ -142,7 +152,7 @@ La bibliothèque propose des composants prêts à l'emploi pour simplifier l'int
 
 Exemples :
 
-- [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx](SoundboxAudioEditor.tsx) et [https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxMain.tsx](SoundboxMain.tsx) dans le projet Memes Soundbox.
+- [SoundboxAudioEditor.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxAudioEditor.tsx) et [SoundboxMain.tsx](https://github.com/Eliastik/memes-soundbox/blob/master/src/app/components/soundbox/SoundboxMain.tsx) dans le projet Memes Soundbox.
 
 #### Utilisation de hooks React pour les fonctions audio
 

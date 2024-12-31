@@ -18,6 +18,8 @@ const getStringFromTemplate = (data: FilterSettings | null | undefined, str?: st
                 return template(data);
             }
         } catch(e) {
+            console.error(e);
+
             return "";
         }
     }

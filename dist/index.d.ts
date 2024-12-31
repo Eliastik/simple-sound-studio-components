@@ -20,7 +20,7 @@ interface SettingForm {
     settingType: SettingFormTypeEnum;
     defaultValue?: string;
     cssClass?: string;
-    startIcon?: JSX.Element;
+    startIcon?: React.JSX.Element;
     displayCondition?: (filterSettings: FilterSettings) => boolean;
 }
 
@@ -84,7 +84,7 @@ type SettingFormType = (SettingFormDynamicLabel | SettingFormDynamicLink | Setti
 interface Filter {
     filterId: string;
     filterName: string;
-    filterIcon: JSX.Element;
+    filterIcon: React.JSX.Element;
     hasSettings: boolean;
     info: string;
     settingsForm?: SettingFormType[];

@@ -7,6 +7,6 @@ export default interface SettingForm {
     settingType: SettingFormTypeEnum,
     defaultValue?: string,
     cssClass?: string
-    startIcon?: JSX.Element,
+    startIcon?: React.JSX.Element,
     displayCondition?: (filterSettings: FilterSettings) => boolean
 };

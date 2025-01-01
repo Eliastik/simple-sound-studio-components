@@ -2,12 +2,15 @@ import { AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter, ConfigService, 
 import FilterService from "../services/interfaces/FilterServiceInterface";
 import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 
+/**
+ * @deprecated
+ */
 export default class ApplicationObjectsSingleton {
 
     private constructor() { }
 
     static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterService) {
-        console.warn("ApplicationObjectsSingleton is deprecated and will be removed soon. Please use SoundStudioComponentsFactory and its initializeApplication method instead.");
+        console.warn("[DEPRECATED] ApplicationObjectsSingleton is deprecated and will be removed soon. Please use SoundStudioComponentsFactory and its initializeApplication method instead.");
 
         SoundStudioApplicationFactory.initializeApplication(configService, buffersToFetch, filterService);
     }

@@ -248,6 +248,9 @@ interface FilterServiceInterface {
     onFilterUpdated(callback: (filters: Filter[]) => void): void;
 }
 
+/**
+ * @deprecated
+ */
 declare class ApplicationObjectsSingleton {
     private constructor();
     static initializeApplicationObjects(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterServiceInterface): void;
@@ -292,6 +295,11 @@ declare const AudioEditorNotifications: () => react_jsx_runtime.JSX.Element;
 
 declare class SoundStudioApplicationFactory {
     private static ready;
+    private static audioEditor;
+    private static audioPlayer;
+    private static configService;
+    private static eventEmitter;
+    private static voiceRecorder;
     private constructor();
     static initializeApplication(configService?: ConfigService, buffersToFetch?: string[], filterService?: FilterServiceInterface): void;
     static getAudioEditorInstance(): AudioEditor | null;

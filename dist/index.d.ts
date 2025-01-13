@@ -161,6 +161,8 @@ interface AudioPlayerContextProps {
     maxTime: number;
     playAudioBufferDirect: () => void;
     loopAllAudioBuffer: () => void;
+    setVolume: (value: number) => void;
+    audioVolume: number;
 }
 
 declare const useAudioPlayer: () => AudioPlayerContextProps;

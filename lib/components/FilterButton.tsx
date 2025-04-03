@@ -30,9 +30,10 @@ const FilterButton = ({
 
     return (
         <>
-            <div className="join join-vertical lg:w-36 lg:max-w-36 md:max-w-32 md:w-32 max-w-28 break-words tooltip overflow-visible" data-tip={filterDisabledReason ? t(filterDisabledReason) : null}>
+            <div className={`join join-vertical lg:w-36 lg:max-w-36 md:max-w-32 md:w-32 max-w-28 break-words overflow-visible ${filterDisabledReason ? "tooltip" : ""}`}
+                {...(filterDisabledReason ? { "data-tip": t(filterDisabledReason) } : {})}>
                 <button
-                    className={`btn flex-col justify-evenly w-full lg:h-36 md:h-32 h-24 rounded-b-none border-0 lg:pl-3 lg:pr-3 md:pl-1 md:pr-1 pl-0 pr-0 md:text-sm md:leading-none text-filters ${enabled ? "btn-secondary" : ""}`}
+                    className={`btn flex-col justify-evenly w-full lg:h-36 md:h-32 h-24 rounded-lg rounded-b-none border-0 lg:pl-3 lg:pr-3 md:pl-1 md:pr-1 pl-0 pr-0 md:text-sm md:leading-none text-filters ${enabled ? "btn-secondary" : ""}`}
                     onClick={() => toggleFilter(filter.filterId)}
                     disabled={filterDisabled}
                 >
@@ -44,7 +45,7 @@ const FilterButton = ({
                 <div className="flex join">
                     {filter.hasSettings &&
                         <button
-                            className={`btn flex-grow p-0 flex-col border-l-0 border-b-0 lg:h-12 h-10 min-h-0 border-t-1 rounded-t-none rounded-br-none ${enabled ? "btn-secondary border-t-primary border-r-primary hover:border-t-primary hover:border-r-primary" : "border-t-base-300 border-r-base-300 hover:border-t-base-300 hover:border-r-base-300"}`}
+                            className={`btn grow p-0 flex-col border-l-0 border-b-0 lg:h-12 h-10 min-h-0 border-t-1 rounded-lg rounded-t-none rounded-br-none ${enabled ? "btn-secondary border-t-primary border-r-primary hover:border-t-primary hover:border-r-primary" : "border-t-base-300 border-r-base-300 hover:border-t-base-300 hover:border-r-base-300"}`}
                             onClick={() => filter.settingsForm && (document.getElementById(`modalSettings_${filter.filterId}`) as DaisyUIModal).showModal()}
                         >
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
@@ -54,7 +55,7 @@ const FilterButton = ({
                         </button>
                     }
                     <button
-                        className={`btn flex-grow p-0 flex-col lg:h-12 h-10 min-h-0 border-b-0 border-r-0 border-t-1 rounded-t-none ${enabled ? "btn-secondary border-t-primary border-l-primary hover:border-t-primary hover:border-l-primary" : "border-t-base-300 border-l-base-300 hover:border-t-base-300 hover:border-l-base-300"} ${filter.hasSettings ? "rounded-bl-none" : "border-l-0"}`}
+                        className={`btn grow p-0 flex-col lg:h-12 h-10 min-h-0 border-b-0 border-r-0 border-t-1 rounded-lg rounded-t-none ${enabled ? "btn-secondary border-t-primary border-l-primary hover:border-t-primary hover:border-l-primary" : "border-t-base-300 border-l-base-300 hover:border-t-base-300 hover:border-l-base-300"} ${filter.hasSettings ? "rounded-bl-none" : "border-l-0"}`}
                         onClick={() => (document.getElementById(`modalInfos_${filter.filterId}`) as DaisyUIModal).showModal()}
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">

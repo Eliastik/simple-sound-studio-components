@@ -33,7 +33,7 @@ const FilterButton = ({
             <div className={`join join-vertical lg:w-36 lg:max-w-36 md:max-w-32 md:w-32 max-w-28 break-words overflow-visible ${filterDisabledReason ? "tooltip" : ""}`}
                 {...(filterDisabledReason ? { "data-tip": t(filterDisabledReason) } : {})}>
                 <button
-                    className={`btn flex-col justify-evenly w-full lg:h-36 md:h-32 h-24 rounded-lg rounded-b-none border-0 lg:pl-3 lg:pr-3 md:pl-1 md:pr-1 pl-0 pr-0 md:text-sm md:leading-none text-filters ${enabled ? "btn-secondary" : ""}`}
+                    className={`btn flex-col justify-evenly w-full lg:h-36 md:h-32 h-24 rounded-lg rounded-b-none border-0 lg:pl-3 lg:pr-3 md:pl-1 md:pr-1 pl-0 pr-0 md:text-sm leading-none text-filters ${enabled ? "btn-secondary" : ""}`}
                     onClick={() => toggleFilter(filter.filterId)}
                     disabled={filterDisabled}
                 >

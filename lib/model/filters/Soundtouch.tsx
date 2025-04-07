@@ -36,6 +36,17 @@ export const Soundtouch: Filter = {
             maxValueLabel: "filters.soundtouch.settings.audioFrequencyMaxLabel",
             displayCurrentValue: true,
             step: 0.01
+        },
+        {
+            settingId: "pitchSemitones",
+            settingTitle: "filters.soundtouch.settings.pitchSemitones",
+            settingType: SettingFormTypeEnum.Range,
+            minValue: -24,
+            maxValue: 24,
+            minValueLabel: "",
+            maxValueLabel: "",
+            displayCurrentValue: true,
+            step: 1
         }
     ]
 };

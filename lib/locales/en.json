@@ -51,6 +51,7 @@
                     "label": "Here you can set audio speed and frequency (high/low).",
                     "speedAudio": "Audio speed:",
                     "audioFrequency": "Audio frequency:",
+                    "pitchSemitones": "Key:",
                     "speedAudioMinLabel": "Slow",
                     "speedAudioMaxLabel": "Fast",
                     "audioFrequencyMinLabel": "Low",

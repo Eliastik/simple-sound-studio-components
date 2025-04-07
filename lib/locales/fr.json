@@ -51,6 +51,7 @@
                     "label": "Vous pouvez régler ici la vitesse de l'audio ainsi que sa fréquence (aigu/grave).",
                     "speedAudio": "Vitesse de l'audio :",
                     "audioFrequency": "Fréquence de l'audio :",
+                    "pitchSemitones": "Note :",
                     "speedAudioMinLabel": "Lent",
                     "speedAudioMaxLabel": "Rapide",
                     "audioFrequencyMinLabel": "Grave",

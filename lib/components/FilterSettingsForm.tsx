@@ -1,39 +1,19 @@
-"use client";
-
-import { useEffect, useState } from "react";
-import { FilterSettingValue, FilterSettings, SelectFormValue } from "@eliastik/simple-sound-studio-lib";
 import _ from "lodash";
+import { useEffect, useState } from "react";
+import { FilterSettings } from "@eliastik/simple-sound-studio-lib";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
 import { useTranslation } from "react-i18next";
 import { SettingFormType } from "../model/settingForm/SettingFormType";
 import { SettingFormTypeEnum } from "../model/settingForm/SettingFormTypeEnum";
-import SettingFormRange from "../model/settingForm/SettingFormRange";
-
-const getStringFromTemplate = (data: FilterSettings | null | undefined, str?: string) =>{
-    if(str) {
-        const template = _.template(str);
-
-        try {
-            if(data) {
-                return template(data);
-            }
-        } catch(e) {
-            console.error(e);
-
-            return "";
-        }
-    }
-    
-    return "";
-};
-
-const formatValueDisplay = (value: FilterSettingValue, form: SettingFormRange) => {
-    if(form.valueFormatterDisplay) {
-        return form.valueFormatterDisplay(value);
-    }
-
-    return value;
-};
+import SimpleLabelField from "./settingFormFields/SimpleLabelField";
+import DynamicLabelField from "./settingFormFields/DynamicLabelField";
+import SimpleLinkField from "./settingFormFields/SimpleLInkField";
+import DynamicLinkField from "./settingFormFields/DynamicLinkField";
+import NumberField from "./settingFormFields/NumberField";
+import FileInputField from "./settingFormFields/FileInputField";
+import RangeInputField from "./settingFormFields/RangeInputField";
+import SelectInputField from "./settingFormFields/SelectInputField";
+import SettingTitle from "./settingFormFields/SettingTitle";
 
 const FilterSettingsForm = ({
     filterId,
@@ -68,143 +48,52 @@ const FilterSettingsForm = ({
                         return (
                             <div className={`mt-3 ${setting.cssClass || ""}`} key={setting.settingId}>
                                 <div className="font-normal text-base flex flex-col md:flex-row gap-3 md:items-center justify-between">
-                                    {setting.settingType && setting.settingType !== SettingFormTypeEnum.SimpleLabel && <div className={firstColumnStyle ? firstColumnStyle : "md:w-3/6"}>
-                                        <label htmlFor={`${filterId}_${setting.settingId}`}>{t(setting.settingTitle)}</label>
-                                    </div>}
+                                    {setting.settingType && setting.settingType !== SettingFormTypeEnum.SimpleLabel && 
+                                        <SettingTitle setting={setting} filterId={filterId} firstColumnStyle={firstColumnStyle}></SettingTitle>
+                                    }
                                     {setting.settingType === SettingFormTypeEnum.SimpleLabel &&
-                                        <p className="font-light text-base flex flex-row gap-x-3 items-center">
-                                            {setting.startIcon && <span>{setting.startIcon}</span>}
-                                            <span>{t(setting.settingTitle ? setting.settingTitle : setting.labelValue!)}</span>
-                                        </p>
+                                        <SimpleLabelField setting={setting}></SimpleLabelField>
                                     }
                                     {setting.settingType === SettingFormTypeEnum.DynamicLabel &&
-                                        <p className={`font-light text-md flex flex-row gap-x-3 items-center ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
-                                            {setting.startIcon && <span>{setting.startIcon}</span>}
-                                            <span>{getStringFromTemplate(currentSettings, t(setting.labelValue!))}</span>
-                                        </p>
+                                        <DynamicLabelField setting={setting} currentSettings={currentSettings} secondColumnStyle={secondColumnStyle}></DynamicLabelField>
                                     }
                                     {setting.settingType === SettingFormTypeEnum.SimpleLink &&
-                                        <p className={`font-light text-md flex flex-row gap-x-3 items-center ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
-                                            {setting.startIcon && <span>{setting.startIcon}</span>}
-                                            <span>
-                                                <a href={setting.linkValue}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="link link-info link-hover">
-                                                    {t(setting.labelValue!)}
-                                                </a>
-                                            </span>
-                                        </p>
+                                        <SimpleLinkField setting={setting} secondColumnStyle={secondColumnStyle}></SimpleLinkField>
                                     }
                                     {setting.settingType === SettingFormTypeEnum.DynamicLink &&
-                                        <p className={`font-light text-md flex flex-row gap-x-3 items-center ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
-                                            {setting.startIcon && <span>{setting.startIcon}</span>}
-                                            <span>
-                                                <a href={getStringFromTemplate(currentSettings, setting.linkValue)}
-                                                    target="_blank"
-                                                    rel="noreferrer"
-                                                    className="link link-info link-hover">
-                                                    {getStringFromTemplate(currentSettings, t(setting.labelValue!))}
-                                                </a>
-                                            </span>
-                                        </p>
+                                        <DynamicLinkField setting={setting} currentSettings={currentSettings} secondColumnStyle={secondColumnStyle}></DynamicLinkField>
                                     }
                                     {setting.settingType === SettingFormTypeEnum.NumberField && (
-                                        <input type="number" className={`input input-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}_${setting.settingId}`}
-                                            value={currentSettings ? currentSettings[setting.settingId] as string : ""}
-                                            step={setting.step ? 0.1 : setting.step}
-                                            min={setting.minValue}
-                                            max={setting.maxValue}
-                                            onChange={(e) => {
-                                                const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);
-
-                                                if(newSettings) {
-                                                    newSettings[setting.settingId] = e.target.value;
-                                                    setCurrentSettings(newSettings);
-                                                }
-                                            }}></input>
+                                        <NumberField setting={setting}
+                                            currentSettings={currentSettings}
+                                            secondColumnStyle={secondColumnStyle}
+                                            filterId={filterId}
+                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                        </NumberField>
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.InputFile && (
-                                        <input
-                                            type="file"
-                                            className={`file-input file-input-bordered w-full max-w-xs ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}
-                                            id={`${filterId}_${setting.settingId}`}
-                                            accept={setting.accept || "*/*"}
-                                            onChange={(e) => {
-                                                const file = e.target.files![0];
-                                                const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);
-
-                                                if(newSettings) {
-                                                    newSettings[setting.settingId] = file;
-                                                    setCurrentSettings(newSettings);
-                                                }
-                                            }}/>
+                                        <FileInputField setting={setting}
+                                            currentSettings={currentSettings}
+                                            secondColumnStyle={secondColumnStyle}
+                                            filterId={filterId}
+                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                        </FileInputField>
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.Range && (
-                                        <div className={`flex flex-col ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
-                                            <input type="range" className="range range-accent" id={`${filterId}_${setting.settingId}`}
-                                                value={currentSettings ? currentSettings[setting.settingId] as string : ""}
-                                                step={setting.step ? setting.step : 0.1}
-                                                min={setting.minValue}
-                                                max={setting.maxValue}
-                                                onChange={(e) => {
-                                                    const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);
-
-                                                    if(newSettings) {
-                                                        newSettings[setting.settingId] = e.target.value;
-                                                        setCurrentSettings(newSettings);
-                                                    }
-                                                }}></input>
-                                            <div className="flex justify-between items-center flex-wrap font-light mt-3 mb-3">
-                                                {setting.displayCurrentValue && currentSettings && (
-                                                    <>
-                                                        <span>{setting.minValueLabel && t(setting.minValueLabel)}</span>
-                                                        {!setting.displayUnit && <span className="text-center">× {"" + formatValueDisplay(currentSettings[setting.settingId], setting)}</span>}
-                                                        {setting.displayUnit && <span className="text-center">{"" + formatValueDisplay(currentSettings[setting.settingId], setting)}{setting.displayUnit}</span>}
-                                                        <span>{setting.maxValueLabel && t(setting.maxValueLabel)}</span>
-                                                    </>
-                                                )}
-                                            </div>
-                                        </div>
+                                        <RangeInputField setting={setting}
+                                            currentSettings={currentSettings}
+                                            secondColumnStyle={secondColumnStyle}
+                                            filterId={filterId}
+                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                        </RangeInputField>
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.SelectField && (
-                                        <select className={`select select-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}_${setting.settingId}`}
-                                            value={currentSettings ? (currentSettings[setting.settingId] && (currentSettings[setting.settingId] as SelectFormValue).value) as string : ""}
-                                            onChange={(e) => {
-                                                const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);
-                                                
-                                                let additionalData = undefined;
-                                                let settingName = "";
-
-                                                if(setting.selectValues) {
-                                                    const currentSettingValue = setting.selectValues.find(val => val.value === e.target.value);
-    
-                                                    if(currentSettingValue) {
-                                                        additionalData = currentSettingValue.additionalData;
-                                                        settingName = currentSettingValue.name;
-                                                    }
-                                                }
-
-                                                if(newSettings) {
-                                                    newSettings[setting.settingId] = {
-                                                        name: settingName,
-                                                        value: e.target.value,
-                                                        additionalData
-                                                    };
-                                                }
-
-                                                setCurrentSettings(newSettings);
-                                            }}>
-                                            {
-                                                setting.selectValues && setting.selectValues.map((option => {
-                                                    return (
-                                                        <option value={option.value} key={option.name}>
-                                                            {t(option.name)}
-                                                        </option>
-                                                    );
-                                                }))
-                                            }
-                                        </select>
+                                        <SelectInputField setting={setting}
+                                            currentSettings={currentSettings}
+                                            secondColumnStyle={secondColumnStyle}
+                                            filterId={filterId}
+                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                        </SelectInputField>
                                     )}
                                 </div>
                             </div>
@@ -214,11 +103,11 @@ const FilterSettingsForm = ({
                 <div className="modal-action">
                     <form method="dialog">
                         <button className="btn btn-neutral mr-2" onClick={() => {
-                            if(currentSettings) {
+                            if (currentSettings) {
                                 changeFilterSettings(filterId, currentSettings);
                             }
                         }}>{t("validate")}</button>
-                        <button className="btn btn-error" onClick={(e) => {
+                        <button className="btn btn-error" onClick={e => {
                             resetFilterSettings(filterId);
                             e.preventDefault();
                         }}>{t("reset")}</button>

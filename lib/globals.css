@@ -104,6 +104,10 @@
   .md\:flex-row, .md\:flex-row > div.md\:w-3\/6, .join.join-vertical {
     padding-left: 0;
   }
+
+  .loading-lg {
+    width: calc(var(--size-selector, 0.25rem) * 8);
+  }
 }
 
 @layer base {

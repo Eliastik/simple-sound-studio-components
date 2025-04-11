@@ -28,7 +28,7 @@ export default class ApplicationObjectsSingleton {
     }
 
     static getEventEmitterInstance(): EventEmitter | null {
-        return SoundStudioFactory.getEventEmitterInstance();
+        return SoundStudioFactory.getEventEmitterInstance() as EventEmitter;
     }
 
     static getConfigServiceInstance(): ConfigService | undefined {

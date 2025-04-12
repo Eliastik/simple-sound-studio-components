@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, FC, useEffect } from "react";
-import { BufferPlayer, EventType } from "@eliastik/simple-sound-studio-lib";
+import { BufferPlayer, EventEmitter, EventType } from "@eliastik/simple-sound-studio-lib";
 import AudioPlayerContextProps from "../model/contextProps/AudioPlayerContextProps";
 import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 
@@ -21,6 +21,10 @@ interface AudioPlayerProviderProps {
 
 const getAudioPlayer = (): BufferPlayer => {
     return SoundStudioApplicationFactory.getAudioPlayerInstance()!;
+};
+
+const getEventEmitter = (): EventEmitter => {
+    return SoundStudioApplicationFactory.getEventEmitterInstance()!;
 };
 
 let isReady = false;
@@ -52,15 +56,15 @@ export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) 
             return;
         }
 
-        getAudioPlayer().on(EventType.PLAYING_FINISHED, () => setPlaying(false));
-        getAudioPlayer().on(EventType.PLAYING_UPDATE, () => updatePlayerState());
+        getEventEmitter().on(EventType.PLAYING_FINISHED, () => setPlaying(false));
+        getEventEmitter().on(EventType.PLAYING_UPDATE, () => updatePlayerState());
 
-        getAudioPlayer().on(EventType.PLAYING_STARTED, () => {
+        getEventEmitter().on(EventType.PLAYING_STARTED, () => {
             setPlaying(true);
             updatePlayerState();
         });
 
-        getAudioPlayer().on(EventType.PLAYING_STOPPED, () => {
+        getEventEmitter().on(EventType.PLAYING_STOPPED, () => {
             setPlaying(false);
             updatePlayerState();
         });

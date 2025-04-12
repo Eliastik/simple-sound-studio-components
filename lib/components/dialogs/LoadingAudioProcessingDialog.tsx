@@ -1,15 +1,24 @@
 "use client";
 
-import { useAudioEditor } from "../../contexts/AudioEditorContext";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useAudioEditor } from "../../contexts/AudioEditorContext";
 
 const LoadingAudioProcessingDialog = () => {
     const { t } = useTranslation();
     const { audioProcessing, audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancellingAudioRendering } = useAudioEditor();
+
+    const loadingAudioProcessingCheckbox = useMemo(() => {
+        if (audioProcessing) {
+            return <input type="checkbox" id="loadingAudioProcessing" className="modal-toggle" defaultChecked={true} />;
+        } else {
+            return <></>
+        }
+    }, [audioProcessing]);
     
     return (
         <>
-            {audioProcessing && <input type="checkbox" id="loadingAudioProcessing" className="modal-toggle" defaultChecked={true} />}
+            {loadingAudioProcessingCheckbox}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.processing.title")}</h3>

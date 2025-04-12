@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useState, ReactNode, FC, useEffect, useCallback } from "react";
-import { AudioEditor, BufferPlayer, EventType, FilterSettings, FilterState, SaveBufferOptions } from "@eliastik/simple-sound-studio-lib";
+import { AudioEditor, BufferPlayer, EventEmitter, EventType, FilterSettings, FilterState, SaveBufferOptions } from "@eliastik/simple-sound-studio-lib";
 import AudioEditorContextProps from "../model/contextProps/AudioEditorContextProps";
 import Filter from "../model/Filter";
 import FilterService from "../services/interfaces/FilterServiceInterface";
@@ -31,6 +31,10 @@ const getAudioPlayer = (): BufferPlayer => {
 
 const getFilterService = (): FilterService | undefined => {
     return SoundStudioApplicationFactory.getFilterServiceInstance();
+};
+
+const getEventEmitter = (): EventEmitter => {
+    return SoundStudioApplicationFactory.getEventEmitterInstance()!;
 };
 
 let isReady = false;
@@ -135,40 +139,40 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             return;
         }
 
-        getAudioEditor().on(EventType.LOADING_BUFFERS, () => setDownloadingInitialData(true));
-        getAudioEditor().on(EventType.LOADING_BUFFERS_ERROR, () => setDownloadingInitialData(false));
-        getAudioEditor().on(EventType.FETCHING_BUFFERS, () => setDownloadingBufferData(true));
-        getAudioEditor().on(EventType.DECODING_AUDIO_FILE, () => setDecodingAudioBuffer(true));
-        getAudioEditor().on(EventType.DECODED_AUDIO_FILE, () => setDecodingAudioBuffer(false));
-        getAudioEditor().on(EventType.ERROR_DECODING_AUDIO_FILE, () => setErrorLoadingAudioFile(true));
-        getAudioEditor().on(EventType.UPDATE_AUDIO_TREATMENT_PERCENT, (percent) => setAudioTreatmentPercent(percent as number));
-        getAudioEditor().on(EventType.UPDATE_REMAINING_TIME_ESTIMATED, (timeRemaining) => setAudioTreatmenEndTimeEstimated(timeRemaining as number));
-        getAudioEditor().on(EventType.LOADED_AUDIO_FILE_FROM_LIST, () => setCurrentFileList(getAudioEditor().getCurrentFileList()));
+        getEventEmitter().on(EventType.LOADING_BUFFERS, () => setDownloadingInitialData(true));
+        getEventEmitter().on(EventType.LOADING_BUFFERS_ERROR, () => setDownloadingInitialData(false));
+        getEventEmitter().on(EventType.FETCHING_BUFFERS, () => setDownloadingBufferData(true));
+        getEventEmitter().on(EventType.DECODING_AUDIO_FILE, () => setDecodingAudioBuffer(true));
+        getEventEmitter().on(EventType.DECODED_AUDIO_FILE, () => setDecodingAudioBuffer(false));
+        getEventEmitter().on(EventType.ERROR_DECODING_AUDIO_FILE, () => setErrorLoadingAudioFile(true));
+        getEventEmitter().on(EventType.UPDATE_AUDIO_TREATMENT_PERCENT, (percent) => setAudioTreatmentPercent(percent as number));
+        getEventEmitter().on(EventType.UPDATE_REMAINING_TIME_ESTIMATED, (timeRemaining) => setAudioTreatmenEndTimeEstimated(timeRemaining as number));
+        getEventEmitter().on(EventType.LOADED_AUDIO_FILE_FROM_LIST, () => setCurrentFileList(getAudioEditor().getCurrentFileList()));
 
-        getAudioEditor().on(EventType.LOADED_BUFFERS, () => {
+        getEventEmitter().on(EventType.LOADED_BUFFERS, () => {
             setDownloadingInitialData(false);
             setFiltersSettings(getAudioEditor().getFiltersSettings());
         });
 
-        getAudioEditor().on(EventType.FINISHED_FETCHING_BUFFERS, () => {
+        getEventEmitter().on(EventType.FINISHED_FETCHING_BUFFERS, () => {
             setDownloadingBufferData(false);
             setFiltersSettings(getAudioEditor().getFiltersSettings());
         });
 
-        getAudioEditor().on(EventType.FETCHING_BUFFERS_ERROR, () => {
+        getEventEmitter().on(EventType.FETCHING_BUFFERS_ERROR, () => {
             setDownloadingBufferData(false);
             setErrorDownloadingBufferData(true);
         });
 
-        getAudioEditor().on(EventType.RECORDER_STOPPED, (buffer) => {
+        getEventEmitter().on(EventType.RECORDER_STOPPED, (buffer) => {
             loadAudioPrincipalBuffer(null, buffer as AudioBuffer);
         });
 
-        getAudioEditor().on(EventType.SAMPLE_RATE_CHANGED, (currentSampleRate) => {
+        getEventEmitter().on(EventType.SAMPLE_RATE_CHANGED, (currentSampleRate) => {
             setActualSampleRate(currentSampleRate as number);
         });
 
-        getAudioEditor().on(EventType.COMPATIBILITY_MODE_AUTO_ENABLED, () => {
+        getEventEmitter().on(EventType.COMPATIBILITY_MODE_AUTO_ENABLED, () => {
             setCompatibilityModeAutoEnabled(true);
 
             setTimeout(() => {
@@ -176,7 +180,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             }, 10000);
         });
 
-        getAudioEditor().on(EventType.RENDERING_AUDIO_PROBLEM_DETECTED, () => {
+        getEventEmitter().on(EventType.RENDERING_AUDIO_PROBLEM_DETECTED, () => {
             setHasProblemRenderingAudio(true);
 
             setTimeout(() => {
@@ -184,7 +188,7 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             }, 10000);
         });
 
-        getAudioEditor().on(EventType.CANCELLED_AND_LOADED_INITIAL_AUDIO, () => {
+        getEventEmitter().on(EventType.CANCELLED_AND_LOADED_INITIAL_AUDIO, () => {
             setCancelledInitialAudioRendering(true);
 
             setTimeout(() => {
@@ -192,23 +196,27 @@ export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) 
             }, 20000);
         });
 
-        getAudioEditor().on(EventType.STARTED_RENDERING_AUDIO, () => {
+        getEventEmitter().on(EventType.STARTED_RENDERING_AUDIO, () => {
             setErrorProcessingAudio(false);
             setCancellingAudioRendering(false);
             setAudioProcessing(true);
         });
 
-        getAudioEditor().on(EventType.AUDIO_RENDERING_FINISHED, () => {
+        getEventEmitter().on(EventType.AUDIO_RENDERING_FINISHED, () => {
             setAudioProcessing(false);
         });
 
-        getAudioEditor().on(EventType.AUDIO_RENDERING_EXCEPTION_THROWN, e => {
+        getEventEmitter().on(EventType.AUDIO_RENDERING_EXCEPTION_THROWN, e => {
             console.error(e);
             setAudioProcessing(false);
             setErrorProcessingAudio(true);
         });
 
-        getAudioEditor().on(EventType.CANCELLING_AUDIO_PROCESSING, () => setCancellingAudioRendering(true));
+        getEventEmitter().on(EventType.CANCELLING_AUDIO_PROCESSING, () => setCancellingAudioRendering(true));
+
+        getEventEmitter().on(EventType.FALLBACK_WORKLET_TO_SCRIPT_PROCESSOR, () => setAudioWorkletAvailable(false));
+
+        getEventEmitter().on(EventType.WORKLET_SUCCESSFULLY_LOADED, () => setAudioWorkletAvailable(true));
 
         setDownloadingInitialData(getAudioEditor().downloadingInitialData);
         setFilterState(getAudioEditor().getFiltersState());

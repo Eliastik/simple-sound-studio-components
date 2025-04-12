@@ -1,15 +1,24 @@
 "use client";
 
-import { useAudioEditor } from "../../contexts/AudioEditorContext";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useAudioEditor } from "../../contexts/AudioEditorContext";
 
 const ErrorDownloadingBufferDialog = () => {
     const { errorDownloadingBufferData, closeErrorDownloadingBufferData } = useAudioEditor();
     const { t } = useTranslation();
+            
+    const errorDownloadingBufferDataCheckbox = useMemo(() => {
+        if (errorDownloadingBufferData) {
+            return <input type="checkbox" id="errorDownloadingBufferDialog" className="modal-toggle" defaultChecked={true} />;
+        } else {
+            return <></>
+        }
+    }, [errorDownloadingBufferData]);
 
     return (
         <>
-            {errorDownloadingBufferData && <input type="checkbox" id="errorDownloadingBufferDialog" className="modal-toggle" defaultChecked={true} />}
+            {errorDownloadingBufferDataCheckbox}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.bufferDownloadingError.title")}</h3>

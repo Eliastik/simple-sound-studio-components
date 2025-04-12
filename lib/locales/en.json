@@ -169,6 +169,8 @@
         "ok": "OK",
         "cancel": "Cancel",
         "validate": "Validate",
+        "apply": "Apply",
+        "autoApply": "Apply settings in real time",
         "reset": "Reset"
     }
 }

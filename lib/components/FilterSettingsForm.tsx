@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { FilterSettings } from "@eliastik/simple-sound-studio-lib";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
 import { useTranslation } from "react-i18next";
@@ -14,6 +14,7 @@ import FileInputField from "./settingFormFields/FileInputField";
 import RangeInputField from "./settingFormFields/RangeInputField";
 import SelectInputField from "./settingFormFields/SelectInputField";
 import SettingTitle from "./settingFormFields/SettingTitle";
+import { useAudioPlayer } from "../contexts/AudioPlayerContext";
 
 const FilterSettingsForm = ({
     filterId,
@@ -22,8 +23,11 @@ const FilterSettingsForm = ({
     firstColumnStyle,
     secondColumnStyle
 }: { filterId: string, settingsModalTitle?: string, settingsForm?: SettingFormType[], firstColumnStyle?: string, secondColumnStyle?: string }) => {
+
     const { filtersSettings, changeFilterSettings, resetFilterSettings } = useAudioEditor();
+    const { isCompatibilityModeEnabled } = useAudioPlayer();
     const [currentSettings, setCurrentSettings] = useState<FilterSettings | null | undefined>(null);
+    const [autoApplyIfChanged, setAutoApplyIfChanged] = useState(false);
     const { t } = useTranslation();
 
     const filterSettings = filtersSettings && filtersSettings.get(filterId);
@@ -31,6 +35,20 @@ const FilterSettingsForm = ({
     useEffect(() => {
         setCurrentSettings(_.cloneDeep(filterSettings));
     }, [filterId, filterSettings]);
+
+    const onSettingChanged = useCallback((newSettings: FilterSettings | null | undefined) => {
+        const timer = setTimeout(() => {
+            if (newSettings) {
+                setCurrentSettings(newSettings);
+                
+                if (autoApplyIfChanged && isCompatibilityModeEnabled) {
+                    changeFilterSettings(filterId, newSettings);
+                }
+            }
+        }, 10);
+    
+        return () => clearTimeout(timer);
+    }, [autoApplyIfChanged, isCompatibilityModeEnabled]);
 
     return (
         <>
@@ -68,7 +86,7 @@ const FilterSettingsForm = ({
                                             currentSettings={currentSettings}
                                             secondColumnStyle={secondColumnStyle}
                                             filterId={filterId}
-                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                            onChange={onSettingChanged}>
                                         </NumberField>
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.InputFile && (
@@ -76,7 +94,7 @@ const FilterSettingsForm = ({
                                             currentSettings={currentSettings}
                                             secondColumnStyle={secondColumnStyle}
                                             filterId={filterId}
-                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                            onChange={onSettingChanged}>
                                         </FileInputField>
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.Range && (
@@ -84,7 +102,7 @@ const FilterSettingsForm = ({
                                             currentSettings={currentSettings}
                                             secondColumnStyle={secondColumnStyle}
                                             filterId={filterId}
-                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                            onChange={onSettingChanged}>
                                         </RangeInputField>
                                     )}
                                     {setting.settingType === SettingFormTypeEnum.SelectField && (
@@ -92,7 +110,7 @@ const FilterSettingsForm = ({
                                             currentSettings={currentSettings}
                                             secondColumnStyle={secondColumnStyle}
                                             filterId={filterId}
-                                            onChange={newSettings => setCurrentSettings(newSettings)}>
+                                            onChange={onSettingChanged}>
                                         </SelectInputField>
                                     )}
                                 </div>
@@ -100,13 +118,26 @@ const FilterSettingsForm = ({
                         );
                     }))}
                 </div>
+                {isCompatibilityModeEnabled && (
+                    <div className="flex w-full items-center justify-end mt-3">
+                        <input type="checkbox" className="checkbox checkbox-sm" id="autoApplyIfChanged" checked={autoApplyIfChanged} onChange={e => setAutoApplyIfChanged(e.target.checked)}></input>
+                        <label htmlFor="autoApplyIfChanged" className="ml-2">{t("autoApply")}</label>
+                    </div>
+                )}
                 <div className="modal-action">
                     <form method="dialog">
-                        <button className="btn btn-neutral mr-2" onClick={() => {
+                        <button className="btn btn-secondary mr-2" onClick={() => {
                             if (currentSettings) {
                                 changeFilterSettings(filterId, currentSettings);
                             }
                         }}>{t("validate")}</button>
+                        <button className="btn btn-neutral mr-2" onClick={e => {
+                            if (currentSettings) {
+                                changeFilterSettings(filterId, currentSettings);
+                            }
+
+                            e.preventDefault();
+                        }}>{t("apply")}</button>
                         <button className="btn btn-error" onClick={e => {
                             resetFilterSettings(filterId);
                             e.preventDefault();

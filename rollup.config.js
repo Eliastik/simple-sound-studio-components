@@ -9,7 +9,7 @@ import postcss from "rollup-plugin-postcss";
 
 const config = [
     {
-        input: "./dist/dts/index.d.ts",
+        input: "./dist/types/index.d.ts",
         output: [{ file: "dist/index.d.ts", format: "es" }],
         external: [/\.css$/],
         plugins: [dts.default()],
@@ -51,7 +51,10 @@ const config = [
                 sourceMap: true,
                 inlineSources: true,
                 inlineSourceMap: true,
-                noEmit: true
+                noEmit: true,
+                declaration: false,
+                declarationDir: null,
+                outputToFilesystem: true
             }),
             terser({
                 sourceMap: true

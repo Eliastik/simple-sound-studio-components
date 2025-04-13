@@ -26,21 +26,22 @@ export const useAudioPlayer = create<AudioPlayerContextProps>((set) => {
         });
     };
   
-    const player = getAudioPlayer();
-    const emitter = getEventEmitter();
-
-    emitter.on(EventType.PLAYING_FINISHED, () => set({ playing: false }));
-    emitter.on(EventType.PLAYING_UPDATE, () => updatePlayerState());
-
-    emitter.on(EventType.PLAYING_STARTED, () => {
-        set({ playing: false });
-        updatePlayerState();
-    });
-
-    emitter.on(EventType.PLAYING_STOPPED, () => {
-        set({ playing: false });
-        updatePlayerState();
-    });
+    const initializeStore = () => {
+        const emitter = getEventEmitter();
+    
+        emitter.on(EventType.PLAYING_FINISHED, () => set({ playing: false }));
+        emitter.on(EventType.PLAYING_UPDATE, () => updatePlayerState());
+    
+        emitter.on(EventType.PLAYING_STARTED, () => {
+            set({ playing: false });
+            updatePlayerState();
+        });
+    
+        emitter.on(EventType.PLAYING_STOPPED, () => {
+            set({ playing: false });
+            updatePlayerState();
+        });
+    };
   
     return {
         playing: false,
@@ -55,7 +56,7 @@ export const useAudioPlayer = create<AudioPlayerContextProps>((set) => {
         audioVolume: 1,
   
         playAudioBuffer: async () => {
-            await player.start();
+            await getAudioPlayer().start();
             set({ playing: true });
             updatePlayerState();
         },
@@ -65,32 +66,33 @@ export const useAudioPlayer = create<AudioPlayerContextProps>((set) => {
             updatePlayerState();
         },
         pauseAudioBuffer: () => {
-            player.pause();
+            getAudioPlayer().pause();
             set({ playing: false });
             updatePlayerState();
         },
         stopAudioBuffer: () => {
-            player.stop();
+            getAudioPlayer().stop();
             set({ playing: false });
             updatePlayerState();
         },
         loopAudioBuffer: () => {
-            player.toggleLoop();
+            getAudioPlayer().toggleLoop();
             updatePlayerState();
         },
         loopAllAudioBuffer: () => {
-            player.toggleLoopAll();
+            getAudioPlayer().toggleLoopAll();
             updatePlayerState();
         },
         setVolume: (value: number) => {
-            player.volume = value;
+            getAudioPlayer().volume = value;
             updatePlayerState();
         },
         setTimePlayer: (value: number) => {
-            player.setTime(value);
+            getAudioPlayer().setTime(value);
             updatePlayerState();
         },
-        updatePlayerState
+        updatePlayerState,
+        initializeStore
     };
 });
 
@@ -100,6 +102,9 @@ interface AudioPlayerProviderProps {
     children: ReactNode;
 }
 
+/**
+ * @deprecated Will be removed in a future release. It is not needed anymore.
+ */
 export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) => {
     const audioPlayerState = useAudioPlayer();
 

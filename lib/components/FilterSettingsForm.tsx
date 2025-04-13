@@ -25,7 +25,7 @@ const FilterSettingsForm = ({
 }: { filterId: string, settingsModalTitle?: string, settingsForm?: SettingFormType[], firstColumnStyle?: string, secondColumnStyle?: string }) => {
 
     const { filtersSettings, changeFilterSettings, resetFilterSettings } = useAudioEditor();
-    const { isCompatibilityModeEnabled } = useAudioPlayer();
+    const isCompatibilityModeEnabled = useAudioPlayer((state) => state.isCompatibilityModeEnabled);
     const { t } = useTranslation();
 
     const [currentSettings, setCurrentSettings] = useState<FilterSettings | null | undefined>(

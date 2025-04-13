@@ -3,6 +3,7 @@ import { audioEditorComponentsContainer } from "../inversify.config";
 import { TYPES } from "../inversify.types";
 import FilterServiceInterface from "../services/interfaces/FilterServiceInterface";
 import GenericFilterService from "../services/GenericFilterService";
+import { useAudioPlayer } from "../contexts/AudioPlayerContext";
 
 export default class SoundStudioApplicationFactory {
 
@@ -36,6 +37,9 @@ export default class SoundStudioApplicationFactory {
             SoundStudioApplicationFactory.voiceRecorder = voiceRecorder;
     
             SoundStudioApplicationFactory.ready = true;
+
+            // Initialize stores
+            useAudioPlayer.getState().initializeStore();
         }
     }
 

@@ -165,12 +165,16 @@ interface AudioPlayerContextProps {
     loopAllAudioBuffer: () => void;
     setVolume: (value: number) => void;
     audioVolume: number;
+    initializeStore: () => void;
 }
 
 declare const useAudioPlayer: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioPlayerContextProps>>;
 interface AudioPlayerProviderProps {
     children: ReactNode;
 }
+/**
+ * @deprecated Will be removed in a future release. It is not needed anymore.
+ */
 declare const AudioPlayerProvider: FC<AudioPlayerProviderProps>;
 
 declare const AudioEditorActionButtons: ({ onSettingsValidated }: {

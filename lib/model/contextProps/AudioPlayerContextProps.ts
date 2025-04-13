@@ -16,5 +16,6 @@ export default interface AudioPlayerContextProps {
     playAudioBufferDirect: () => void,
     loopAllAudioBuffer: () => void,
     setVolume: (value: number) => void,
-    audioVolume: number
+    audioVolume: number,
+    initializeStore: () => void
 };

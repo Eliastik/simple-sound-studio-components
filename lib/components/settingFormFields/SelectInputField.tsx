@@ -15,7 +15,7 @@ const SelectInputField = ({
     const { t } = useTranslation();
 
     return (
-        <select className={`select select-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}_${setting.settingId}`}
+        <select className={`select select-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}-${setting.settingId}`}
             value={currentSettings ? (currentSettings[setting.settingId] && (currentSettings[setting.settingId] as SelectFormValue).value) as string : ""}
             onChange={(e) => {
                 const newSettings: FilterSettings | null | undefined = _.cloneDeep(currentSettings);

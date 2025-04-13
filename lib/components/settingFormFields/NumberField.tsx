@@ -12,7 +12,7 @@ const NumberField = ({
     secondColumnStyle?: string
 }) => {
     return (
-        <input type="number" className={`input input-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}_${setting.settingId}`}
+        <input type="number" className={`input input-bordered ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`} id={`${filterId}-${setting.settingId}`}
             value={currentSettings ? currentSettings[setting.settingId] as string : ""}
             step={setting.step ? 0.1 : setting.step}
             min={setting.minValue}

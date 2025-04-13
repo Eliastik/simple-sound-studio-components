@@ -26,7 +26,7 @@ const RangeInputField = ({
 
     return (
         <div className={`flex flex-col ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}>
-            <input type="range" className="range range-accent" id={`${filterId}_${setting.settingId}`}
+            <input type="range" className="range range-accent" id={`${filterId}-${setting.settingId}`}
                 value={currentSettings ? currentSettings[setting.settingId] as string : ""}
                 step={setting.step ? setting.step : 0.1}
                 min={setting.minValue}

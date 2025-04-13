@@ -15,7 +15,7 @@ const FileInputField = ({
         <input
             type="file"
             className={`file-input file-input-bordered w-full max-w-xs ${secondColumnStyle ? secondColumnStyle : "md:w-3/6"}`}
-            id={`${filterId}_${setting.settingId}`}
+            id={`${filterId}-${setting.settingId}`}
             accept={setting.accept || "*/*"}
             onChange={(e) => {
                 const file = e.target.files![0];

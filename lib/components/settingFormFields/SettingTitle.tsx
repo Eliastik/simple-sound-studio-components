@@ -6,7 +6,7 @@ const SettingTitle = ({ setting, filterId, firstColumnStyle }: { setting: Settin
 
     return (
         <div className={firstColumnStyle ? firstColumnStyle : "md:w-3/6"}>
-            <label htmlFor={`${filterId}_${setting.settingId}`}>{t(setting.settingTitle)}</label>
+            <label htmlFor={`${filterId}-${setting.settingId}`}>{t(setting.settingTitle)}</label>
         </div>
     );
 };

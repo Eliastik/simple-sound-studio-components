@@ -1,138 +1,112 @@
 "use client";
 
-import { createContext, useContext, useState, ReactNode, FC, useEffect } from "react";
+import { createContext, FC, ReactNode } from "react";
+import { create } from "zustand/react";
 import { BufferPlayer, EventEmitter, EventType } from "@eliastik/simple-sound-studio-lib";
 import AudioPlayerContextProps from "../model/contextProps/AudioPlayerContextProps";
 import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 
-const AudioPlayerContext = createContext<AudioPlayerContextProps | undefined>(undefined);
+const getAudioPlayer = (): BufferPlayer => SoundStudioApplicationFactory.getAudioPlayerInstance()!;
+const getEventEmitter = (): EventEmitter => SoundStudioApplicationFactory.getEventEmitterInstance()!;
 
-export const useAudioPlayer = (): AudioPlayerContextProps => {
-    const context = useContext(AudioPlayerContext);
-    if (!context) {
-        throw new Error("useAudioPlayer must be used inside an AudioPlayerProvider");
-    }
-    return context;
-};
+export const useAudioPlayer = create<AudioPlayerContextProps>((set) => {
+    const updatePlayerState = () => {
+        const player = getAudioPlayer();
+
+        set({
+            currentTime: player.currentTime,
+            currentTimeDisplay: player.currentTimeDisplay,
+            maxTime: player.duration,
+            maxTimeDisplay: player.maxTimeDisplay,
+            percent: player.percent,
+            looping: player.loop,
+            loopingAll: player.loopAll,
+            isCompatibilityModeEnabled: player.compatibilityMode,
+            audioVolume: player.volume,
+        });
+    };
+  
+    const player = getAudioPlayer();
+    const emitter = getEventEmitter();
+
+    emitter.on(EventType.PLAYING_FINISHED, () => set({ playing: false }));
+    emitter.on(EventType.PLAYING_UPDATE, () => updatePlayerState());
+
+    emitter.on(EventType.PLAYING_STARTED, () => {
+        set({ playing: false });
+        updatePlayerState();
+    });
+
+    emitter.on(EventType.PLAYING_STOPPED, () => {
+        set({ playing: false });
+        updatePlayerState();
+    });
+  
+    return {
+        playing: false,
+        currentTime: 0,
+        currentTimeDisplay: "00:00",
+        maxTime: 0,
+        maxTimeDisplay: "00:00",
+        percent: 0.0,
+        looping: false,
+        loopingAll: false,
+        isCompatibilityModeEnabled: false,
+        audioVolume: 1,
+  
+        playAudioBuffer: async () => {
+            await player.start();
+            set({ playing: true });
+            updatePlayerState();
+        },
+        playAudioBufferDirect: async () => {
+            await getAudioPlayer().playDirect();
+            set({ playing: true });
+            updatePlayerState();
+        },
+        pauseAudioBuffer: () => {
+            player.pause();
+            set({ playing: false });
+            updatePlayerState();
+        },
+        stopAudioBuffer: () => {
+            player.stop();
+            set({ playing: false });
+            updatePlayerState();
+        },
+        loopAudioBuffer: () => {
+            player.toggleLoop();
+            updatePlayerState();
+        },
+        loopAllAudioBuffer: () => {
+            player.toggleLoopAll();
+            updatePlayerState();
+        },
+        setVolume: (value: number) => {
+            player.volume = value;
+            updatePlayerState();
+        },
+        setTimePlayer: (value: number) => {
+            player.setTime(value);
+            updatePlayerState();
+        },
+        updatePlayerState
+    };
+});
+
+const AudioPlayerContext = createContext<AudioPlayerContextProps | undefined>(undefined);
 
 interface AudioPlayerProviderProps {
     children: ReactNode;
 }
 
-const getAudioPlayer = (): BufferPlayer => {
-    return SoundStudioApplicationFactory.getAudioPlayerInstance()!;
-};
-
-const getEventEmitter = (): EventEmitter => {
-    return SoundStudioApplicationFactory.getEventEmitterInstance()!;
-};
-
-let isReady = false;
-
 export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) => {
-    // State: true if the audio player is playing the audio
-    const [playing, setPlaying] = useState(false);
-    // State: the current time
-    const [currentTime, setCurrentTime] = useState(0);
-    // State: the current time displayed
-    const [currentTimeDisplay, setCurrentTimeDisplay] = useState("00:00");
-    // State: the current time
-    const [maxTime, setMaxTime] = useState(0);
-    // State: the current max time displayed
-    const [maxTimeDisplay, setMaxTimeDisplay] = useState("00:00");
-    // State: percent playing time
-    const [percent, setPercent] = useState(0.0);
-    // State: if the audio is looping
-    const [looping, setLooping] = useState(false);
-    // State: if looping all audio
-    const [loopingAll, setLoopingAll] = useState(false);
-    // State: true if compatibility/direct mode is enabled for the audio player (different state from AudioPlayer possible)
-    const [isCompatibilityModeEnabled, setCompatibilityModeEnabled] = useState(false);
-    // State: the current volume
-    const [audioVolume, setAudioVolume] = useState(1);
+    const audioPlayerState = useAudioPlayer();
 
-    useEffect(() => {
-        if (isReady) {
-            return;
-        }
-
-        getEventEmitter().on(EventType.PLAYING_FINISHED, () => setPlaying(false));
-        getEventEmitter().on(EventType.PLAYING_UPDATE, () => updatePlayerState());
-
-        getEventEmitter().on(EventType.PLAYING_STARTED, () => {
-            setPlaying(true);
-            updatePlayerState();
-        });
-
-        getEventEmitter().on(EventType.PLAYING_STOPPED, () => {
-            setPlaying(false);
-            updatePlayerState();
-        });
-
-        updatePlayerState();
-
-        isReady = true;
-    }, []);
-
-    const playAudioBuffer = async () => {
-        await getAudioPlayer().start();
-        setPlaying(true);
-        updatePlayerState();
-    };
-
-    const playAudioBufferDirect = async () => {
-        await getAudioPlayer().playDirect();
-        setPlaying(true);
-        updatePlayerState();
-    };
-
-    const pauseAudioBuffer = () => {
-        getAudioPlayer().pause();
-        setPlaying(false);
-        updatePlayerState();
-    };
-
-    const stopAudioBuffer = () => {
-        getAudioPlayer().stop();
-        setPlaying(false);
-        updatePlayerState();
-    };
-
-    const loopAudioBuffer = () => {
-        getAudioPlayer().toggleLoop();
-        updatePlayerState();
-    };
-
-    const loopAllAudioBuffer = () => {
-        getAudioPlayer().toggleLoopAll();
-        updatePlayerState();
-    };
-
-    const setVolume = (value: number) => {
-        getAudioPlayer().volume = value;
-        updatePlayerState();
-    };
-
-    const updatePlayerState = () => {
-        setCurrentTimeDisplay(getAudioPlayer().currentTimeDisplay);
-        setMaxTimeDisplay(getAudioPlayer().maxTimeDisplay);
-        setPercent(getAudioPlayer().percent);
-        setLooping(getAudioPlayer().loop);
-        setLoopingAll(getAudioPlayer().loopAll);
-        setCurrentTime(getAudioPlayer().currentTime);
-        setMaxTime(getAudioPlayer().duration);
-        setCompatibilityModeEnabled(getAudioPlayer().compatibilityMode);
-        setAudioVolume(getAudioPlayer().volume);
-    };
-
-    const setTimePlayer = (value: number) => getAudioPlayer().setTime(value);
-
+    console.warn("AudioPlayerContext is deprecated and will be removed in a future release. It is not needed anymore.");
+  
     return (
-        <AudioPlayerContext.Provider value={{
-            playing, playAudioBuffer, pauseAudioBuffer, loopAudioBuffer, setTimePlayer, stopAudioBuffer,
-            currentTimeDisplay, maxTimeDisplay, percent, looping, currentTime, maxTime, isCompatibilityModeEnabled,
-            playAudioBufferDirect, loopAllAudioBuffer, loopingAll, setVolume, audioVolume
-        }}>
+        <AudioPlayerContext.Provider value={audioPlayerState}>
             {children}
         </AudioPlayerContext.Provider>
     );

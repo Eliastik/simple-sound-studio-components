@@ -1,5 +1,7 @@
 import { FC, ReactNode } from 'react';
 import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
+import * as zustand_react from 'zustand/react';
+import * as zustand_vanilla from 'zustand/vanilla';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 declare enum SettingFormTypeEnum {
@@ -165,7 +167,7 @@ interface AudioPlayerContextProps {
     audioVolume: number;
 }
 
-declare const useAudioPlayer: () => AudioPlayerContextProps;
+declare const useAudioPlayer: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioPlayerContextProps>>;
 interface AudioPlayerProviderProps {
     children: ReactNode;
 }

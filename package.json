@@ -1,7 +1,7 @@
 {
   "name": "@eliastik/simple-sound-studio-components",
   "description": "A React component library used in my Simple Voice Changer (soon to be renamed to Simple Sound Studio) project.",
-  "version": "2.2.2",
+  "version": "2.3.0",
   "private": false,
   "scripts": {
     "lint": "eslint .",
@@ -14,7 +14,7 @@
   "module": "dist/cjs/SimpleSoundStudioComponents.js",
   "types": "dist/index.d.ts",
   "dependencies": {
-    "@eliastik/simple-sound-studio-lib": "^2.2.2",
+    "@eliastik/simple-sound-studio-lib": "^2.3.0",
     "i18next": "^24.2.3",
     "inversify": "^7.5.0",
     "lodash": "^4.17.21",
@@ -54,12 +54,12 @@
     "typescript": "^5.8.3"
   },
   "peerDependencies": {
-    "@eliastik/simple-sound-studio-lib": "^2.2.2",
+    "@eliastik/simple-sound-studio-lib": "^2.3.0",
     "@types/audioworklet": "^0.0.65",
-    "i18next": "^24.2.0",
+    "i18next": "^24.2.3",
     "lodash": "^4.17.21",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-i18next": "^15.4.0"
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "react-i18next": "^15.4.1"
   }
 }

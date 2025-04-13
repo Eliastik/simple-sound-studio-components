@@ -1,5 +1,5 @@
 import _ from "lodash";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { FilterSettings } from "@eliastik/simple-sound-studio-lib";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
 import { useTranslation } from "react-i18next";
@@ -26,28 +26,42 @@ const FilterSettingsForm = ({
 
     const { filtersSettings, changeFilterSettings, resetFilterSettings } = useAudioEditor();
     const { isCompatibilityModeEnabled } = useAudioPlayer();
-    const [currentSettings, setCurrentSettings] = useState<FilterSettings | null | undefined>(null);
-    const [autoApplyIfChanged, setAutoApplyIfChanged] = useState(false);
     const { t } = useTranslation();
+
+    const [currentSettings, setCurrentSettings] = useState<FilterSettings | null | undefined>(
+        () => _.cloneDeep(filtersSettings?.get(filterId))
+    );
+    const [autoApplyIfChanged, setAutoApplyIfChanged] = useState(true);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     const filterSettings = filtersSettings && filtersSettings.get(filterId);
 
     useEffect(() => {
-        setCurrentSettings(_.cloneDeep(filterSettings));
-    }, [filterId, filterSettings]);
+        if (!_.isEqual(currentSettings, filterSettings)) {
+            setCurrentSettings(_.cloneDeep(filterSettings));
+        }
+    }, [filterSettings]);
 
     const onSettingChanged = useCallback((newSettings: FilterSettings | null | undefined) => {
-        const timer = setTimeout(() => {
-            if (newSettings) {
-                setCurrentSettings(newSettings);
-                
-                if (autoApplyIfChanged && isCompatibilityModeEnabled) {
-                    changeFilterSettings(filterId, newSettings);
+        if (newSettings) {
+            setCurrentSettings(newSettings);
+
+            if (autoApplyIfChanged && isCompatibilityModeEnabled) {
+                if (timerRef.current) {
+                    clearTimeout(timerRef.current);
                 }
+        
+                timerRef.current = setTimeout(() => {
+                    changeFilterSettings(filterId, newSettings);
+                }, 30);
             }
-        }, 10);
+        }
     
-        return () => clearTimeout(timer);
+        return () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+            }
+        };
     }, [autoApplyIfChanged, isCompatibilityModeEnabled]);
 
     return (

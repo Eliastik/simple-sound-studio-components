@@ -134,8 +134,8 @@ const FilterSettingsForm = ({
                 </div>
                 {isCompatibilityModeEnabled && (
                     <div className="flex w-full items-center justify-end mt-3">
-                        <input type="checkbox" className="checkbox checkbox-sm" id="autoApplyIfChanged" checked={autoApplyIfChanged} onChange={e => setAutoApplyIfChanged(e.target.checked)}></input>
-                        <label htmlFor="autoApplyIfChanged" className="ml-2">{t("autoApply")}</label>
+                        <input type="checkbox" className="checkbox checkbox-sm" id={`${filterId}-autoApplyIfChanged`} checked={autoApplyIfChanged} onChange={e => setAutoApplyIfChanged(e.target.checked)}></input>
+                        <label htmlFor={`${filterId}-autoApplyIfChanged`} className="ml-2">{t("autoApply")}</label>
                     </div>
                 )}
                 <div className="modal-action">

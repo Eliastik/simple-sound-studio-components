@@ -2,6 +2,7 @@ import { FilterState, FilterSettings, SaveBufferOptions } from "@eliastik/simple
 import Filter from "../Filter";
 
 export default interface AudioEditorContextProps {
+    isInitialized: boolean,
     loadAudioPrincipalBuffer: (file: File | null, audioBuffer?: AudioBuffer) => Promise<void>,
     loadAudioFileList: (fileList: FileList | null) => Promise<void>
     audioEditorReady: boolean,
@@ -42,5 +43,6 @@ export default interface AudioEditorContextProps {
     loadNextAudio: () => Promise<void>,
     audioFilesCount: number,
     currentFileList: Map<string, boolean>,
-    loadAudioFromFileListIndex: (index: number) => Promise<void>
+    loadAudioFromFileListIndex: (index: number) => Promise<void>,
+    initializeStore: () => void
 };

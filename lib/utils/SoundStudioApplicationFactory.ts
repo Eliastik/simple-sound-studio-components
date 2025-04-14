@@ -4,6 +4,7 @@ import { TYPES } from "../inversify.types";
 import FilterServiceInterface from "../services/interfaces/FilterServiceInterface";
 import GenericFilterService from "../services/GenericFilterService";
 import { useAudioPlayer } from "../contexts/AudioPlayerContext";
+import { useAudioEditor } from "../contexts/AudioEditorContext";
 
 export default class SoundStudioApplicationFactory {
 
@@ -40,6 +41,7 @@ export default class SoundStudioApplicationFactory {
 
             // Initialize stores
             useAudioPlayer.getState().initializeStore();
+            useAudioEditor.getState().initializeStore();
         }
     }
 

@@ -1,4 +1,5 @@
 export default interface AudioPlayerContextProps {
+    isInitialized: boolean,
     playing: boolean,
     playAudioBuffer: () => void,
     pauseAudioBuffer: () => void,

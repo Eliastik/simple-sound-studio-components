@@ -1,7 +1,7 @@
-import { FC, ReactNode } from 'react';
-import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as zustand_react from 'zustand/react';
 import * as zustand_vanilla from 'zustand/vanilla';
+import { FC, ReactNode } from 'react';
+import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 declare enum SettingFormTypeEnum {
@@ -97,6 +97,7 @@ interface Filter {
 }
 
 interface AudioEditorContextProps {
+    isInitialized: boolean;
     loadAudioPrincipalBuffer: (file: File | null, audioBuffer?: AudioBuffer) => Promise<void>;
     loadAudioFileList: (fileList: FileList | null) => Promise<void>;
     audioEditorReady: boolean;
@@ -138,15 +139,20 @@ interface AudioEditorContextProps {
     audioFilesCount: number;
     currentFileList: Map<string, boolean>;
     loadAudioFromFileListIndex: (index: number) => Promise<void>;
+    initializeStore: () => void;
 }
 
-declare const useAudioEditor: () => AudioEditorContextProps;
+declare const useAudioEditor: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioEditorContextProps>>;
 interface AudioEditorProviderProps {
     children: ReactNode;
 }
+/**
+ * @deprecated Will be removed in a future release. It is not needed anymore.
+ */
 declare const AudioEditorProvider: FC<AudioEditorProviderProps>;
 
 interface AudioPlayerContextProps {
+    isInitialized: boolean;
     playing: boolean;
     playAudioBuffer: () => void;
     pauseAudioBuffer: () => void;

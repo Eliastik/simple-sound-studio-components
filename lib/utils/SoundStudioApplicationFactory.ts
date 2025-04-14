@@ -5,6 +5,7 @@ import FilterServiceInterface from "../services/interfaces/FilterServiceInterfac
 import GenericFilterService from "../services/GenericFilterService";
 import { useAudioPlayer } from "../contexts/AudioPlayerContext";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
+import { useAudioRecorder } from "../contexts/AudioRecorderContext";
 
 export default class SoundStudioApplicationFactory {
 
@@ -42,6 +43,7 @@ export default class SoundStudioApplicationFactory {
             // Initialize stores
             useAudioPlayer.getState().initializeStore();
             useAudioEditor.getState().initializeStore();
+            useAudioRecorder.getState().initializeStore();
         }
     }
 

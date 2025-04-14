@@ -1,7 +1,6 @@
-import * as zustand_react from 'zustand/react';
-import * as zustand_vanilla from 'zustand/vanilla';
+import * as zustand from 'zustand';
 import { FC, ReactNode } from 'react';
-import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
+import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, RecorderSettings, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';
 
 declare enum SettingFormTypeEnum {
@@ -142,7 +141,7 @@ interface AudioEditorContextProps {
     initializeStore: () => void;
 }
 
-declare const useAudioEditor: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioEditorContextProps>>;
+declare const useAudioEditor: zustand.UseBoundStore<zustand.StoreApi<AudioEditorContextProps>>;
 interface AudioEditorProviderProps {
     children: ReactNode;
 }
@@ -174,7 +173,7 @@ interface AudioPlayerContextProps {
     initializeStore: () => void;
 }
 
-declare const useAudioPlayer: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioPlayerContextProps>>;
+declare const useAudioPlayer: zustand.UseBoundStore<zustand.StoreApi<AudioPlayerContextProps>>;
 interface AudioPlayerProviderProps {
     children: ReactNode;
 }
@@ -182,6 +181,43 @@ interface AudioPlayerProviderProps {
  * @deprecated Will be removed in a future release. It is not needed anymore.
  */
 declare const AudioPlayerProvider: FC<AudioPlayerProviderProps>;
+
+interface AudiRecorderContextProps {
+    isInitialized: boolean;
+    audioRecorderReady: boolean;
+    audioRecorderHasError: boolean;
+    initRecorder: () => void;
+    audioRecorderAuthorizationPending: boolean;
+    closeAudioRecorderError: () => void;
+    audioRecording: boolean;
+    recordAudio: () => void;
+    pauseRecorderAudio: () => void;
+    stopRecordAudio: () => void;
+    recorderDisplayTime: string;
+    exitAudioRecorder: () => void;
+    recorderTime: number;
+    recorderSettings: RecorderSettings;
+    changeInput: (deviceId: string, groupId: string | undefined) => void;
+    toggleAudioFeedback: (enable: boolean) => void;
+    toggleEchoCancellation: (enable: boolean) => void;
+    toggleNoiseReduction: (enable: boolean) => void;
+    toggleAutoGainControl: (enable: boolean) => void;
+    recorderUnavailable: boolean;
+    audioRecorderDeviceNotFound: boolean;
+    closeAudioRecorderDeviceNotFound: () => void;
+    audioRecorderHasUnknownError: boolean;
+    closeAudioRecorderUnknownError: () => void;
+    initializeStore: () => void;
+}
+
+declare const useAudioRecorder: zustand.UseBoundStore<zustand.StoreApi<AudiRecorderContextProps>>;
+interface AudioRecorderProviderProps {
+    children: ReactNode;
+}
+/**
+ * @deprecated Will be removed in a future release. It is not needed anymore.
+ */
+declare const AudioRecorderProvider: FC<AudioRecorderProviderProps>;
 
 declare const AudioEditorActionButtons: ({ onSettingsValidated }: {
     onSettingsValidated?: (result: boolean) => void;
@@ -324,5 +360,5 @@ declare class SoundStudioApplicationFactory {
     static getFilterServiceInstance(): FilterServiceInterface | undefined;
 }
 
-export { ApplicationObjectsSingleton, AudioEditorActionButtons, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, AudioPlayerProvider, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, SettingFormTypeEnum, SoundStudioApplicationFactory, useAudioEditor, useAudioPlayer };
+export { ApplicationObjectsSingleton, AudioEditorActionButtons, AudioEditorDialogs, AudioEditorNotifications, AudioEditorProvider, AudioPlayerProvider, AudioRecorderProvider, DecodingAudioFileDialog, DownloadingBufferDialog, ErrorDownloadingBufferDialog, ErrorLoadingAudioDialog, ErrorProcessingAudio, FilterButton, FilterButtonList, FilterInfoDialog, FilterSettingsDialog, FilterSettingsForm, GenericFilterService, LoadingAudioProcessingDialog, SettingFormTypeEnum, SoundStudioApplicationFactory, useAudioEditor, useAudioPlayer, useAudioRecorder };
 export type { AudioEditorContextProps, AudioPlayerContextProps, DaisyUIModal, FilterServiceInterface as FilterService };

@@ -1,5 +1,6 @@
 import { AudioEditorProvider, useAudioEditor } from "./contexts/AudioEditorContext";
 import { AudioPlayerProvider, useAudioPlayer } from "./contexts/AudioPlayerContext";
+import { AudioRecorderProvider, useAudioRecorder } from "./contexts/AudioRecorderContext";
 import { SettingFormTypeEnum } from "./model/settingForm/SettingFormTypeEnum";
 import AudioEditorActionButtons from "./components/AudioEditorActionButtons";
 import FilterButton from "./components/FilterButton";
@@ -49,5 +50,7 @@ export {
     AudioEditorDialogs,
     AudioEditorNotifications,
     AudioPlayerProvider,
-    useAudioPlayer
+    useAudioPlayer,
+    AudioRecorderProvider,
+    useAudioRecorder
 };

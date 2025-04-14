@@ -1,24 +1,24 @@
 "use client";
 
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { useShallow } from "zustand/shallow";
 import { useAudioEditor } from "../../contexts/AudioEditorContext";
 
 const LoadingAudioProcessingDialog = () => {
     const { t } = useTranslation();
-    const { audioProcessing, audioTreatmentPercent, audioTreatmentEndTimeEstimated, stopAudioRendering, cancellingAudioRendering } = useAudioEditor();
 
-    const loadingAudioProcessingCheckbox = useMemo(() => {
-        if (audioProcessing) {
-            return <input type="checkbox" id="loadingAudioProcessing" className="modal-toggle" defaultChecked={true} />;
-        } else {
-            return <></>
-        }
-    }, [audioProcessing]);
+    const [
+        audioProcessing,
+        audioTreatmentPercent,
+        audioTreatmentEndTimeEstimated,
+        cancellingAudioRendering,
+        stopAudioRendering
+    ] = useAudioEditor(useShallow(state =>
+        [state.audioProcessing, state.audioTreatmentPercent, state.audioTreatmentEndTimeEstimated, state.cancellingAudioRendering, state.stopAudioRendering]));
     
     return (
         <>
-            {loadingAudioProcessingCheckbox}
+            {audioProcessing && <input type="checkbox" id="loadingAudioProcessing" className="modal-toggle" defaultChecked={true} />}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.processing.title")}</h3>

@@ -1,24 +1,15 @@
 "use client";
 
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAudioEditor } from "../../contexts/AudioEditorContext";
 
 const DownloadingBufferDialog = () => {
     const { t } = useTranslation();
-    const { downloadingBufferData } = useAudioEditor();
-        
-    const downloadingBufferDataCheckbox = useMemo(() => {
-        if (downloadingBufferData) {
-            return <input type="checkbox" id="downloadingBufferData" className="modal-toggle" defaultChecked={true} />;
-        } else {
-            return <></>
-        }
-    }, [downloadingBufferData]);
+    const downloadingBufferData = useAudioEditor(state => state.downloadingBufferData);
     
     return (
         <>
-            {downloadingBufferDataCheckbox}
+            {downloadingBufferData && <input type="checkbox" id="downloadingBufferData" className="modal-toggle" defaultChecked={true} />}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.bufferDownloading.title")}</h3>

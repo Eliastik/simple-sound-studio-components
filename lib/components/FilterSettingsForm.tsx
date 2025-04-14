@@ -1,8 +1,9 @@
 import _ from "lodash";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useShallow } from "zustand/shallow";
 import { FilterSettings } from "@eliastik/simple-sound-studio-lib";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
-import { useTranslation } from "react-i18next";
 import { SettingFormType } from "../model/settingForm/SettingFormType";
 import { SettingFormTypeEnum } from "../model/settingForm/SettingFormTypeEnum";
 import SimpleLabelField from "./settingFormFields/SimpleLabelField";
@@ -23,10 +24,9 @@ const FilterSettingsForm = ({
     firstColumnStyle,
     secondColumnStyle
 }: { filterId: string, settingsModalTitle?: string, settingsForm?: SettingFormType[], firstColumnStyle?: string, secondColumnStyle?: string }) => {
-
-    const { filtersSettings, changeFilterSettings, resetFilterSettings } = useAudioEditor();
-    const isCompatibilityModeEnabled = useAudioPlayer((state) => state.isCompatibilityModeEnabled);
     const { t } = useTranslation();
+    const [filtersSettings, changeFilterSettings, resetFilterSettings] = useAudioEditor(useShallow(state => [state.filtersSettings, state.changeFilterSettings, state.resetFilterSettings]));
+    const isCompatibilityModeEnabled = useAudioPlayer((state) => state.isCompatibilityModeEnabled);
 
     const [currentSettings, setCurrentSettings] = useState<FilterSettings | null | undefined>(
         () => _.cloneDeep(filtersSettings?.get(filterId))

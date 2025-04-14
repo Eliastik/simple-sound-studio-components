@@ -7,8 +7,9 @@ import "../globals.css";
 const AudioEditorActionButtons = ({
     onSettingsValidated
 }: { onSettingsValidated?: (result: boolean) => void }) => {
-    const { validateSettings, resetAllFiltersState } = useAudioEditor();
     const { t } = useTranslation();
+    const validateSettings = useAudioEditor(state => state.validateSettings);
+    const resetAllFiltersState = useAudioEditor(state => state.resetAllFiltersState);
 
     return (
         <>

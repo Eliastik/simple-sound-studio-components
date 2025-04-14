@@ -1,22 +1,15 @@
-import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useAudioEditor } from "../../contexts/AudioEditorContext";
 
 const ErrorLoadingAudioDialog = () => {
-    const { errorLoadingAudioFile, closeErrorLoadingAudioFile } = useAudioEditor();
     const { t } = useTranslation();
-                
-    const errorLoadingAudioFileCheckbox = useMemo(() => {
-        if (errorLoadingAudioFile) {
-            return <input type="checkbox" id="errorLoadingAudioDialog" className="modal-toggle" defaultChecked={true} />;
-        } else {
-            return <></>
-        }
-    }, [errorLoadingAudioFile]);
+    
+    const errorLoadingAudioFile = useAudioEditor(state => state.errorLoadingAudioFile);
+    const closeErrorLoadingAudioFile = useAudioEditor(state => state.closeErrorLoadingAudioFile);
 
     return (
         <>
-            {errorLoadingAudioFileCheckbox}
+            {errorLoadingAudioFile && <input type="checkbox" id="errorLoadingAudioDialog" className="modal-toggle" defaultChecked={true} />}
             <div className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.fileOpenError.title")}</h3>

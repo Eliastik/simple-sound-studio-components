@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, ReactNode, FC, useRef } from "react";
+import { createContext, ReactNode, FC } from "react";
 import { create } from "zustand/react";
 import { AudioEditor, BufferPlayer, EventEmitter, EventType } from "@eliastik/simple-sound-studio-lib";
 import AudioEditorContextProps from "../model/contextProps/AudioEditorContextProps";
@@ -52,8 +52,15 @@ export const useAudioEditor = create<AudioEditorContextProps>((set, get) => {
     
             emitter.on(EventType.LOADED_AUDIO_FILE_FROM_LIST, () => set({ currentFileList: getAudioEditor()?.getCurrentFileList() }));
     
-            emitter.on(EventType.LOADED_BUFFERS, () => updateStateFromEditor());
-            emitter.on(EventType.FINISHED_FETCHING_BUFFERS, () => updateStateFromEditor());
+            emitter.on(EventType.LOADED_BUFFERS, () => {
+                set({ downloadingInitialData: false });
+                updateStateFromEditor();
+            });
+
+            emitter.on(EventType.FINISHED_FETCHING_BUFFERS, () => {
+                set({ downloadingBufferData: false });
+                updateStateFromEditor();
+            });
     
             emitter.on(EventType.FETCHING_BUFFERS_ERROR, () => set({ downloadingBufferData: false, errorDownloadingBufferData: true }));
     
@@ -241,16 +248,12 @@ interface AudioEditorProviderProps {
  * @deprecated Will be removed in a future release. It is not needed anymore.
  */
 export const AudioEditorProvider: FC<AudioEditorProviderProps> = ({ children }) => {
-    const audioEditorStoreRef = useRef<AudioEditorContextProps | null>(null);
-
-    if (audioEditorStoreRef.current === null) {
-        audioEditorStoreRef.current = useAudioEditor();
-    }
+    const audioEditorStore = useAudioEditor();
 
     console.warn("AudioEditorProvider is deprecated and will be removed in a future release. It is not needed anymore.");
   
     return (
-        <AudioEditorContext.Provider value={audioEditorStoreRef.current}>
+        <AudioEditorContext.Provider value={audioEditorStore}>
             {children}
         </AudioEditorContext.Provider>
     );

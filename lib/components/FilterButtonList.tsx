@@ -5,7 +5,7 @@ import { useAudioEditor } from "../contexts/AudioEditorContext";
 import "../globals.css";
 
 const FilterButtonList = () => {
-    const { filterDefinitions } = useAudioEditor();
+    const filterDefinitions = useAudioEditor(state => state.filterDefinitions);
 
     return (
         <>

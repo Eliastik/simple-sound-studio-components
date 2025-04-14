@@ -7,12 +7,14 @@ import FilterInfoDialog from "./dialogs/FilterInfoDialog";
 import FilterSettingsDialog from "./dialogs/FilterSettingsDialog";
 import { useEffect, useState } from "react";
 import DaisyUIModal from "../model/DaisyUIModal";
+import { useShallow } from "zustand/shallow";
 
 const FilterButton = ({
     filter
 }: { filter: Filter }) => {
-    const { filterState, filtersSettings, toggleFilter } = useAudioEditor();
     const { t } = useTranslation();
+    const [filterState, filtersSettings, toggleFilter] = useAudioEditor(useShallow(state => [state.filterState, state.filtersSettings, state.toggleFilter]));
+
     const [filterDisabled, setFilterDisabled] = useState(false);
     const [filterDisabledReason, setFilterDisabledReason] = useState<string | null>(null);
 

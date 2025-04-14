@@ -1,13 +1,21 @@
 "use client";
 
 import { useTranslation } from "react-i18next";
+import { useShallow } from "zustand/shallow";
 import { useAudioEditor } from "../contexts/AudioEditorContext";
 import { useAudioPlayer } from "../contexts/AudioPlayerContext";
 
 const AudioEditorNotifications = () => {
-    const { isCompatibilityModeAutoEnabled, hasProblemRenderingAudio, downloadingAudio, cancelledInitialAudioRendering } = useAudioEditor();
-    const { isCompatibilityModeEnabled } = useAudioPlayer();
     const { t } = useTranslation();
+
+    const [
+        isCompatibilityModeAutoEnabled,
+        hasProblemRenderingAudio,
+        downloadingAudio,
+        cancelledInitialAudioRendering
+    ] = useAudioEditor(useShallow(state => [state.isCompatibilityModeAutoEnabled, state.hasProblemRenderingAudio, state.downloadingAudio, state.cancelledInitialAudioRendering]));
+    
+    const isCompatibilityModeEnabled = useAudioPlayer(state => state.isCompatibilityModeEnabled);
 
     return (
         <>

@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, FC, ReactNode, useRef } from "react";
+import { createContext, FC, ReactNode } from "react";
 import { create } from "zustand/react";
 import { BufferPlayer, EventEmitter, EventType } from "@eliastik/simple-sound-studio-lib";
 import AudioPlayerContextProps from "../model/contextProps/AudioPlayerContextProps";
@@ -119,16 +119,12 @@ interface AudioPlayerProviderProps {
  * @deprecated Will be removed in a future release. It is not needed anymore.
  */
 export const AudioPlayerProvider: FC<AudioPlayerProviderProps> = ({ children }) => {
-    const audioPlayerStoreRef = useRef<AudioPlayerContextProps | null>(null);
-
-    if (audioPlayerStoreRef.current === null) {
-        audioPlayerStoreRef.current = useAudioPlayer();
-    }
+    const audioPlayerStore = useAudioPlayer();
 
     console.warn("AudioPlayerContext is deprecated and will be removed in a future release. It is not needed anymore.");
   
     return (
-        <AudioPlayerContext.Provider value={audioPlayerStoreRef.current}>
+        <AudioPlayerContext.Provider value={audioPlayerStore}>
             {children}
         </AudioPlayerContext.Provider>
     );

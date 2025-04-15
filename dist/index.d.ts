@@ -1,4 +1,5 @@
-import * as zustand from 'zustand';
+import * as zustand_react from 'zustand/react';
+import * as zustand_vanilla from 'zustand/vanilla';
 import { FC, ReactNode } from 'react';
 import { FilterSettings, FilterSettingValue, SelectFormValue, FilterState, SaveBufferOptions, RecorderSettings, ConfigService, AudioEditor, BufferPlayer, VoiceRecorder, EventEmitter } from '@eliastik/simple-sound-studio-lib';
 import * as react_jsx_runtime from 'react/jsx-runtime';
@@ -141,7 +142,7 @@ interface AudioEditorContextProps {
     initializeStore: () => void;
 }
 
-declare const useAudioEditor: zustand.UseBoundStore<zustand.StoreApi<AudioEditorContextProps>>;
+declare const useAudioEditor: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioEditorContextProps>>;
 interface AudioEditorProviderProps {
     children: ReactNode;
 }
@@ -173,7 +174,7 @@ interface AudioPlayerContextProps {
     initializeStore: () => void;
 }
 
-declare const useAudioPlayer: zustand.UseBoundStore<zustand.StoreApi<AudioPlayerContextProps>>;
+declare const useAudioPlayer: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudioPlayerContextProps>>;
 interface AudioPlayerProviderProps {
     children: ReactNode;
 }
@@ -210,7 +211,7 @@ interface AudiRecorderContextProps {
     initializeStore: () => void;
 }
 
-declare const useAudioRecorder: zustand.UseBoundStore<zustand.StoreApi<AudiRecorderContextProps>>;
+declare const useAudioRecorder: zustand_react.UseBoundStore<zustand_vanilla.StoreApi<AudiRecorderContextProps>>;
 interface AudioRecorderProviderProps {
     children: ReactNode;
 }

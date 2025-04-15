@@ -1,7 +1,7 @@
 "use client";
 
-import { create } from "zustand";
 import { createContext, ReactNode, FC } from "react";
+import { create } from "zustand/react";
 import { EventType } from "@eliastik/simple-sound-studio-lib";
 import SoundStudioApplicationFactory from "../utils/SoundStudioApplicationFactory";
 import AudioRecorderContextProps from "../model/contextProps/AudioRecorderContextProps";

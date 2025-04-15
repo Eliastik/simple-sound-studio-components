@@ -40,7 +40,7 @@ export const useAudioPlayer = create<AudioPlayerContextProps>((set, get) => {
             emitter.on(EventType.PLAYING_UPDATE, () => updateStateFromPlayer());
         
             emitter.on(EventType.PLAYING_STARTED, () => {
-                set({ playing: false });
+                set({ playing: true });
                 updateStateFromPlayer();
             });
         
@@ -48,6 +48,8 @@ export const useAudioPlayer = create<AudioPlayerContextProps>((set, get) => {
                 set({ playing: false });
                 updateStateFromPlayer();
             });
+
+            updateStateFromPlayer();
 
             set({ isInitialized: true });
         } else {
@@ -100,10 +102,7 @@ export const useAudioPlayer = create<AudioPlayerContextProps>((set, get) => {
             getAudioPlayer()!.volume = value;
             updateStateFromPlayer();
         },
-        setTimePlayer: (value: number) => {
-            getAudioPlayer()!.setTime(value);
-            updateStateFromPlayer();
-        },
+        setTimePlayer: (value: number) => getAudioPlayer()!.setTime(value),
         updatePlayerState: updateStateFromPlayer,
         initializeStore
     };

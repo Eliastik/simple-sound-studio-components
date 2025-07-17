@@ -12,7 +12,7 @@ const ErrorDownloadingBufferDialog = () => {
     return (
         <>
             {errorDownloadingBufferData && <input type="checkbox" id="errorDownloadingBufferDialog" className="modal-toggle" defaultChecked={true} />}
-            <div className="modal">
+            <dialog className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.bufferDownloadingError.title")}</h3>
                     <form method="dialog">
@@ -34,7 +34,7 @@ const ErrorDownloadingBufferDialog = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </dialog>
         </>
     );
 };

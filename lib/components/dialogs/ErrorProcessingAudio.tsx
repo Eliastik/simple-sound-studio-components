@@ -12,7 +12,7 @@ const ErrorProcessingAudio = () => {
     return (
         <>
             {errorProcessingAudio && <input type="checkbox" id="errorProcessingAudioDialog" className="modal-toggle" defaultChecked={true} />}
-            <div className="modal">
+            <dialog className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.errorProcessingAudio.title")}</h3>
                     <form method="dialog">
@@ -34,7 +34,7 @@ const ErrorProcessingAudio = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </dialog>
         </>
     );
 };

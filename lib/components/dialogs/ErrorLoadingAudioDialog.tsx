@@ -10,7 +10,7 @@ const ErrorLoadingAudioDialog = () => {
     return (
         <>
             {errorLoadingAudioFile && <input type="checkbox" id="errorLoadingAudioDialog" className="modal-toggle" defaultChecked={true} />}
-            <div className="modal">
+            <dialog className="modal">
                 <div className="modal-box">
                     <h3 className="font-bold text-lg">{t("dialogs.fileOpenError.title")}</h3>
                     <form method="dialog">
@@ -32,7 +32,7 @@ const ErrorLoadingAudioDialog = () => {
                         </form>
                     </div>
                 </div>
-            </div>
+            </dialog>
         </>
     );
 };

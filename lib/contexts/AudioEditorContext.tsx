@@ -53,13 +53,13 @@ export const useAudioEditor = create<AudioEditorContextProps>((set, get) => {
             emitter.on(EventType.LOADED_AUDIO_FILE_FROM_LIST, () => set({ currentFileList: getAudioEditor()?.getCurrentFileList() }));
     
             emitter.on(EventType.LOADED_BUFFERS, () => {
-                set({ downloadingInitialData: false });
                 updateStateFromEditor();
+                set({ downloadingBufferData: false, downloadingInitialData: false });
             });
 
             emitter.on(EventType.FINISHED_FETCHING_BUFFERS, () => {
-                set({ downloadingBufferData: false });
                 updateStateFromEditor();
+                set({ downloadingBufferData: false, downloadingInitialData: false });
             });
     
             emitter.on(EventType.FETCHING_BUFFERS_ERROR, () => set({ downloadingBufferData: false, errorDownloadingBufferData: true }));

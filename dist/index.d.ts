@@ -313,9 +313,8 @@ declare class ApplicationObjectsSingleton {
     static getFilterServiceInstance(): FilterServiceInterface | undefined;
 }
 
-interface DaisyUIModal extends HTMLElement {
-    showModal: () => void;
-    close: () => void;
+/** @deprecated DaisyUIModal is deprecated. Use HTMLDialogElement instead. **/
+interface DaisyUIModal extends HTMLDialogElement {
 }
 
 declare const DecodingAudioFileDialog: () => react_jsx_runtime.JSX.Element;

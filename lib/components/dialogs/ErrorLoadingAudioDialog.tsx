@@ -22,7 +22,7 @@ const ErrorLoadingAudioDialog = () => {
     }, [errorLoadingAudioFile]);
 
     return (
-        <dialog ref={dialogRef} className="modal">
+        <dialog ref={dialogRef} className="modal" id="errorLoadingAudioDialog">
             <div className="modal-box">
                 <h3 className="font-bold text-lg">{t("dialogs.fileOpenError.title")}</h3>
                 <form method="dialog">

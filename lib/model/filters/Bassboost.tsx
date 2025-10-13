@@ -9,6 +9,7 @@ export const Bassboost: Filter = {
     hasSettings: true,
     info: "filters.bassboost.info",
     settingsModalTitle: "filters.bassboost.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

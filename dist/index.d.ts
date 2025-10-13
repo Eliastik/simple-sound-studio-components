@@ -93,6 +93,7 @@ interface Filter {
     settingsModalTitle?: string;
     firstColumnStyle?: string;
     secondColumStyle?: string;
+    defaultApplyInRealTime?: boolean;
     disabledCondition?: (filterSettings: FilterSettings) => string | null;
 }
 
@@ -230,12 +231,13 @@ declare const FilterButton: ({ filter }: {
 
 declare const FilterButtonList: () => react_jsx_runtime.JSX.Element;
 
-declare const FilterSettingsForm: ({ filterId, settingsModalTitle, settingsForm, firstColumnStyle, secondColumnStyle }: {
+declare const FilterSettingsForm: ({ filterId, settingsModalTitle, settingsForm, firstColumnStyle, secondColumnStyle, defaultApplyInRealTime }: {
     filterId: string;
     settingsModalTitle?: string;
     settingsForm?: SettingFormType[];
     firstColumnStyle?: string;
     secondColumnStyle?: string;
+    defaultApplyInRealTime?: boolean;
 }) => react_jsx_runtime.JSX.Element;
 
 declare const DownloadingBufferDialog: () => react_jsx_runtime.JSX.Element;

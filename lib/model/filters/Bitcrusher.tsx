@@ -9,6 +9,7 @@ export const Bitcrusher: Filter = {
     hasSettings: true,
     info: "filters.bitcrusher.info",
     settingsModalTitle: "filters.bitcrusher.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

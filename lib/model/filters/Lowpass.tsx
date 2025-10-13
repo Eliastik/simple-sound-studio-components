@@ -9,6 +9,7 @@ export const Lowpass: Filter = {
     hasSettings: true,
     info: "filters.lowpass.info",
     settingsModalTitle: "filters.lowpass.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

@@ -20,6 +20,7 @@ export const Reverb: Filter = {
 
         return null;
     },
+    defaultApplyInRealTime: false,
     settingsForm: [
         {
             settingId: "labelInfo",

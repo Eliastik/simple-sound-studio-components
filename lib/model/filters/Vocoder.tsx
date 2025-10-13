@@ -9,6 +9,7 @@ export const Vocoder: Filter = {
     hasSettings: true,
     info: "filters.vocoder.info",
     settingsModalTitle: "filters.vocoder.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

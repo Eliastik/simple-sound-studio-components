@@ -22,8 +22,9 @@ const FilterSettingsForm = ({
     settingsModalTitle,
     settingsForm,
     firstColumnStyle,
-    secondColumnStyle
-}: { filterId: string, settingsModalTitle?: string, settingsForm?: SettingFormType[], firstColumnStyle?: string, secondColumnStyle?: string }) => {
+    secondColumnStyle,
+    defaultApplyInRealTime = true
+}: { filterId: string, settingsModalTitle?: string, settingsForm?: SettingFormType[], firstColumnStyle?: string, secondColumnStyle?: string, defaultApplyInRealTime?: boolean }) => {
     const { t } = useTranslation();
     const [filtersSettings, changeFilterSettings, resetFilterSettings] = useAudioEditor(useShallow(state => [state.filtersSettings, state.changeFilterSettings, state.resetFilterSettings]));
     const isCompatibilityModeEnabled = useAudioPlayer((state) => state.isCompatibilityModeEnabled);
@@ -31,7 +32,7 @@ const FilterSettingsForm = ({
     const [currentSettings, setCurrentSettings] = useState<FilterSettings | null | undefined>(
         () => _.cloneDeep(filtersSettings?.get(filterId))
     );
-    const [autoApplyIfChanged, setAutoApplyIfChanged] = useState(true);
+    const [autoApplyIfChanged, setAutoApplyIfChanged] = useState(defaultApplyInRealTime);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     const filterSettings = filtersSettings && filtersSettings.get(filterId);

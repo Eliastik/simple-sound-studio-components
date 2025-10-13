@@ -11,5 +11,6 @@ export default interface Filter {
     settingsModalTitle?: string,
     firstColumnStyle?: string,
     secondColumStyle?: string,
+    defaultApplyInRealTime?: boolean,
     disabledCondition?: (filterSettings: FilterSettings) => string | null
 };

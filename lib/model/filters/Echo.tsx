@@ -9,6 +9,7 @@ export const Echo: Filter = {
     hasSettings: true,
     info: "filters.echo.info",
     settingsModalTitle: "filters.echo.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

@@ -9,6 +9,7 @@ export const Soundtouch: Filter = {
     hasSettings: true,
     info: "filters.soundtouch.info",
     settingsModalTitle: "filters.soundtouch.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

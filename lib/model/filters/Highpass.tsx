@@ -9,6 +9,7 @@ export const Highpass: Filter = {
     hasSettings: true,
     info: "filters.highpass.info",
     settingsModalTitle: "filters.highpass.settings.title",
+    defaultApplyInRealTime: true,
     settingsForm: [
         {
             settingId: "labelInfo",

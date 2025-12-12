@@ -112,6 +112,10 @@
   .loading-lg {
     width: calc(var(--size-selector, 0.25rem) * 8);
   }
+
+  .loading.text-primary {
+    background-color: var(--color-primary) !important;
+  }
 }
 
 @layer base {
